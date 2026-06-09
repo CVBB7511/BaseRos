@@ -1,0 +1,8 @@
+prefix=/home/robot6/catkin_ws/install
+
+Name: library_robot_interfaces
+Description: Description of library_robot_interfaces
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime message_generation geometry_msgs nav_msgs rospy std_msgs tf2_ros

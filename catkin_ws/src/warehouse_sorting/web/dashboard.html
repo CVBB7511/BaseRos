@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warehouse Robot Debug Console</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef1ef;
+      --panel: #ffffff;
+      --ink: #17201d;
+      --muted: #64706a;
+      --line: #d6ddd8;
+      --soft: #f7f8f7;
+      --green: #207548;
+      --blue: #285f9f;
+      --amber: #a76514;
+      --red: #b8353c;
+      --dark: #141a17;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfb;
+    }
+    h1, h2 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+    h1 { font-size: 18px; font-weight: 700; }
+    h2 { font-size: 14px; font-weight: 700; }
+    button, input, select {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+    button {
+      padding: 0 11px;
+      cursor: pointer;
+      font-weight: 650;
+    }
+    input, select { padding: 0 9px; min-width: 0; }
+    button:hover { border-color: #aeb8b1; }
+    button:active { transform: translateY(1px); }
+    .top-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--amber);
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      flex: 0 0 auto;
+    }
+    .dot.ok { background: var(--green); }
+    .dot.bad { background: var(--red); }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(420px, 1.45fr) minmax(340px, 1fr);
+      gap: 14px;
+      padding: 14px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .panel-head {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .camera-panel { grid-row: span 3; }
+    .stream {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--dark);
+      overflow: hidden;
+    }
+    .stream img, .stream canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .stream .badge {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      background: rgba(20, 26, 23, 0.76);
+      color: #f7f8f7;
+      font-size: 12px;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+    }
+    .commands {
+      display: grid;
+      grid-template-columns: 96px repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      padding: 10px 12px 12px;
+      border-top: 1px solid var(--line);
+    }
+    button.start { color: var(--green); }
+    button.pause, button.resume, button.scan { color: var(--blue); }
+    button.stop, button.estop { color: var(--red); }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 12px;
+    }
+    .metric {
+      min-height: 68px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+    }
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .metric strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 18px;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+    .progress {
+      height: 9px;
+      margin: 0 12px 12px;
+      background: #e5ebe7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress div {
+      width: 0%;
+      height: 100%;
+      background: var(--green);
+      transition: width 140ms ease;
+    }
+    .split-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid var(--line);
+    }
+    .object-list, .health-list, .log-list {
+      padding: 10px 12px 12px;
+    }
+    .object-row, .topic-row {
+      display: grid;
+      grid-template-columns: minmax(70px, 0.8fr) minmax(70px, 0.8fr) minmax(110px, 1fr);
+      gap: 8px;
+      align-items: center;
+      min-height: 32px;
+      border-bottom: 1px solid #edf0ed;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .object-row strong, .topic-row strong { color: var(--ink); }
+    .topic-row {
+      grid-template-columns: 78px 72px 1fr 64px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 54px;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #ecefed;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .pill.ok { background: #e1f1e7; color: var(--green); }
+    .pill.stale { background: #f7ecd7; color: var(--amber); }
+    .pill.bad { background: #f8e1e3; color: var(--red); }
+    .debug-line {
+      padding: 10px 12px 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      min-height: 42px;
+      word-break: break-word;
+    }
+    .log-list {
+      height: 234px;
+      overflow: auto;
+      white-space: pre-wrap;
+      color: var(--muted);
+      font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    .wide { grid-column: 1 / -1; }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .camera-panel { grid-row: auto; }
+    }
+    @media (max-width: 620px) {
+      header { align-items: flex-start; height: auto; padding: 12px; flex-direction: column; }
+      .layout { padding: 10px; gap: 10px; }
+      .controls, .commands, .metrics, .split-actions { grid-template-columns: 1fr 1fr; }
+      .commands input, .controls input { grid-column: 1 / -1; }
+      .topic-row { grid-template-columns: 74px 60px 1fr; }
+      .topic-row span:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Warehouse Robot Debug Console</h1>
+    <div class="top-status"><span id="connectionDot" class="dot"></span><span id="connectionText">offline</span></div>
+  </header>
+
+  <main class="layout">
+    <section class="panel camera-panel">
+      <div class="panel-head">
+        <h2>Camera</h2>
+        <span id="streamLabel" class="pill">rgb</span>
+      </div>
+      <div class="stream">
+        <img id="stream" alt="" src="">
+        <canvas id="overlay" width="640" height="480"></canvas>
+        <div id="streamState" class="badge">no stream</div>
+      </div>
+      <div class="controls">
+        <select id="streamPreset" aria-label="Stream preset">
+          <option value="/kinect2/qhd/image_color_rect">Kinect RGB</option>
+          <option value="/kinect2/qhd/image_depth_rect">Kinect Depth</option>
+          <option value="/camera/rgb/image_raw">Synthetic RGB</option>
+          <option value="/camera/depth/image_raw">Synthetic Depth</option>
+        </select>
+        <input id="streamTopic" value="/kinect2/qhd/image_color_rect" aria-label="Stream topic">
+        <button id="applyStream">Apply</button>
+      </div>
+      <div class="commands">
+        <input id="totalItems" type="number" min="1" step="1" value="4" aria-label="Total items">
+        <button id="startTask" class="start">Start</button>
+        <button data-command="pause" class="pause">Pause</button>
+        <button data-command="resume" class="resume">Resume</button>
+        <button data-command="stop" class="stop">Stop</button>
+        <button data-command="emergency_stop" class="estop">E-Stop</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Connection</h2>
+        <button id="reconnect">Reconnect</button>
+      </div>
+      <div class="controls">
+        <input id="wsUrl" aria-label="Rosbridge URL">
+        <input id="videoBase" aria-label="Video server URL">
+        <button id="applyConnection">Apply</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Task</h2><span id="taskFresh" class="pill bad">missing</span></div>
+      <div class="metrics">
+        <div class="metric"><span>Status</span><strong id="taskStatus">PENDING</strong></div>
+        <div class="metric"><span>Step</span><strong id="taskStep">idle</strong></div>
+        <div class="metric"><span>Task</span><strong id="taskId">-</strong></div>
+        <div class="metric"><span>Completed</span><strong id="completed">0 / 0</strong></div>
+        <div class="metric"><span>Failed</span><strong id="failed">0</strong></div>
+        <div class="metric"><span>Queue</span><strong id="queue">0</strong></div>
+        <div class="metric"><span>Natural</span><strong id="natural">0</strong></div>
+        <div class="metric"><span>Colored</span><strong id="colored">0</strong></div>
+        <div class="metric"><span>Progress</span><strong id="progressText">0%</strong></div>
+      </div>
+      <div class="progress"><div id="progress"></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Vision</h2><span id="visionFresh" class="pill bad">missing</span></div>
+      <div class="split-actions">
+        <button id="scanVision" class="scan">Scan</button>
+        <button id="triggerWpb" class="scan">WPB Detect</button>
+      </div>
+      <div id="objectList" class="object-list"></div>
+      <div id="visionDebug" class="debug-line">-</div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Localization</h2><span id="navFresh" class="pill bad">missing</span></div>
+      <div class="metrics">
+        <div class="metric"><span>AMCL X/Y</span><strong id="amclXY">-</strong></div>
+        <div class="metric"><span>AMCL Yaw</span><strong id="amclYaw">-</strong></div>
+        <div class="metric"><span>Move Base</span><strong id="moveBase">-</strong></div>
+        <div class="metric"><span>Odom X/Y</span><strong id="odomXY">-</strong></div>
+        <div class="metric"><span>Odom Yaw</span><strong id="odomYaw">-</strong></div>
+        <div class="metric"><span>WPB Objects</span><strong id="wpbObjects">-</strong></div>
+      </div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-head"><h2>Topic Health</h2><span id="monitorFresh" class="pill bad">missing</span></div>
+      <div id="healthList" class="health-list"></div>
+    </section>
+
+    <section class="panel wide">
+      <div class="panel-head"><h2>Event Log</h2><button id="clearLog">Clear</button></div>
+      <div id="log" class="log-list"></div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const host = window.location.hostname || "localhost";
+    const defaultWs = `ws://${host}:9090`;
+    const defaultVideo = `http://${host}:8080`;
+    let ws = null;
+    let reconnectTimer = null;
+    let requestId = 0;
+    let lastMonitorAt = 0;
+    let lastTaskAt = 0;
+    let lastVisionAt = 0;
+    let lastNavAt = 0;
+    let detections = [];
+
+    const goalStates = {
+      0: "PENDING", 1: "ACTIVE", 2: "PREEMPTED", 3: "SUCCEEDED", 4: "ABORTED",
+      5: "REJECTED", 6: "PREEMPTING", 7: "RECALLING", 8: "RECALLED", 9: "LOST"
+    };
+
+    $("wsUrl").value = defaultWs;
+    $("videoBase").value = defaultVideo;
+
+    function log(line) {
+      const stamp = new Date().toLocaleTimeString();
+      $("log").textContent = `[${stamp}] ${line}\n` + $("log").textContent;
+    }
+
+    function setConnection(state) {
+      $("connectionText").textContent = state;
+      $("connectionDot").className = "dot" + (state === "online" ? " ok" : state === "error" ? " bad" : "");
+    }
+
+    function send(payload) {
+      if (ws && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify(payload));
+    }
+
+    function subscribe(topic, type, throttle = 0) {
+      send({ op: "subscribe", topic, type, throttle_rate: throttle });
+    }
+
+    function publish(topic, msg) {
+      send({ op: "publish", topic, msg });
+    }
+
+    function callService(service, args) {
+      const id = `call:${service}:${++requestId}`;
+      send({ op: "call_service", id, service, args });
+      return id;
+    }
+
+    function connect() {
+      if (ws) ws.close();
+      clearTimeout(reconnectTimer);
+      setConnection("connecting");
+      ws = new WebSocket($("wsUrl").value.trim() || defaultWs);
+      ws.onopen = () => {
+        setConnection("online");
+        log("rosbridge connected");
+        publishAdvertisements();
+        subscribeAll();
+      };
+      ws.onclose = () => {
+        setConnection("offline");
+        reconnectTimer = setTimeout(connect, 1800);
+      };
+      ws.onerror = () => {
+        setConnection("error");
+        log("rosbridge error");
+      };
+      ws.onmessage = (event) => {
+        const packet = JSON.parse(event.data);
+        if (packet.op === "publish") handleTopic(packet.topic, packet.msg);
+        if (packet.op === "service_response") log(`${packet.service || "service"} result=${packet.result}`);
+      };
+    }
+
+    function publishAdvertisements() {
+      send({ op: "advertise", topic: "/task/command", type: "std_msgs/String" });
+      send({ op: "advertise", topic: "/wpb_home/behaviors", type: "std_msgs/String" });
+    }
+
+    function subscribeAll() {
+      subscribe("/debug/state", "std_msgs/String");
+      subscribe("/task/status", "warehouse_sorting_msgs/TaskStatus");
+      subscribe("/vision/detected_objects", "warehouse_sorting_msgs/DetectedCargoArray");
+      subscribe("/vision/debug", "std_msgs/String");
+      subscribe("/amcl_pose", "geometry_msgs/PoseWithCovarianceStamped", 250);
+      subscribe("/odom", "nav_msgs/Odometry", 250);
+      subscribe("/move_base/status", "actionlib_msgs/GoalStatusArray", 250);
+      subscribe("/rosout", "rosgraph_msgs/Log", 1000);
+    }
+
+    function handleTopic(topic, msg) {
+      if (topic === "/debug/state") renderMonitor(JSON.parse(msg.data));
+      if (topic === "/task/status") renderTask(msg);
+      if (topic === "/vision/detected_objects") renderDetections(msg.objects || []);
+      if (topic === "/vision/debug") renderVisionDebug(msg.data);
+      if (topic === "/amcl_pose") renderPose("amcl", msg.pose.pose);
+      if (topic === "/odom") renderPose("odom", msg.pose.pose);
+      if (topic === "/move_base/status") renderMoveBase(msg);
+      if (topic === "/rosout" && msg.level >= 4) log(`${msg.name}: ${msg.msg}`);
+    }
+
+    function setPill(id, state, text) {
+      const el = $(id);
+      el.textContent = text || state;
+      el.className = "pill " + (state === "ok" ? "ok" : state === "stale" ? "stale" : "bad");
+    }
+
+    function renderMonitor(state) {
+      lastMonitorAt = Date.now();
+      setPill("monitorFresh", "ok", "online");
+      renderHealth(state.topics || {});
+      if (state.task) renderTask(state.task);
+      if (state.detections) renderDetections(state.detections);
+      if (state.vision && state.vision.message) renderVisionDebug(state.vision.message);
+      if (state.localization) {
+        renderMonitorPose("amcl", state.localization.amcl);
+        renderMonitorPose("odom", state.localization.odom);
+      }
+      if (state.navigation) renderNavigationState(state.navigation.state || "-");
+      if (state.wpb_objects) $("wpbObjects").textContent = `${state.wpb_objects.count || 0}`;
+    }
+
+    function renderTask(msg) {
+      if (!msg || Object.keys(msg).length === 0) return;
+      lastTaskAt = Date.now();
+      setPill("taskFresh", "ok", "online");
+      $("taskStatus").textContent = msg.status || "PENDING";
+      $("taskStep").textContent = msg.current_step || "idle";
+      $("taskId").textContent = msg.task_id || "-";
+      $("completed").textContent = `${msg.completed_items || 0} / ${msg.total_items || 0}`;
+      $("failed").textContent = msg.failed_items || 0;
+      $("queue").textContent = msg.queue_size || 0;
+      $("natural").textContent = msg.sorted_natural || 0;
+      $("colored").textContent = msg.sorted_colored || 0;
+      const percent = Math.round((msg.progress || 0) * 100);
+      $("progressText").textContent = `${percent}%`;
+      $("progress").style.width = `${percent}%`;
+      if (msg.last_error) log(msg.last_error);
+    }
+
+    function normalizeDetection(item) {
+      const bbox = item.bbox || {
+        x: item.bbox_x || 0,
+        y: item.bbox_y || 0,
+        width: item.bbox_width || 0,
+        height: item.bbox_height || 0
+      };
+      const pose = item.pose && item.pose.position ? {
+        x: item.pose.position.x,
+        y: item.pose.position.y,
+        z: item.pose.position.z
+      } : (item.pose || {});
+      return {
+        id: item.cargo_id || "-",
+        type: item.cargo_type || "-",
+        confidence: item.confidence || 0,
+        bbox,
+        pose
+      };
+    }
+
+    function renderDetections(items) {
+      lastVisionAt = Date.now();
+      setPill("visionFresh", "ok", `${items.length}`);
+      detections = items.map(normalizeDetection);
+      $("objectList").innerHTML = detections.length ? detections.map((item) => {
+        const pose = item.pose || {};
+        return `<div class="object-row"><strong>${escapeHtml(item.type)}</strong><span>${escapeHtml(item.id)}</span><span>x ${fmt(pose.x)} y ${fmt(pose.y)} z ${fmt(pose.z)}</span></div>`;
+      }).join("") : `<div class="object-row"><strong>none</strong><span>-</span><span>-</span></div>`;
+      drawOverlay();
+    }
+
+    function renderVisionDebug(text) {
+      lastVisionAt = Date.now();
+      $("visionDebug").textContent = text || "-";
+      if (text) log(`vision: ${text}`);
+    }
+
+    function renderPose(kind, pose) {
+      lastNavAt = Date.now();
+      setPill("navFresh", "ok", "online");
+      const x = pose.position.x;
+      const y = pose.position.y;
+      const yaw = yawFromQuaternion(pose.orientation);
+      if (kind === "amcl") {
+        $("amclXY").textContent = `${fmt(x)}, ${fmt(y)}`;
+        $("amclYaw").textContent = `${fmt(yaw)} deg`;
+      } else {
+        $("odomXY").textContent = `${fmt(x)}, ${fmt(y)}`;
+        $("odomYaw").textContent = `${fmt(yaw)} deg`;
+      }
+    }
+
+    function renderMonitorPose(kind, state) {
+      if (!state || !state.seen || !state.pose) return;
+      if (kind === "amcl") {
+        $("amclXY").textContent = `${fmt(state.pose.x)}, ${fmt(state.pose.y)}`;
+        $("amclYaw").textContent = `${fmt(state.pose.yaw)} deg`;
+      } else {
+        $("odomXY").textContent = `${fmt(state.pose.x)}, ${fmt(state.pose.y)}`;
+        $("odomYaw").textContent = `${fmt(state.pose.yaw)} deg`;
+      }
+    }
+
+    function renderMoveBase(msg) {
+      if (!msg.status_list || msg.status_list.length === 0) {
+        renderNavigationState("IDLE");
+        return;
+      }
+      renderNavigationState(goalStates[msg.status_list[msg.status_list.length - 1].status] || "UNKNOWN");
+    }
+
+    function renderNavigationState(state) {
+      lastNavAt = Date.now();
+      setPill("navFresh", "ok", "online");
+      $("moveBase").textContent = state || "-";
+    }
+
+    function renderHealth(topics) {
+      const labels = ["rgb", "depth", "camera_info", "pointcloud", "detections", "vision_debug", "task_status", "amcl", "odom", "move_base", "wpb_objects"];
+      $("healthList").innerHTML = labels.map((label) => {
+        const item = topics[label] || { state: "missing", hz: 0, age: "-", topic: "-" };
+        const state = item.state || "missing";
+        const pill = state === "ok" ? "ok" : state === "stale" ? "stale" : "bad";
+        const age = item.age === null || item.age === undefined ? "-" : `${item.age}s`;
+        return `<div class="topic-row"><strong>${label}</strong><span class="pill ${pill}">${state}</span><span>${escapeHtml(item.topic || "-")}</span><span>${item.hz || 0} Hz / ${age}</span></div>`;
+      }).join("");
+    }
+
+    function drawOverlay() {
+      const canvas = $("overlay");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      detections.forEach((item) => {
+        const box = item.bbox || {};
+        if (!box.width || !box.height) return;
+        const color = item.type === "colored" ? "#b8353c" : "#285f9f";
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(box.x, box.y, box.width, box.height);
+        ctx.fillStyle = color;
+        ctx.font = "15px system-ui";
+        ctx.fillText(item.type, box.x, Math.max(18, box.y - 7));
+      });
+    }
+
+    function updateStream() {
+      const topic = $("streamTopic").value.trim();
+      const base = $("videoBase").value.trim() || defaultVideo;
+      $("stream").src = `${base}/stream?topic=${encodeURIComponent(topic)}`;
+      $("streamLabel").textContent = topic.includes("depth") ? "depth" : "rgb";
+      $("streamState").textContent = topic;
+      log(`stream ${topic}`);
+    }
+
+    function sendCommand(command) {
+      const total = Math.max(1, Number($("totalItems").value || 1));
+      const payload = command === "start" ? { command, total_items: total } : { command };
+      publish("/task/command", { data: JSON.stringify(payload) });
+      log(`command ${command}`);
+    }
+
+    function fmt(value) {
+      if (value === undefined || value === null || Number.isNaN(Number(value))) return "-";
+      return Number(value).toFixed(2);
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+
+    function yawFromQuaternion(q) {
+      const siny = 2 * (q.w * q.z + q.x * q.y);
+      const cosy = 1 - 2 * (q.y * q.y + q.z * q.z);
+      return Math.atan2(siny, cosy) * 180 / Math.PI;
+    }
+
+    function refreshFreshness() {
+      const now = Date.now();
+      if (lastMonitorAt && now - lastMonitorAt > 2500) setPill("monitorFresh", "stale", "stale");
+      if (lastTaskAt && now - lastTaskAt > 2500) setPill("taskFresh", "stale", "stale");
+      if (lastVisionAt && now - lastVisionAt > 5000) setPill("visionFresh", "stale", "stale");
+      if (lastNavAt && now - lastNavAt > 5000) setPill("navFresh", "stale", "stale");
+    }
+
+    $("streamPreset").addEventListener("change", (event) => {
+      $("streamTopic").value = event.target.value;
+      updateStream();
+    });
+    $("applyStream").addEventListener("click", updateStream);
+    $("applyConnection").addEventListener("click", () => { updateStream(); connect(); });
+    $("reconnect").addEventListener("click", connect);
+    $("startTask").addEventListener("click", () => sendCommand("start"));
+    document.querySelectorAll("button[data-command]").forEach((button) => {
+      button.addEventListener("click", () => sendCommand(button.dataset.command));
+    });
+    $("scanVision").addEventListener("click", () => {
+      callService("/vision/scan_request", { force: true });
+      log("scan requested");
+    });
+    $("triggerWpb").addEventListener("click", () => {
+      publish("/wpb_home/behaviors", { data: "object_detect start" });
+      log("wpb object_detect start");
+    });
+    $("clearLog").addEventListener("click", () => { $("log").textContent = ""; });
+    $("stream").addEventListener("load", () => {
+      const img = $("stream");
+      if (img.naturalWidth && img.naturalHeight) {
+        $("overlay").width = img.naturalWidth;
+        $("overlay").height = img.naturalHeight;
+        drawOverlay();
+      }
+    });
+
+    updateStream();
+    connect();
+    setInterval(refreshFreshness, 1000);
+  </script>
+</body>
+</html>

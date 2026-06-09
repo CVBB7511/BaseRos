@@ -1,0 +1,25 @@
+<launch>
+  <arg name="rgb_topic" default="/kinect2/qhd/image_color_rect"/>
+  <arg name="depth_topic" default="/kinect2/qhd/image_depth_rect"/>
+  <arg name="points_topic" default="/kinect2/qhd/points"/>
+  <arg name="base_frame" default="/base_footprint"/>
+  <arg name="sensor_frame" default="/kinect2_rgb_optical_frame"/>
+  <arg name="sample_seconds" default="3.0"/>
+  <arg name="timeout" default="8.0"/>
+  <arg name="skip_tf" default="false"/>
+  <arg name="skip_wpb" default="false"/>
+  <arg name="skip_scan" default="false"/>
+
+  <node pkg="warehouse_sorting" type="vision_doctor.py" name="warehouse_sorting_vision_doctor" output="screen" required="true">
+    <param name="rgb_topic" value="$(arg rgb_topic)"/>
+    <param name="depth_topic" value="$(arg depth_topic)"/>
+    <param name="points_topic" value="$(arg points_topic)"/>
+    <param name="base_frame" value="$(arg base_frame)"/>
+    <param name="sensor_frame" value="$(arg sensor_frame)"/>
+    <param name="sample_seconds" value="$(arg sample_seconds)"/>
+    <param name="timeout" value="$(arg timeout)"/>
+    <param name="skip_tf" value="$(arg skip_tf)"/>
+    <param name="skip_wpb" value="$(arg skip_wpb)"/>
+    <param name="skip_scan" value="$(arg skip_scan)"/>
+  </node>
+</launch>

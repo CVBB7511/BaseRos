@@ -1,0 +1,2 @@
+set(warehouse_sorting_msgs_MESSAGE_FILES "/home/robot6/catkin_ws/src/warehouse_sorting_msgs/msg/Cargo.msg;/home/robot6/catkin_ws/src/warehouse_sorting_msgs/msg/DetectedCargoArray.msg;/home/robot6/catkin_ws/src/warehouse_sorting_msgs/msg/TaskStatus.msg")
+set(warehouse_sorting_msgs_SERVICE_FILES "/home/robot6/catkin_ws/src/warehouse_sorting_msgs/srv/ArmCommand.srv;/home/robot6/catkin_ws/src/warehouse_sorting_msgs/srv/ScanRequest.srv")

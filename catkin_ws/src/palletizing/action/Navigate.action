@@ -1,0 +1,12 @@
+# 导航 Action：驱动底盘移动至指定目标点
+# ─── Goal ───
+string target_name
+geometry_msgs/Pose target_pose
+---
+# ─── Result ───
+bool success
+string message
+---
+# ─── Feedback ───
+float32 distance_remaining
+string status

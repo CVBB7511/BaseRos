@@ -1,0 +1,8 @@
+prefix=/home/robot6/catkin_ws/devel
+
+Name: realbot_demo
+Description: Description of realbot_demo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

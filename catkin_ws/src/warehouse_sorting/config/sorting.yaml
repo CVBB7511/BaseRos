@@ -1,0 +1,97 @@
+warehouse_sorting:
+  destinations:
+    natural: zone_b
+    colored: zone_c
+    default: zone_b
+
+  # wpb_home_objects_3d reports geometry but not semantic class. During the
+  # first real-machine demo we classify unlabelled detections by sorted order.
+  wpb_home_type_sequence: [natural, colored]
+
+  cargo_types:
+    natural:
+      hsv_lower: [10, 20, 60]
+      hsv_upper: [35, 180, 230]
+      min_area: 1200
+      size: {x: 0.12, y: 0.12, z: 0.10}
+    colored:
+      hsv_lower: [90, 60, 50]
+      hsv_upper: [135, 255, 255]
+      min_area: 1200
+      size: {x: 0.12, y: 0.12, z: 0.10}
+
+  # Independent color + depth detector used before falling back to the WPB grab
+  # demo detector. ROI values can be normalized [0, 1] or absolute pixels.
+  color_depth:
+    roi: {x: 0.10, y: 0.15, width: 0.80, height: 0.70}
+    default_depth: 0.45
+    min_depth: 0.20
+    max_depth: 1.50
+    depth_window: 7
+    morph_kernel: 5
+    min_extent: 12
+    max_results_per_type: 3
+
+  arm:
+    tabletop_only: true
+    use_wpb_home_actions: false
+    workspace:
+      min_x: -0.35
+      max_x: 1.60
+      min_y: -0.85
+      max_y: 0.85
+      min_z: 0.00
+      max_z: 0.95
+    gripper:
+      open_width: 0.16
+      close_width: 0.032
+      place_open_width: 0.15
+      velocity: 5.0
+    lift:
+      home: 0.00
+      carry: 0.50
+      pregrasp_offset: 0.08
+      pick_offset: 0.00
+      place_offset: 0.03
+      retreat_offset: 0.03
+      velocity: 0.5
+    timing:
+      step_duration: 0.6
+      grip_duration: 1.0
+
+  mock_cargo:
+    - cargo_id: natural-a
+      cargo_type: natural
+      pose: {x: 0.42, y: 0.10, z: 0.05, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0}
+      size: {x: 0.12, y: 0.12, z: 0.10}
+      confidence: 0.98
+      bbox: {x: 120, y: 180, width: 80, height: 70}
+    - cargo_id: colored-a
+      cargo_type: colored
+      pose: {x: 0.44, y: -0.12, z: 0.05, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0}
+      size: {x: 0.12, y: 0.12, z: 0.10}
+      confidence: 0.97
+      bbox: {x: 310, y: 170, width: 78, height: 72}
+
+  pallet_zones:
+    zone_b:
+      origin: {x: 1.20, y: 0.50, z: 0.05, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0}
+      rows: 2
+      cols: 2
+      layers: 2
+      spacing_x: 0.16
+      spacing_y: 0.16
+      layer_height: 0.11
+    zone_c:
+      origin: {x: 1.20, y: -0.50, z: 0.05, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0}
+      rows: 2
+      cols: 2
+      layers: 2
+      spacing_x: 0.16
+      spacing_y: 0.16
+      layer_height: 0.11
+
+  navigation_goals:
+    source_a: {frame_id: map, x: 0.00, y: 0.00, z: 0.0, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0, timeout: 30.0}
+    zone_b: {frame_id: map, x: 1.00, y: 0.55, z: 0.0, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0, timeout: 30.0}
+    zone_c: {frame_id: map, x: 1.00, y: -0.55, z: 0.0, qx: 0.0, qy: 0.0, qz: 0.0, qw: 1.0, timeout: 30.0}

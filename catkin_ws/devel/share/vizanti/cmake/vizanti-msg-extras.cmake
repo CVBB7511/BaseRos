@@ -1,0 +1,2 @@
+set(vizanti_MESSAGE_FILES "")
+set(vizanti_SERVICE_FILES "/home/robot6/catkin_ws/src/vizanti/srv/GetNodeParameters.srv;/home/robot6/catkin_ws/src/vizanti/srv/SaveMap.srv;/home/robot6/catkin_ws/src/vizanti/srv/LoadMap.srv;/home/robot6/catkin_ws/src/vizanti/srv/RecordRosbag.srv;/home/robot6/catkin_ws/src/vizanti/srv/ManageNode.srv;/home/robot6/catkin_ws/src/vizanti/srv/ListPackages.srv;/home/robot6/catkin_ws/src/vizanti/srv/ListExecutables.srv")

@@ -1,0 +1,67 @@
+{
+  "categories": [
+    {
+      "category_name": "主食",
+      "description": "米饭、面条等主食",
+      "display_order": 1,
+      "items": [
+        {
+          "item_name": "牛肉面",
+          "price": 28.00,
+          "description": "经典牛肉面",
+          "image_path": "data/menu/images/beef_noodle.jpg",
+          "is_available": true
+        },
+        {
+          "item_name": "蛋炒饭",
+          "price": 18.00,
+          "description": "鸡蛋炒饭",
+          "image_path": "data/menu/images/fried_rice.jpg",
+          "is_available": true
+        }
+      ]
+    },
+    {
+      "category_name": "小吃",
+      "description": "餐厅特色小吃",
+      "display_order": 2,
+      "items": [
+        {
+          "item_name": "炸鸡块",
+          "price": 22.00,
+          "description": "酥脆炸鸡块",
+          "image_path": "data/menu/images/fried_chicken.jpg",
+          "is_available": true
+        },
+        {
+          "item_name": "薯条",
+          "price": 12.00,
+          "description": "经典薯条",
+          "image_path": "data/menu/images/fries.jpg",
+          "is_available": true
+        }
+      ]
+    },
+    {
+      "category_name": "饮品",
+      "description": "饮料和茶饮",
+      "display_order": 3,
+      "items": [
+        {
+          "item_name": "可乐",
+          "price": 6.00,
+          "description": "冰镇可乐",
+          "image_path": "data/menu/images/cola.jpg",
+          "is_available": true
+        },
+        {
+          "item_name": "柠檬茶",
+          "price": 10.00,
+          "description": "柠檬茶",
+          "image_path": "data/menu/images/lemon_tea.jpg",
+          "is_available": true
+        }
+      ]
+    }
+  ]
+}

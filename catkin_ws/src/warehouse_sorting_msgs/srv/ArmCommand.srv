@@ -1,0 +1,6 @@
+warehouse_sorting_msgs/Cargo cargo
+geometry_msgs/Pose target_pose
+string action
+---
+bool success
+string message

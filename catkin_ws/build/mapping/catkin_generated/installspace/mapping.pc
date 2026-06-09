@@ -1,0 +1,8 @@
+prefix=/home/robot6/catkin_ws/install
+
+Name: mapping
+Description: Description of mapping
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

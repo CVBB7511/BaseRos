@@ -1,0 +1,81 @@
+<launch>
+    <!-- Gazebo World -->
+    <arg name="world_file" default="$(find monday9)/worlds/env.world"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_file)"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+    </include>
+
+    <node name="box_spawner" pkg="monday9" type="box_spawner.py" />
+
+    <!-- Robot -->
+    <arg name="model" default="$(find monday9)/models/mani.model"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    
+    <param name="wpb_home_description" command="$(find xacro)/xacro $(arg model)" />
+    
+    <!-- 1. 生成模型 -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find monday9)/models/mani.model -urdf -model mani" />
+
+    <!-- 2. 状态发布器 -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+        <remap from="robot_description" to="wpb_home_description" />
+        <remap from="/joint_states" to="/wpb_home/joint_states" />
+    </node>
+
+    <!-- 3. 加载关节 PID 参数 -->
+    <rosparam file="$(find monday9)/config/control.yaml" command="load"/>
+
+    <!-- 4. 挂载电机控制器 -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/wpb_home" args="joint_state_controller mani_base_position_controller elbow_forearm_position_controller palm_left_finger_position_controller left_finger_tip_position_controller palm_right_finger_position_controller right_finger_tip_position_controller"/>
+
+    <node name="my_wpb_home_sim" pkg="monday9" type="my_wpb_home_sim" output="screen"/>
+
+    <!-- Mapping -->
+    <node name="mapping_controller" pkg="monday9" type="mapping_control.py" output="screen"/>
+    <node name="map_saver_service" pkg="monday9" type="save_map_service.py" output="screen"/>
+
+    <!--- AMCL -->
+    <!-- <include file="$(find monday9)/nav_lidar/amcl_omni.launch" /> -->
+
+    <!---move base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base"  output="screen">
+        <rosparam file="$(find monday9)/nav_lidar/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find monday9)/nav_lidar/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find monday9)/nav_lidar/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find monday9)/nav_lidar/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find monday9)/nav_lidar/local_planner_params.yaml" command="load" />
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" /> 
+        <param name="use_dijkstra" value="true"/>
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+        <rosparam file="$(find monday9)/nav_lidar/teb_local_planner_params.yaml" command="load" />
+        <param name= "controller_frequency" value="10" type="double"/>
+    </node>
+
+    <!-- wpb_home_grab_server -->
+    <node pkg="monday9" type="my_wpb_home_grab_server" name="my_wpb_home_grab_server" />
+
+    <!-- wpb_home_objects_3d -->
+    <node pkg="monday9" type="my_wpb_home_objects_3d" name="my_wpb_home_objects_3d" output="screen">
+        <param name="topic" type="string" value="/kinect2/sd/points"/>
+        <param name="start" type="bool" value="true"/>
+    </node>
+
+    <!-- wpb_home_grab_action -->
+    <node pkg="monday9" type="my_wpb_home_grab_action" name="my_wpb_home_grab_action">
+        <rosparam file="$(find monday9)/config/wpb_home.yaml" command="load" />
+    </node>
+
+    <!-- <arg name="rvizconfig" default="$(find monday9)/rviz/grab.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
+
+    <!-- Web -->
+    <node name="web_server" pkg="rosbridge_server" type="rosbridge_websocket"/>
+    <node name="rosapi" pkg="rosapi" type="rosapi_node"/>
+    <node name="web_http" pkg="monday9" type="start_web.sh" output="screen"/>
+
+</launch>

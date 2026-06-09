@@ -1,0 +1,34 @@
+<launch>
+  <!-- ══════════════════════════════════════════════
+       码垛机器人系统 - 业务节点启动文件
+       启动任务管理器、导航服务、机械臂服务、视觉服务
+       前置条件: 需先启动 warehouse_sim.launch
+       用法: roslaunch palletizing palletizing.launch
+  ══════════════════════════════════════════════ -->
+
+  <!-- 所有节点统一放在 /palletizing 命名空间下 -->
+  <group ns="palletizing">
+
+    <!-- 视觉识别服务节点 -->
+    <node pkg="palletizing" type="vision_service.py" name="vision_service" output="screen">
+      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
+    </node>
+
+    <!-- 导航 Action Server -->
+    <node pkg="palletizing" type="navigation_server.py" name="navigation_server" output="screen">
+      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
+    </node>
+
+    <!-- 机械臂 Action Server -->
+    <node pkg="palletizing" type="manipulator_server.py" name="manipulator_server" output="screen">
+      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
+    </node>
+
+    <!-- 任务管理主控节点 (最后启动，因为它依赖上述所有服务) -->
+    <node pkg="palletizing" type="task_manager_node.py" name="task_manager_node" output="screen">
+      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
+    </node>
+
+  </group>
+
+</launch>

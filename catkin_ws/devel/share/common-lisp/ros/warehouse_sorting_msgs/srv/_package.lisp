@@ -1,0 +1,15 @@
+(cl:defpackage warehouse_sorting_msgs-srv
+  (:use )
+  (:export
+   "ARMCOMMAND"
+   "<ARMCOMMAND-REQUEST>"
+   "ARMCOMMAND-REQUEST"
+   "<ARMCOMMAND-RESPONSE>"
+   "ARMCOMMAND-RESPONSE"
+   "SCANREQUEST"
+   "<SCANREQUEST-REQUEST>"
+   "SCANREQUEST-REQUEST"
+   "<SCANREQUEST-RESPONSE>"
+   "SCANREQUEST-RESPONSE"
+  ))
+

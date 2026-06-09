@@ -1,0 +1,5 @@
+bool force
+---
+bool success
+string message
+warehouse_sorting_msgs/DetectedCargoArray detections

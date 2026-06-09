@@ -1,0 +1,159 @@
+# ─── 码垛真实环境 (Real-World) 配置文件模板 ───
+#
+# 此文件用于在真实环境中替换仿真参数。
+# 实机运行时，请在 launch 文件中加载此配置文件，覆盖默认参数。
+
+
+# ─── 作业区域定义 ───    
+zones:
+  A:
+    # observation_point: 机器人观察桌子的全局导航点。
+    # 坐标系：**绝对坐标** (相对于 map 坐标系的原点)。
+    # 如何确定：使用遥控器将机器人开到桌前（距离桌边约0.8m），在RViz中查看机器人的绝对坐标 (x,y,yaw)，填入此处。
+    observation_point:  
+      x: 0.973            
+      y: -0.701
+      z: 0.0
+      yaw: -0.047        
+      
+    # placement: 码垛放置锚点及规则。
+    # 坐标系：**相对坐标** (相对于机器人 base_link 坐标系。机器人正前方为正X，正左方为正Y)。
+    # 如何确定：这是机械臂放置时的目标坐标系。例如 x:1.5 意味着在机器人正前方 1.5m 处放置。
+    placement:
+      frame: "base_link"
+      start_x: 0.9      
+      start_y: 0      
+      direction_x: 0  
+      direction_y: 1
+      max_layers: 2     
+      default_step: 0.20 
+    description: "桌子A (西北)"
+
+  B:
+    # observation_point: 机器人观察桌子的全局导航点。
+    # 坐标系：**绝对坐标** (相对于 map 坐标系的原点)。
+    # 如何确定：使用遥控器将机器人开到桌前（距离桌边约0.8m），在RViz中查看机器人的绝对坐标 (x,y,yaw)，填入此处。
+    observation_point:  
+      x: 0.794            
+      y: 2.734
+      z: 0.0
+      yaw: -3.033       
+      
+    # placement: 码垛放置锚点及规则。
+    # 坐标系：**相对坐标** (相对于机器人 base_link 坐标系。机器人正前方为正X，正左方为正Y)。
+    # 如何确定：这是机械臂放置时的目标坐标系。例如 x:1.5 意味着在机器人正前方 1.5m 处放置。
+    placement:
+      frame: "base_link"
+      start_x: 0.9      
+      start_y: 0      
+      direction_x: -0.012  
+      direction_y: 1.000
+      max_layers: 2     
+      default_step: 0.20 
+    description: "桌子B (东南)"
+
+# ─── 导航参数 ───
+navigation:
+  retry_count: 3
+  # 到达容差可能需要适当放宽，因为实机存在打滑
+  goal_tolerance_xy: 0.1
+  goal_tolerance_yaw: 0.1
+
+# ─── 机械臂参数 ───
+manipulator:
+  lift_speed: 0.5
+  gripper_speed: 5.0
+  gripper_open_width: 0.15
+  height_carry: 1.05
+  
+  # table_height: 真实桌子的高度。
+  # 如何确定：用卷尺从地面垂直测量到桌子表面的绝对高度（单位：米）。这直接决定了放置高度。
+  table_height: 0.75
+  
+  # block_height: 真实方块的高度。
+  # 如何确定：用卷尺测量单个方块的高度（单位：米），用于计算第二层码垛的增量。
+  block_height: 0.10
+  
+  max_layers: 2
+  
+  # empty_grip_tolerance: 抓空容差。
+  # 如何确定：由于真实夹爪内部有橡胶垫且电机有齿轮间隙，手指闭合时数值不会完美归零。
+  # 用手柄空抓一次，在终端查看 `/wpb_home/joint_states` 中 palm_left_finger 的弧度值换算的距离，
+  # 加上这个容差（如 0.010 即 1厘米），作为判断掉落的阈值。
+  empty_grip_tolerance: 0.020
+  
+  # workspace: 机械臂软限位安全工作空间。
+  # 如何确定：测试伸长机械臂到刚好不发生头重脚轻（不翻车）的最远水平距离，设为 x_max。
+  # 测试机械臂左右旋转时不撞击自身线缆或相机的极限，设为 y_min 和 y_max。
+  workspace:
+    x_min: 0.3
+    x_max: 1.3
+    y_min: -0.4
+    y_max: 0.4
+    z_min: 0.3
+    z_max: 1.2
+
+# ─── Task Manager 参数 ───
+task_manager:
+  # 默认无视觉辅助时的放置深度
+  default_place_x: 0.9
+
+# ─── 动作服务端 (Grab & Place Action) 物理参数 ───
+grab:
+  grab_y_offset: 0.0
+  grab_lift_offset: 0.02
+  grab_forward_offset: 0.0
+  
+  # grab_gripper_value: 目标抓取手爪间距。
+  # 如何确定：用卷尺测量方块的宽度，设为略小于该宽度的一个值（如方块5cm，可设为0.02或0.03m以确保死死夹紧）。
+  grab_gripper_value: 0.09
+  
+  # approach_distance: 抓取时手臂向前推进逼近方块的距离。
+  # 如何确定：在实机上观察机器人在距离方块多远停下，为了保护电机不被桌面卡死，
+  # 开始可以设得保守点（如 0.65m），如果不报错且能抓住方块，则无需修改。
+  approach_distance: 0.55
+  
+  # lift_height: 抓到方块后手臂抬起的高度。
+  lift_height: 1.0
+
+place:
+  place_dist: 0.9
+  place_y_offset: 0.0
+  place_lift_offset: 0.0
+  place_forward_offset: 0.0
+  place_gripper_value: 0.15
+  
+  # approach_distance: 放置时的逼近距离。
+  # 如何确定：应与抓取时的逼近距离保持一致或略小（如 0.65m）。
+  approach_distance: 0.65
+  lift_height: 1.0
+
+# ─── 视觉识别参数 ───
+vision:
+  camera_topic: "/kinect2/qhd/image_color_rect"
+  pointcloud_topic: "/kinect2/sd/points"
+  detection_timeout_sec: 10.0
+  retry_nudge_distance: 0.05
+  
+  # 点云滤波范围 (Filter)
+  # 作用：裁剪掉地面和其他不相关的背景物，只保留桌面的点云。
+  # 如何确定：在 RViz 中开启 PointCloud2 视图，并打开 Publish Point 工具，点击桌面的前后左右边缘，
+  # 获取相对于 Kinect 的 xyz 坐标。X 是前方距离，Y 是左右跨度，Z 是上下高度。
+  filter_z_min: 0.3
+  filter_z_max: 1.5
+  filter_x_min: 0.0
+  filter_x_max: 1.5
+  filter_y_min: -1.5
+  filter_y_max: 1.5
+
+  # 颜色阈值 (HSV Ranges)
+  # 作用：识别真实环境光照下的方块颜色。
+  # 如何确定：由于实机光照变化大，不能照搬仿真。必须使用 OpenCV 的 rqt_image_view 或本地写脚本
+  # 提取摄像头画面的 ROI 区域的 HSV 值。将测得的上下限填入下方。
+  hsv_ranges:
+    red_block:
+      lower: [0, 100, 100]
+      upper: [10, 255, 255]
+    green_block:
+      lower: [40, 100, 100]
+      upper: [80, 255, 255]

@@ -1,0 +1,10 @@
+# 抓取 Action：控制机械臂执行抓取动作
+# ─── Goal ───
+geometry_msgs/Point target_position
+---
+# ─── Result ───
+bool success
+string message
+---
+# ─── Feedback ───
+string phase

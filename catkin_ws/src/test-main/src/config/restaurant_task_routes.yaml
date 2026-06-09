@@ -1,0 +1,62 @@
+task_routes:
+  go_entrance:
+    - entrance
+
+  go_wait_area:
+    - wait_area
+
+  go_kitchen:
+    - kitchen
+
+  go_table_1:
+    - table_1
+
+  go_table_2:
+    - table_2
+
+  go_table_3:
+    - table_3
+
+  go_table_4:
+    - table_4
+
+  guide_table_1:
+    - entrance
+    - table_1
+    - wait_area
+
+  guide_table_2:
+    - entrance
+    - table_2
+    - wait_area
+
+  guide_table_3:
+    - entrance
+    - table_3
+    - wait_area
+
+  guide_table_4:
+    - entrance
+    - table_4
+    - wait_area
+
+  deliver_table_1:
+    - kitchen
+    - table_1
+    - wait_area
+
+  deliver_table_2:
+    - kitchen
+    - aisle_mid_1
+    - table_2
+    - wait_area
+
+  deliver_table_3:
+    - kitchen
+    - table_3
+    - wait_area
+
+  deliver_table_4:
+    - kitchen
+    - table_4
+    - wait_area

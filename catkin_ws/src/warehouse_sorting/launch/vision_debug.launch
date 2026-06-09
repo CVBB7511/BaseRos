@@ -1,0 +1,58 @@
+<launch>
+  <arg name="start_bringup" default="true"/>
+  <arg name="start_kinect" default="true"/>
+  <arg name="start_wpb_home_objects" default="true"/>
+  <arg name="start_warehouse_vision" default="true"/>
+  <arg name="fallback_to_mock" default="false"/>
+  <arg name="wpb_home_detection_timeout" default="8.0"/>
+  <arg name="wpb_home_accept_stale_objects" default="false"/>
+  <arg name="color_depth_enabled" default="true"/>
+  <arg name="rgb_topic" default="/kinect2/qhd/image_color_rect"/>
+  <arg name="depth_topic" default="/kinect2/qhd/image_depth_rect"/>
+  <arg name="camera_info_topic" default="/kinect2/qhd/camera_info"/>
+  <arg name="pointcloud_topic" default="/kinect2/qhd/points"/>
+  <arg name="kinect_fps_limit" default="15.0"/>
+  <arg name="start_web" default="false"/>
+
+  <rosparam file="$(find warehouse_sorting)/config/sorting.yaml" command="load"/>
+
+  <include if="$(arg start_bringup)" file="$(find wpb_home_bringup)/launch/normal.launch"/>
+
+  <include if="$(arg start_kinect)" file="$(find kinect2_bridge)/launch/kinect2_bridge.launch">
+    <arg name="fps_limit" value="$(arg kinect_fps_limit)"/>
+  </include>
+
+  <node if="$(arg start_wpb_home_objects)"
+        pkg="wpb_home_behaviors"
+        type="wpb_home_objects_3d"
+        name="wpb_home_objects_3d"
+        output="screen">
+    <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load"/>
+    <param name="start" type="bool" value="true"/>
+    <param name="topic" type="str" value="$(arg pointcloud_topic)"/>
+  </node>
+
+  <node if="$(arg start_warehouse_vision)"
+        pkg="warehouse_sorting"
+        type="vision_node.py"
+        name="vision_node"
+        output="screen">
+    <param name="use_camera" value="true"/>
+    <param name="use_wpb_home_objects" value="true"/>
+    <param name="fallback_to_mock" value="$(arg fallback_to_mock)"/>
+    <param name="wpb_home_detection_timeout" value="$(arg wpb_home_detection_timeout)"/>
+    <param name="wpb_home_accept_stale_objects" value="$(arg wpb_home_accept_stale_objects)"/>
+    <param name="color_depth_enabled" value="$(arg color_depth_enabled)"/>
+    <param name="rgb_topic" value="$(arg rgb_topic)"/>
+    <param name="depth_topic" value="$(arg depth_topic)"/>
+    <param name="camera_info_topic" value="$(arg camera_info_topic)"/>
+    <param name="frame_id" value="base_link"/>
+  </node>
+
+  <include if="$(arg start_web)" file="$(find warehouse_sorting)/launch/web_bridge.launch">
+    <arg name="rgb_topic" value="$(arg rgb_topic)"/>
+    <arg name="depth_topic" value="$(arg depth_topic)"/>
+    <arg name="camera_info_topic" value="$(arg camera_info_topic)"/>
+    <arg name="pointcloud_topic" value="$(arg pointcloud_topic)"/>
+  </include>
+</launch>

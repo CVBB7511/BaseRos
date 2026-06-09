@@ -1,0 +1,8 @@
+prefix=/home/robot6/catkin_ws/devel
+
+Name: ros_end_core_sim
+Description: Description of ros_end_core_sim
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

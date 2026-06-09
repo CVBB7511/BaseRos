@@ -1,0 +1,42 @@
+menu:
+  - item_id: 1
+    name: 宫保鸡丁
+    price: 28
+    category: 热菜
+    aliases: [宫保鸡丁, 宫保, 鸡丁]
+    available: true
+
+  - item_id: 2
+    name: 鱼香肉丝
+    price: 26
+    category: 热菜
+    aliases: [鱼香肉丝, 鱼香]
+    available: true
+
+  - item_id: 3
+    name: 米饭
+    price: 2
+    category: 主食
+    aliases: [米饭, 饭]
+    available: true
+
+  - item_id: 4
+    name: 可乐
+    price: 5
+    category: 饮料
+    aliases: [可乐, cola]
+    available: true
+
+  - item_id: 5
+    name: 酸辣汤
+    price: 12
+    category: 汤类
+    aliases: [酸辣汤, 汤]
+    available: false
+
+  - item_id: 6
+    name: 麻婆豆腐
+    price: 24
+    category: 热菜
+    aliases: [麻婆豆腐, 麻婆]
+    available: true

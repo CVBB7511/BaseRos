@@ -1,0 +1,110 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#  码垛机器人系统 - 全局配置文件
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# ─── 作业区域定义 ───
+zones:
+  A:
+    observation_point:  # 机器人站在桌子正前方 ~0.8m, 面朝桌子
+      x: 2.0            # 标定后替换
+      y: 0.8
+      z: 0.0
+      yaw: 1.57         # 面朝北 (朝桌子A)
+    placement:
+      start_x: 1.5      # 桌面靠仓库中心的一角 (桌A左下角, x较小端)
+      start_y: 1.6      # 桌面前缘 y 坐标
+      direction_x: 1.0  # 沿长边延伸方向 (正X方向)
+      direction_y: 0.0
+      max_layers: 2     # 每个位置最大码垛层数
+      default_step: 0.15 # 视觉不可用时的水平步进(m), 可考虑由视觉替代
+    description: "桌子A (北墙右侧)"
+
+  B:
+    observation_point:
+      x: -2.0
+      y: -0.8
+      z: 0.0
+      yaw: -1.57        # 面朝南 (朝桌子B)
+    placement:
+      start_x: -1.5     # 桌B右上角 (x较大端, 靠中心)
+      start_y: -1.6
+      direction_x: -1.0 # 沿长边延伸方向 (负X方向)
+      direction_y: 0.0
+      max_layers: 2
+      default_step: 0.15
+    description: "桌子B (南墙左侧)"
+
+  C:
+    observation_point:
+      x: 2.0
+      y: -0.8
+      z: 0.0
+      yaw: -1.57        # 面朝南 (朝桌子C)
+    placement:
+      start_x: 1.5      # 桌C左上角 (x较小端, 靠中心)
+      start_y: -1.6
+      direction_x: 1.0
+      direction_y: 0.0
+      max_layers: 2
+      default_step: 0.15
+    description: "桌子C (南墙右侧)"
+
+# ─── 导航参数 ───
+navigation:
+  timeout_sec: 60.0
+  goal_tolerance_xy: 0.15
+  goal_tolerance_yaw: 0.1
+
+# ─── 机械臂参数 ───
+manipulator:
+  lift_speed: 0.5
+  gripper_speed: 5.0
+  gripper_open_width: 0.15
+  height_carry: 1.05
+  table_height: 0.75
+  block_height: 0.10
+  max_layers: 2
+  workspace:
+    x_min: 0.3
+    x_max: 1.2
+    y_min: -0.5
+    y_max: 0.5
+    z_min: 0.3
+    z_max: 1.2
+
+# ─── 物品自动生成配置 ───
+# 提供简便的配置方式来在指定桌子上生成方块
+spawner:
+  spacing: 0.25          # 方块之间的间距 (m)
+  drop_height: 2.0       # 生成时的下落高度 (m)
+  zones:
+    A:
+      red: 3
+      green: 1
+    B:
+      red: 0
+      green: 0
+    C:
+      red: 0
+      green: 0
+
+# ─── 视觉识别参数 ───
+vision:
+  camera_topic: "/kinect2/qhd/image_color_rect"
+  pointcloud_topic: "/kinect2/sd/points"
+  detection_timeout_sec: 10.0
+  retry_nudge_distance: 0.05
+  hsv_ranges:
+    red_block:
+      lower: [0, 100, 100]
+      upper: [10, 255, 255]
+      lower2: [170, 100, 100]
+      upper2: [180, 255, 255]
+    green_block:
+      lower: [35, 100, 100]
+      upper: [85, 255, 255]
+
+# ─── 异常处理策略 ───
+error_handling:
+  max_detection_retries: 3
+  max_grab_retries: 3

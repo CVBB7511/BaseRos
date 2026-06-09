@@ -1,0 +1,12 @@
+std_msgs/Header header
+string task_id
+string status
+uint32 total_items
+uint32 completed_items
+uint32 failed_items
+uint32 sorted_natural
+uint32 sorted_colored
+float32 progress
+uint32 queue_size
+string current_step
+string last_error

@@ -1,0 +1,70 @@
+<launch>
+  <arg name="start_bringup" default="false"/>
+  <arg name="start_behaviors" default="false"/>
+  <arg name="start_navigation" default="false"/>
+  <arg name="start_kinect" default="false"/>
+  <arg name="start_web" default="false"/>
+  <arg name="use_camera" default="true"/>
+  <arg name="use_wpb_home_objects" default="true"/>
+  <arg name="fallback_to_mock" default="false"/>
+  <arg name="dry_run_arm" default="false"/>
+  <arg name="tabletop_only" default="true"/>
+  <arg name="use_wpb_home_actions" default="false"/>
+  <arg name="dry_run_navigation" default="false"/>
+  <arg name="source_zone_id" default="source_a"/>
+  <arg name="wait_for_wpb_home_result" default="true"/>
+  <arg name="rgb_topic" default="/kinect2/qhd/image_color_rect"/>
+  <arg name="depth_topic" default="/kinect2/qhd/image_depth_rect"/>
+  <arg name="camera_info_topic" default="/kinect2/qhd/camera_info"/>
+  <arg name="camera_on_demand" default="true"/>
+  <arg name="camera_warmup_timeout" default="3.0"/>
+  <arg name="camera_require_depth" default="false"/>
+  <arg name="camera_require_info" default="false"/>
+  <arg name="wpb_home_detection_timeout" default="5.0"/>
+  <arg name="color_depth_enabled" default="true"/>
+
+  <include if="$(eval arg('start_bringup') == 'true' and arg('start_navigation') != 'true')" file="$(find wpb_home_bringup)/launch/normal.launch"/>
+  <include if="$(arg start_navigation)" file="$(find wpb_home_tutorials)/launch/nav.launch"/>
+  <include if="$(arg start_kinect)" file="$(find kinect2_bridge)/launch/kinect2_bridge.launch"/>
+  <include if="$(arg start_web)" file="$(find warehouse_sorting)/launch/web_bridge.launch">
+    <arg name="rgb_topic" value="$(arg rgb_topic)"/>
+    <arg name="depth_topic" value="$(arg depth_topic)"/>
+    <arg name="camera_info_topic" value="$(arg camera_info_topic)"/>
+    <arg name="pointcloud_topic" value="/kinect2/qhd/points"/>
+  </include>
+
+  <group if="$(arg start_behaviors)">
+    <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d">
+      <param name="start" type="bool" value="false"/>
+      <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load"/>
+    </node>
+    <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
+      <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load"/>
+    </node>
+    <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action">
+      <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load"/>
+    </node>
+  </group>
+
+  <include file="$(find warehouse_sorting)/launch/sorting_core.launch">
+    <arg name="use_camera" value="$(arg use_camera)"/>
+    <arg name="use_wpb_home_objects" value="$(arg use_wpb_home_objects)"/>
+    <arg name="fallback_to_mock" value="$(arg fallback_to_mock)"/>
+    <arg name="rgb_topic" value="$(arg rgb_topic)"/>
+    <arg name="depth_topic" value="$(arg depth_topic)"/>
+    <arg name="camera_info_topic" value="$(arg camera_info_topic)"/>
+    <arg name="camera_on_demand" value="$(arg camera_on_demand)"/>
+    <arg name="camera_warmup_timeout" value="$(arg camera_warmup_timeout)"/>
+    <arg name="camera_require_depth" value="$(arg camera_require_depth)"/>
+    <arg name="camera_require_info" value="$(arg camera_require_info)"/>
+    <arg name="wpb_home_detection_timeout" value="$(arg wpb_home_detection_timeout)"/>
+    <arg name="color_depth_enabled" value="$(arg color_depth_enabled)"/>
+    <arg name="dry_run_arm" value="$(arg dry_run_arm)"/>
+    <arg name="publish_wpb_home_topics" value="$(eval arg('dry_run_arm') != 'true')"/>
+    <arg name="tabletop_only" value="$(arg tabletop_only)"/>
+    <arg name="use_wpb_home_actions" value="$(arg use_wpb_home_actions)"/>
+    <arg name="wait_for_wpb_home_result" value="$(arg wait_for_wpb_home_result)"/>
+    <arg name="dry_run_navigation" value="$(arg dry_run_navigation)"/>
+    <arg name="source_zone_id" value="$(arg source_zone_id)"/>
+  </include>
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/robot6/catkin_ws/install
+
+Name: restaurant_voice_interaction
+Description: Description of restaurant_voice_interaction
+Version: 0.2.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

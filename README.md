@@ -14,4 +14,5 @@ I5-10250U
 5. 遥控手柄
 ### 四、可参考的官方脚本
 1. catkin_ws\src\wpb_home\wpb_home_tutorials\launch 中的grab_*.launch, mani_ctrl.launch, obj_detect.launch
-2. 
+2. catkin_ws\src\wpb_home\wpb_home_bringup\launch中的js_ctrl.launch, kinect_test.launch ,lidar_test.launch
+3. catkin_ws/src/wpb_home/wpb_home_behaviors/launch中的obj_3d.launch

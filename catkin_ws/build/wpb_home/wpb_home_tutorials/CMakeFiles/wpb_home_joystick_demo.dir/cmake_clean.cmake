@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_joystick_demo"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_joystick_demo.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_joystick_demo"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_joystick_demo.pdb"
   "CMakeFiles/wpb_home_joystick_demo.dir/src/wpb_home_joystick_demo.cpp.o"
 )
 

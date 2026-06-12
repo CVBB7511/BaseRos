@@ -1,34 +1,32 @@
 <launch>
-  <!-- ══════════════════════════════════════════════
-       码垛机器人系统 - 业务节点启动文件
-       启动任务管理器、导航服务、机械臂服务、视觉服务
-       前置条件: 需先启动 warehouse_sim.launch
-       用法: roslaunch palletizing palletizing.launch
-  ══════════════════════════════════════════════ -->
-
-  <!-- 所有节点统一放在 /palletizing 命名空间下 -->
-  <group ns="palletizing">
-
-    <!-- 视觉识别服务节点 -->
-    <node pkg="palletizing" type="vision_service.py" name="vision_service" output="screen">
-      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
-    </node>
-
-    <!-- 导航 Action Server -->
-    <node pkg="palletizing" type="navigation_server.py" name="navigation_server" output="screen">
-      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
-    </node>
-
-    <!-- 机械臂 Action Server -->
-    <node pkg="palletizing" type="manipulator_server.py" name="manipulator_server" output="screen">
-      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
-    </node>
-
-    <!-- 任务管理主控节点 (最后启动，因为它依赖上述所有服务) -->
-    <node pkg="palletizing" type="task_manager_node.py" name="task_manager_node" output="screen">
-      <rosparam file="$(find palletizing)/config/palletizing_params.yaml" command="load" />
-    </node>
-
-  </group>
+  <!-- Palletizing executor node -->
+  <node pkg="palletizing" type="palletizing_executor.py" name="palletizing_executor" output="screen">
+    <param name="source_table_x" type="double" value="-1.5"/>
+    <param name="source_table_y" type="double" value="0.0"/>
+    <param name="source_table_z" type="double" value="0.78"/>
+    <param name="dest_table_x" type="double" value="1.5"/>
+    <param name="dest_table_y" type="double" value="0.0"/>
+    <param name="dest_table_z" type="double" value="0.78"/>
+    <param name="grid_cols" type="int" value="2"/>
+    <param name="grid_rows" type="int" value="3"/>
+    <param name="cube_height" type="double" value="0.06"/>   <!-- 兜底默认值 -->
+    <param name="hard_cube_height" type="double" value="0.10"/>
+    <param name="soft_cube_height" type="double" value="0.15"/>
+    <param name="sphere_height" type="double" value="0.15"/>
+    <param name="soft_place_offset" type="double" value="0.005"/>
+    <param name="stacking_pattern" type="string" value="aligned"/>
+    <param name="spacing_x" type="double" value="0.18"/>
+    <param name="spacing_y" type="double" value="0.17"/>
+    <param name="zone_separation_y" type="double" value="0.35"/>   <!-- 两种物体的堆叠区间距 -->
+    <param name="zone_half_x" type="double" value="0.50"/>        <!-- 候选点法: 区半宽 -->
+    <param name="zone_half_y" type="double" value="0.25"/>        <!-- 候选点法: 区半深 -->
+    <param name="max_height" type="double" value="0.80"/>         <!-- 候选点法: 最大堆高 -->
+    <param name="horizontal_gap" type="double" value="0.02"/>     <!-- 候选点法: 水平间隙 -->
+    <param name="vertical_gap" type="double" value="0.01"/>       <!-- 候选点法: 垂直间隙 -->
+    <param name="gripper_hard_cube" type="double" value="0.052"/>
+    <param name="gripper_soft_cube" type="double" value="0.078"/>
+    <param name="gripper_hard_sphere" type="double" value="0.028"/>
+    <param name="gripper_soft_sphere" type="double" value="0.040"/>
+  </node>
 
 </launch>

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/gazebosim_demo/src/wpb_home_sim.cpp
+/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/src/wpb_home_sim.cpp
 ros/ros.h
 -
 tf/transform_broadcaster.h

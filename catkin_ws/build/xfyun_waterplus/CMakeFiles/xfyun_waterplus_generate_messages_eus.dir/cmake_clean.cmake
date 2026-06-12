@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/xfyun_waterplus/manifest.l"
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/xfyun_waterplus/srv/IATSwitch.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/xfyun_waterplus/manifest.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/xfyun_waterplus/srv/IATSwitch.l"
   "CMakeFiles/xfyun_waterplus_generate_messages_eus"
 )
 

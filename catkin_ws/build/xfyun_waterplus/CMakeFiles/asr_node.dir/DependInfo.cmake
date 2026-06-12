@@ -5,8 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/robot6/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c" "/home/robot6/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.o"
-  "/home/robot6/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c" "/home/robot6/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.o"
+  "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c" "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.o"
+  "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c" "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -19,13 +19,13 @@ set(CMAKE_TARGET_DEFINITIONS_C
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "/home/robot6/catkin_ws/devel/include"
+  "/home/xyntera/baseRos/catkin_ws/devel/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
-  "/home/robot6/catkin_ws/src/xfyun_waterplus/include"
+  "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot6/catkin_ws/src/xfyun_waterplus/src/asr_node.cpp" "/home/robot6/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.o"
+  "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/asr_node.cpp" "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -38,10 +38,10 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/robot6/catkin_ws/devel/include"
+  "/home/xyntera/baseRos/catkin_ws/devel/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
-  "/home/robot6/catkin_ws/src/xfyun_waterplus/include"
+  "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include"
   )
 
 # Targets to which this target links.

@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -DNDEBUG -fPIC
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"wpbh_local_planner\" -Dwpbh_local_planner_EXPORTS
 
-CXX_INCLUDES = -I/home/robot6/catkin_ws/src/wpb_home/wpbh_local_planner/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 
+CXX_INCLUDES = -I/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpbh_local_planner/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 
 

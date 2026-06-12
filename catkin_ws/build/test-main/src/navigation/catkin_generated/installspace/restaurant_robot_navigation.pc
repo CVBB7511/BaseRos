@@ -1,8 +1,0 @@
-prefix=/home/robot6/catkin_ws/install
-
-Name: restaurant_robot_navigation
-Description: Description of restaurant_robot_navigation
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

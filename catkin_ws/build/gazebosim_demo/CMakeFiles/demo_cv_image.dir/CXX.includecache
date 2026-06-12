@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/gazebosim_demo/src/demo_cv_image.cpp
+/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/src/demo_cv_image.cpp
 ros/ros.h
 -
 cv_bridge/cv_bridge.h

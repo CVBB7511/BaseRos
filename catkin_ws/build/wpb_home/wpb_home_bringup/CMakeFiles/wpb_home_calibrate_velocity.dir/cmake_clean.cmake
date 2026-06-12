@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_calibrate_velocity"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_calibrate_velocity.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_calibrate_velocity"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_calibrate_velocity.pdb"
   "CMakeFiles/wpb_home_calibrate_velocity.dir/src/wpb_home_calibrate_velocity.cpp.o"
 )
 

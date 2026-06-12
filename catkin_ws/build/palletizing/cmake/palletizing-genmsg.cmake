@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "palletizing: 21 messages, 2 services")
+message(STATUS "palletizing: 2 messages, 2 services")
 
-set(MSG_I_FLAGS "-Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Ipalletizing:/home/xyntera/baseRos/catkin_ws/src/palletizing/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,119 +17,24 @@ add_custom_target(palletizing_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" "palletizing/NavigateActionResult:palletizing/NavigateActionFeedback:palletizing/NavigateFeedback:std_msgs/Header:actionlib_msgs/GoalID:palletizing/NavigateGoal:palletizing/NavigateActionGoal:palletizing/NavigateResult:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:actionlib_msgs/GoalStatus"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" ""
 )
 
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" "std_msgs/Header:actionlib_msgs/GoalID:palletizing/NavigateGoal:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" ""
 )
 
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" "palletizing/NavigateResult:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" ""
 )
 
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" "palletizing/NavigateFeedback:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" "geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" "std_msgs/Header:actionlib_msgs/GoalID:palletizing/GrabActionResult:palletizing/GrabActionFeedback:palletizing/GrabGoal:geometry_msgs/Point:palletizing/GrabActionGoal:palletizing/GrabFeedback:palletizing/GrabResult:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" "palletizing/GrabGoal:geometry_msgs/Point:std_msgs/Header:actionlib_msgs/GoalID"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" "palletizing/GrabResult:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" "palletizing/GrabFeedback:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" "geometry_msgs/Point"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" "palletizing/PalletizeActionGoal:std_msgs/Header:actionlib_msgs/GoalID:palletizing/PalletizeFeedback:palletizing/PalletizeResult:palletizing/PalletizeActionResult:geometry_msgs/Point:palletizing/PalletizeActionFeedback:palletizing/PalletizeGoal:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" "geometry_msgs/Point:palletizing/PalletizeGoal:std_msgs/Header:actionlib_msgs/GoalID"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" "palletizing/PalletizeResult:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" "palletizing/PalletizeFeedback:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" "geometry_msgs/Point"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" ""
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" "geometry_msgs/Point"
-)
-
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
-add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "palletizing" "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" ""
 )
 
 #
@@ -139,127 +44,13 @@ add_custom_target(_palletizing_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
 )
 _generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
-)
-_generate_msg_cpp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
@@ -267,13 +58,13 @@ _generate_msg_cpp(palletizing
 
 ### Generating Services
 _generate_srv_cpp(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
 )
 _generate_srv_cpp(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/palletizing
@@ -291,51 +82,13 @@ add_custom_target(palletizing_generate_messages_cpp
 add_dependencies(palletizing_generate_messages palletizing_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_cpp _palletizing_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -348,127 +101,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS palletizing_generate_messages_cpp)
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
 )
 _generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
-)
-_generate_msg_eus(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
@@ -476,13 +115,13 @@ _generate_msg_eus(palletizing
 
 ### Generating Services
 _generate_srv_eus(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
 )
 _generate_srv_eus(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing
@@ -500,51 +139,13 @@ add_custom_target(palletizing_generate_messages_eus
 add_dependencies(palletizing_generate_messages palletizing_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_eus _palletizing_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -557,127 +158,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS palletizing_generate_messages_eus)
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
 )
 _generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
-)
-_generate_msg_lisp(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
@@ -685,13 +172,13 @@ _generate_msg_lisp(palletizing
 
 ### Generating Services
 _generate_srv_lisp(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
 )
 _generate_srv_lisp(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing
@@ -709,51 +196,13 @@ add_custom_target(palletizing_generate_messages_lisp
 add_dependencies(palletizing_generate_messages palletizing_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_lisp _palletizing_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -766,127 +215,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS palletizing_generate_messages_lisp)
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
 )
 _generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
-)
-_generate_msg_nodejs(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
@@ -894,13 +229,13 @@ _generate_msg_nodejs(palletizing
 
 ### Generating Services
 _generate_srv_nodejs(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
 )
 _generate_srv_nodejs(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing
@@ -918,51 +253,13 @@ add_custom_target(palletizing_generate_messages_nodejs
 add_dependencies(palletizing_generate_messages palletizing_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_nodejs _palletizing_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -975,127 +272,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS palletizing_generate_messages_nodej
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
 )
 _generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg"
-  "${MSG_I_FLAGS}"
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg"
-  "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg"
-  "${MSG_I_FLAGS}"
-  ""
-  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
-)
-_generate_msg_py(palletizing
-  "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
@@ -1103,13 +286,13 @@ _generate_msg_py(palletizing
 
 ### Generating Services
 _generate_srv_py(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
 )
 _generate_srv_py(palletizing
-  "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing
@@ -1127,51 +310,13 @@ add_custom_target(palletizing_generate_messages_py
 add_dependencies(palletizing_generate_messages palletizing_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg" NAME_WE)
 add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv" NAME_WE)
-add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv" NAME_WE)
 add_dependencies(palletizing_generate_messages_py _palletizing_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -1193,12 +338,6 @@ endif()
 if(TARGET std_msgs_generate_messages_cpp)
   add_dependencies(palletizing_generate_messages_cpp std_msgs_generate_messages_cpp)
 endif()
-if(TARGET geometry_msgs_generate_messages_cpp)
-  add_dependencies(palletizing_generate_messages_cpp geometry_msgs_generate_messages_cpp)
-endif()
-if(TARGET actionlib_msgs_generate_messages_cpp)
-  add_dependencies(palletizing_generate_messages_cpp actionlib_msgs_generate_messages_cpp)
-endif()
 
 if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/palletizing)
   # install generated code
@@ -1209,12 +348,6 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/pa
 endif()
 if(TARGET std_msgs_generate_messages_eus)
   add_dependencies(palletizing_generate_messages_eus std_msgs_generate_messages_eus)
-endif()
-if(TARGET geometry_msgs_generate_messages_eus)
-  add_dependencies(palletizing_generate_messages_eus geometry_msgs_generate_messages_eus)
-endif()
-if(TARGET actionlib_msgs_generate_messages_eus)
-  add_dependencies(palletizing_generate_messages_eus actionlib_msgs_generate_messages_eus)
 endif()
 
 if(genlisp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/palletizing)
@@ -1227,12 +360,6 @@ endif()
 if(TARGET std_msgs_generate_messages_lisp)
   add_dependencies(palletizing_generate_messages_lisp std_msgs_generate_messages_lisp)
 endif()
-if(TARGET geometry_msgs_generate_messages_lisp)
-  add_dependencies(palletizing_generate_messages_lisp geometry_msgs_generate_messages_lisp)
-endif()
-if(TARGET actionlib_msgs_generate_messages_lisp)
-  add_dependencies(palletizing_generate_messages_lisp actionlib_msgs_generate_messages_lisp)
-endif()
 
 if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/palletizing)
   # install generated code
@@ -1243,12 +370,6 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET std_msgs_generate_messages_nodejs)
   add_dependencies(palletizing_generate_messages_nodejs std_msgs_generate_messages_nodejs)
-endif()
-if(TARGET geometry_msgs_generate_messages_nodejs)
-  add_dependencies(palletizing_generate_messages_nodejs geometry_msgs_generate_messages_nodejs)
-endif()
-if(TARGET actionlib_msgs_generate_messages_nodejs)
-  add_dependencies(palletizing_generate_messages_nodejs actionlib_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/palletizing)
@@ -1261,10 +382,4 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/pall
 endif()
 if(TARGET std_msgs_generate_messages_py)
   add_dependencies(palletizing_generate_messages_py std_msgs_generate_messages_py)
-endif()
-if(TARGET geometry_msgs_generate_messages_py)
-  add_dependencies(palletizing_generate_messages_py geometry_msgs_generate_messages_py)
-endif()
-if(TARGET actionlib_msgs_generate_messages_py)
-  add_dependencies(palletizing_generate_messages_py actionlib_msgs_generate_messages_py)
 endif()

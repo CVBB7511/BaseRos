@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for vizanti_geneus.
 
@@ -63,10 +63,10 @@ vizanti/CMakeFiles/vizanti_geneus.dir/build: vizanti_geneus
 .PHONY : vizanti/CMakeFiles/vizanti_geneus.dir/build
 
 vizanti/CMakeFiles/vizanti_geneus.dir/clean:
-	cd /home/robot6/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_geneus.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_geneus.dir/cmake_clean.cmake
 .PHONY : vizanti/CMakeFiles/vizanti_geneus.dir/clean
 
 vizanti/CMakeFiles/vizanti_geneus.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/vizanti /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/vizanti /home/robot6/catkin_ws/build/vizanti/CMakeFiles/vizanti_geneus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/vizanti /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/vizanti /home/xyntera/baseRos/catkin_ws/build/vizanti/CMakeFiles/vizanti_geneus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : vizanti/CMakeFiles/vizanti_geneus.dir/depend
 

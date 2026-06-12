@@ -1,10 +1,10 @@
 
 "use strict";
 
-let ArmCommand = require('./ArmCommand.js')
 let ScanRequest = require('./ScanRequest.js')
+let ArmCommand = require('./ArmCommand.js')
 
 module.exports = {
-  ArmCommand: ArmCommand,
   ScanRequest: ScanRequest,
+  ArmCommand: ArmCommand,
 };

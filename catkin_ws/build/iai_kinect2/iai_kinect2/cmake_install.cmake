@@ -1,8 +1,8 @@
-# Install script for directory: /home/robot6/catkin_ws/src/iai_kinect2/iai_kinect2
+# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/iai_kinect2/iai_kinect2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/robot6/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,6 +38,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/iai_kinect2" TYPE FILE FILES "/home/robot6/catkin_ws/src/iai_kinect2/iai_kinect2/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/iai_kinect2" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/iai_kinect2/package.xml")
 endif()
 

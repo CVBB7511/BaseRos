@@ -6,5 +6,5 @@ CXX_FLAGS =  -DBT_USE_DOUBLE_PRECISION -Wall -Wuninitialized -Winit-self -Wunuse
 
 CXX_DEFINES = -DDEPTH_REG_CPU -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"kinect2_registration\" -Dkinect2_registration_EXPORTS
 
-CXX_INCLUDES = -I/usr/include/eigen3 -I/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include/internal -isystem /usr/include/opencv4 
+CXX_INCLUDES = -I/usr/include/eigen3 -I/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include/internal -isystem /usr/include/opencv4 
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_face_detect"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_face_detect.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_face_detect"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_face_detect.pdb"
   "CMakeFiles/wpb_home_face_detect.dir/src/wpb_home_face_detect.cpp.o"
 )
 

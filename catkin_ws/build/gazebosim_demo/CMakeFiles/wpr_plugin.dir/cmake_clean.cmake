@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/libwpr_plugin.pdb"
-  "/home/robot6/catkin_ws/devel/lib/libwpr_plugin.so"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/libwpr_plugin.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/libwpr_plugin.so"
   "CMakeFiles/wpr_plugin.dir/src/wpr_plugin.cpp.o"
 )
 

@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/robot6/catkin_ws/install/setup.sh
+    local-name: /home/xyntera/baseRos/catkin_ws/install/setup.sh

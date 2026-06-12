@@ -1,8 +1,8 @@
-# Install script for directory: /home/robot6/catkin_ws/src/mapping
+# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/mapping
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/robot6/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,55 +39,55 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/srv" TYPE FILE FILES
-    "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
-    "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+    "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
+    "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/cmake" TYPE FILE FILES "/home/robot6/catkin_ws/build/mapping/catkin_generated/installspace/mapping-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/mapping/catkin_generated/installspace/mapping-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/include/mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/include/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/roseus/ros/mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/common-lisp/ros/mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/gennodejs/ros/mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/mapping")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/mapping")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/mapping")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/robot6/catkin_ws/build/mapping/catkin_generated/installspace/mapping.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/mapping/catkin_generated/installspace/mapping.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/cmake" TYPE FILE FILES "/home/robot6/catkin_ws/build/mapping/catkin_generated/installspace/mapping-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/mapping/catkin_generated/installspace/mapping-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping/cmake" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/mapping/catkin_generated/installspace/mappingConfig.cmake"
-    "/home/robot6/catkin_ws/build/mapping/catkin_generated/installspace/mappingConfig-version.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/mapping/catkin_generated/installspace/mappingConfig.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/mapping/catkin_generated/installspace/mappingConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping" TYPE FILE FILES "/home/robot6/catkin_ws/src/mapping/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mapping" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/mapping/package.xml")
 endif()
 

@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"xfyun_waterplus\"
 
-CXX_INCLUDES = -I/home/robot6/catkin_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/robot6/catkin_ws/src/xfyun_waterplus/include 
+CXX_INCLUDES = -I/home/xyntera/baseRos/catkin_ws/devel/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include 
 

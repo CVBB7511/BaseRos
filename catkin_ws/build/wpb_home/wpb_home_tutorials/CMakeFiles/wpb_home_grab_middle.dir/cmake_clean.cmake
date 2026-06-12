@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_middle"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_middle.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_middle"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_middle.pdb"
   "CMakeFiles/wpb_home_grab_middle.dir/src/wpb_home_grab_middle.cpp.o"
 )
 

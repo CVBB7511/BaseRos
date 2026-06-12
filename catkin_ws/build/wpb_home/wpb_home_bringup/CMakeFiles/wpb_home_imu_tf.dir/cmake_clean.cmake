@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_imu_tf"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_imu_tf.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_imu_tf"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_imu_tf.pdb"
   "CMakeFiles/wpb_home_imu_tf.dir/src/wpb_home_imu_tf.cpp.o"
 )
 

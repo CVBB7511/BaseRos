@@ -1,4 +1,4 @@
-prefix=/home/robot6/catkin_ws/install
+prefix=/home/xyntera/baseRos/catkin_ws/install
 
 Name: gazebosim_demo
 Description: Description of gazebosim_demo

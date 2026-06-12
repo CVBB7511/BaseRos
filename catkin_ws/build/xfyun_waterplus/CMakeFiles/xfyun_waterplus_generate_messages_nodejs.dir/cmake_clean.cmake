@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/gennodejs/ros/xfyun_waterplus/srv/IATSwitch.js"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/xfyun_waterplus/srv/IATSwitch.js"
   "CMakeFiles/xfyun_waterplus_generate_messages_nodejs"
 )
 

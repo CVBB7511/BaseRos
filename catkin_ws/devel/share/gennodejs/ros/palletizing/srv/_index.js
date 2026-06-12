@@ -1,10 +1,10 @@
 
 "use strict";
 
-let SystemReset = require('./SystemReset.js')
-let TriggerDetection = require('./TriggerDetection.js')
+let StartTask = require('./StartTask.js')
+let MarkZone = require('./MarkZone.js')
 
 module.exports = {
-  SystemReset: SystemReset,
-  TriggerDetection: TriggerDetection,
+  StartTask: StartTask,
+  MarkZone: MarkZone,
 };

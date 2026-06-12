@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/_Coord.py"
-  "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/_Rect.py"
-  "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/__init__.py"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/_Coord.py"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/_Rect.py"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_behaviors/msg/__init__.py"
   "CMakeFiles/wpb_home_behaviors_generate_messages_py"
 )
 

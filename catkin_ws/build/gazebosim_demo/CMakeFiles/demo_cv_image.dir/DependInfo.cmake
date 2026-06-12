@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot6/catkin_ws/src/gazebosim_demo/src/demo_cv_image.cpp" "/home/robot6/catkin_ws/build/gazebosim_demo/CMakeFiles/demo_cv_image.dir/src/demo_cv_image.cpp.o"
+  "/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/src/demo_cv_image.cpp" "/home/xyntera/baseRos/catkin_ws/build/gazebosim_demo/CMakeFiles/demo_cv_image.dir/src/demo_cv_image.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -32,7 +32,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/ignition/msgs5"
   "/usr/include/ignition/common3"
   "/usr/include/ignition/fuel_tools4"
-  "/home/robot6/catkin_ws/src/gazebosim_demo/include"
+  "/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/eigen3"

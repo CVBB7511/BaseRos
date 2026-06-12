@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/palletizing/src/custom_place_action.cpp
+/home/xyntera/baseRos/catkin_ws/src/palletizing/src/custom_place_action.cpp
 ros/ros.h
 -
 geometry_msgs/Pose2D.h

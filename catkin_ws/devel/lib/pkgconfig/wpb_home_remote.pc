@@ -1,4 +1,4 @@
-prefix=/home/robot6/catkin_ws/devel
+prefix=/home/xyntera/baseRos/catkin_ws/devel
 
 Name: wpb_home_remote
 Description: Description of wpb_home_remote

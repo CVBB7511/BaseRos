@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/gennodejs/ros/wpb_home_behaviors/msg/Coord.js"
-  "/home/robot6/catkin_ws/devel/share/gennodejs/ros/wpb_home_behaviors/msg/Rect.js"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/wpb_home_behaviors/msg/Coord.js"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/wpb_home_behaviors/msg/Rect.js"
   "CMakeFiles/wpb_home_behaviors_generate_messages_nodejs"
 )
 

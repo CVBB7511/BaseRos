@@ -6,21 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
 msp_types.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/qisr.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/qisr.h
 msp_types.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
 stdlib.h
 -
 stdio.h
@@ -30,13 +30,13 @@ string.h
 unistd.h
 -
 qisr.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/qisr.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/qisr.h
 msp_cmn.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/msp_cmn.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/msp_cmn.h
 msp_errors.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/msp_errors.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/msp_errors.h
 speech_recognizer.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/speech_recognizer.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/speech_recognizer.h
 iconv.h
 -
 ros/ros.h

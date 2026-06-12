@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_motor_encoder"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_motor_encoder.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_motor_encoder"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_motor_encoder.pdb"
   "CMakeFiles/wpb_home_motor_encoder.dir/src/driver/SerialCom.cpp.o"
   "CMakeFiles/wpb_home_motor_encoder.dir/src/driver/WPB_Home_driver.cpp.o"
   "CMakeFiles/wpb_home_motor_encoder.dir/src/wpb_home_motor_encoder.cpp.o"

@@ -43,68 +43,68 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for vizanti_generate_messages_nodejs.
 
 # Include the progress variables for this target.
 include vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/progress.make
 
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js
-vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js
+vizanti/CMakeFiles/vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js
 
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js: /home/robot6/catkin_ws/src/vizanti/srv/GetNodeParameters.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from vizanti/GetNodeParameters.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/GetNodeParameters.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from vizanti/GetNodeParameters.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js: /home/robot6/catkin_ws/src/vizanti/srv/SaveMap.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from vizanti/SaveMap.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/SaveMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from vizanti/SaveMap.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js: /home/robot6/catkin_ws/src/vizanti/srv/LoadMap.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from vizanti/LoadMap.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/LoadMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from vizanti/LoadMap.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js: /home/robot6/catkin_ws/src/vizanti/srv/RecordRosbag.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from vizanti/RecordRosbag.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/RecordRosbag.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from vizanti/RecordRosbag.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js: /home/robot6/catkin_ws/src/vizanti/srv/ManageNode.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from vizanti/ManageNode.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/ManageNode.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Javascript code from vizanti/ManageNode.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js: /home/robot6/catkin_ws/src/vizanti/srv/ListPackages.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from vizanti/ListPackages.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/ListPackages.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Javascript code from vizanti/ListPackages.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
-/home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js: /home/robot6/catkin_ws/src/vizanti/srv/ListExecutables.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from vizanti/ListExecutables.srv"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/robot6/catkin_ws/src/vizanti/srv/ListExecutables.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Javascript code from vizanti/ListExecutables.srv"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv
 
 vizanti_generate_messages_nodejs: vizanti/CMakeFiles/vizanti_generate_messages_nodejs
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js
-vizanti_generate_messages_nodejs: /home/robot6/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js
+vizanti_generate_messages_nodejs: /home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js
 vizanti_generate_messages_nodejs: vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/build.make
 
 .PHONY : vizanti_generate_messages_nodejs
@@ -115,10 +115,10 @@ vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/build: vizanti_generate_
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/build
 
 vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/clean:
-	cd /home/robot6/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_generate_messages_nodejs.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_generate_messages_nodejs.dir/cmake_clean.cmake
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/clean
 
 vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/vizanti /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/vizanti /home/robot6/catkin_ws/build/vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/vizanti /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/vizanti /home/xyntera/baseRos/catkin_ws/build/vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_nodejs.dir/depend
 

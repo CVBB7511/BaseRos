@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/wpb_home/wpb_home_behaviors/src/wpb_home_grab_server.cpp
+/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/wpb_home_grab_server.cpp
 ros/ros.h
 -
 pcl_ros/point_cloud.h
@@ -42,7 +42,7 @@ image_transport/image_transport.h
 opencv2/highgui/highgui.hpp
 -
 opencv2/imgproc/imgproc.hpp
-/home/robot6/catkin_ws/src/wpb_home/wpb_home_behaviors/src/opencv2/imgproc/imgproc.hpp
+/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/opencv2/imgproc/imgproc.hpp
 sensor_msgs/Image.h
 -
 pcl_ros/transforms.h

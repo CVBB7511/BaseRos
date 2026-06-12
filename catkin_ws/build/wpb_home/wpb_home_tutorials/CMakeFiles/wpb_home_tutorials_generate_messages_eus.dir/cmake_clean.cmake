@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/wpb_home_tutorials/manifest.l"
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/wpb_home_tutorials/srv/Follow.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/wpb_home_tutorials/manifest.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/wpb_home_tutorials/srv/Follow.l"
   "CMakeFiles/wpb_home_tutorials_generate_messages_eus"
 )
 

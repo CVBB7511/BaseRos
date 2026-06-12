@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_viewer/src/viewer.cpp" "/home/robot6/catkin_ws/build/iai_kinect2/kinect2_viewer/CMakeFiles/kinect2_viewer.dir/src/viewer.cpp.o"
+  "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_viewer/src/viewer.cpp" "/home/xyntera/baseRos/catkin_ws/build/iai_kinect2/kinect2_viewer/CMakeFiles/kinect2_viewer.dir/src/viewer.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -23,9 +23,9 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_viewer/include"
-  "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_bridge/include"
-  "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include"
+  "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_viewer/include"
+  "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_bridge/include"
+  "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/vtk-7.1"
@@ -39,7 +39,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/robot6/catkin_ws/build/iai_kinect2/kinect2_registration/CMakeFiles/kinect2_registration.dir/DependInfo.cmake"
+  "/home/xyntera/baseRos/catkin_ws/build/iai_kinect2/kinect2_registration/CMakeFiles/kinect2_registration.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

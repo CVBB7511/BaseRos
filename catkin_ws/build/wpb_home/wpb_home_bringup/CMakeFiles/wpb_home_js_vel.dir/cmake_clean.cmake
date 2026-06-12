@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_js_vel"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_js_vel.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_js_vel"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_js_vel.pdb"
   "CMakeFiles/wpb_home_js_vel.dir/src/wpb_home_js_vel.cpp.o"
 )
 

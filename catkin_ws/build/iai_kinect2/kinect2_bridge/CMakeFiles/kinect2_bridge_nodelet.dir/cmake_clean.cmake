@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/libkinect2_bridge_nodelet.pdb"
-  "/home/robot6/catkin_ws/devel/lib/libkinect2_bridge_nodelet.so"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/libkinect2_bridge_nodelet.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/libkinect2_bridge_nodelet.so"
   "CMakeFiles/kinect2_bridge_nodelet.dir/src/kinect2_bridge.cpp.o"
 )
 

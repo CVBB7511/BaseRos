@@ -67,14 +67,14 @@ set(kinect2_registration_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(kinect2_registration_SOURCE_PREFIX /home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration)
-  set(kinect2_registration_DEVEL_PREFIX /home/robot6/catkin_ws/devel)
+  set(kinect2_registration_SOURCE_PREFIX /home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration)
+  set(kinect2_registration_DEVEL_PREFIX /home/xyntera/baseRos/catkin_ws/devel)
   set(kinect2_registration_INSTALL_PREFIX "")
   set(kinect2_registration_PREFIX ${kinect2_registration_DEVEL_PREFIX})
 else()
   set(kinect2_registration_SOURCE_PREFIX "")
   set(kinect2_registration_DEVEL_PREFIX "")
-  set(kinect2_registration_INSTALL_PREFIX /home/robot6/catkin_ws/install)
+  set(kinect2_registration_INSTALL_PREFIX /home/xyntera/baseRos/catkin_ws/install)
   set(kinect2_registration_PREFIX ${kinect2_registration_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(kinect2_registration_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include " STREQUAL " ")
+if(NOT "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include " STREQUAL " ")
   set(kinect2_registration_INCLUDE_DIRS "")
-  set(_include_dirs "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include")
+  set(_include_dirs "/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/include " ST
         message(FATAL_ERROR "Project 'kinect2_registration' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'kinect2_registration' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/robot6/catkin_ws/src/iai_kinect2/kinect2_registration/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'kinect2_registration' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/${idir}'.  ${_report}")
     endif()
     _list_append_unique(kinect2_registration_INCLUDE_DIRS ${include})
   endforeach()
@@ -156,7 +156,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/robot6/catkin_ws/devel/lib;/home/robot6/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/xyntera/baseRos/catkin_ws/devel/lib;/home/xyntera/baseRos/catkin_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

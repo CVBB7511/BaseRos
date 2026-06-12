@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/palletizing/custom_grab_action"
-  "/home/robot6/catkin_ws/devel/lib/palletizing/custom_grab_action.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/palletizing/custom_grab_action"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/palletizing/custom_grab_action.pdb"
   "CMakeFiles/custom_grab_action.dir/src/custom_grab_action.cpp.o"
 )
 

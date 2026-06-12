@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,14 +137,14 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robot6/catkin_ws/build/CMakeFiles /home/robot6/catkin_ws/build/xfyun_waterplus/CMakeFiles/progress.marks
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot6/catkin_ws/build/CMakeFiles 0
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/xyntera/baseRos/catkin_ws/build/CMakeFiles /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/progress.marks
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/xyntera/baseRos/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/clean
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/preinstall
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/preinstall
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ recorder_wav_node: xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/rule
 
 # fast build rule for target.
 recorder_wav_node/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build
 .PHONY : recorder_wav_node/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/rule
 
 # Convenience name for target.
@@ -194,12 +194,12 @@ wp_voice_cmd_cn: xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/rule
 
 # fast build rule for target.
 wp_voice_cmd_cn/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build
 .PHONY : wp_voice_cmd_cn/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/tts_node.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/tts_node.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/tts_node.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/tts_node.dir/rule
 
 # Convenience name for target.
@@ -209,12 +209,12 @@ tts_node: xfyun_waterplus/CMakeFiles/tts_node.dir/rule
 
 # fast build rule for target.
 tts_node/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/build
 .PHONY : tts_node/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/rule
 
 # Convenience name for target.
@@ -224,12 +224,12 @@ xfyun_waterplus_geneus: xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/ru
 
 # fast build rule for target.
 xfyun_waterplus_geneus/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_geneus.dir/build
 .PHONY : xfyun_waterplus_geneus/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/rule
 
 # Convenience name for target.
@@ -239,12 +239,12 @@ _xfyun_waterplus_generate_messages_check_deps_IATSwitch: xfyun_waterplus/CMakeFi
 
 # fast build rule for target.
 _xfyun_waterplus_generate_messages_check_deps_IATSwitch/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/build.make xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/build.make xfyun_waterplus/CMakeFiles/_xfyun_waterplus_generate_messages_check_deps_IATSwitch.dir/build
 .PHONY : _xfyun_waterplus_generate_messages_check_deps_IATSwitch/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -254,12 +254,12 @@ xfyun_waterplus_generate_messages_cpp: xfyun_waterplus/CMakeFiles/xfyun_waterplu
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages_cpp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_cpp.dir/build
 .PHONY : xfyun_waterplus_generate_messages_cpp/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/asr_node.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/asr_node.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/asr_node.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/asr_node.dir/rule
 
 # Convenience name for target.
@@ -269,12 +269,12 @@ asr_node: xfyun_waterplus/CMakeFiles/asr_node.dir/rule
 
 # fast build rule for target.
 asr_node/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/build
 .PHONY : asr_node/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -284,12 +284,12 @@ xfyun_waterplus_generate_messages_eus: xfyun_waterplus/CMakeFiles/xfyun_waterplu
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages_eus/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_eus.dir/build
 .PHONY : xfyun_waterplus_generate_messages_eus/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/rule
 
 # Convenience name for target.
@@ -299,12 +299,12 @@ xfyun_waterplus_genlisp: xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/
 
 # fast build rule for target.
 xfyun_waterplus_genlisp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_genlisp.dir/build
 .PHONY : xfyun_waterplus_genlisp/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -314,12 +314,12 @@ xfyun_waterplus_generate_messages_nodejs: xfyun_waterplus/CMakeFiles/xfyun_water
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages_nodejs/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_nodejs.dir/build
 .PHONY : xfyun_waterplus_generate_messages_nodejs/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -329,12 +329,12 @@ xfyun_waterplus_generate_messages_lisp: xfyun_waterplus/CMakeFiles/xfyun_waterpl
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages_lisp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_lisp.dir/build
 .PHONY : xfyun_waterplus_generate_messages_lisp/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/iat_file.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/iat_file.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/iat_file.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/iat_file.dir/rule
 
 # Convenience name for target.
@@ -344,12 +344,12 @@ iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/rule
 
 # fast build rule for target.
 iat_file/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/build
 .PHONY : iat_file/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/rule
 
 # Convenience name for target.
@@ -359,12 +359,12 @@ xfyun_waterplus_gencpp: xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/ru
 
 # fast build rule for target.
 xfyun_waterplus_gencpp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_gencpp.dir/build
 .PHONY : xfyun_waterplus_gencpp/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/rule
 
 # Convenience name for target.
@@ -374,12 +374,12 @@ xfyun_waterplus_gennodejs: xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.
 
 # fast build rule for target.
 xfyun_waterplus_gennodejs/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_gennodejs.dir/build
 .PHONY : xfyun_waterplus_gennodejs/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/rule
 
 # Convenience name for target.
@@ -389,12 +389,12 @@ xfyun_waterplus_genpy: xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/rule
 
 # fast build rule for target.
 xfyun_waterplus_genpy/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build
 .PHONY : xfyun_waterplus_genpy/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/wav_rate_node.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/wav_rate_node.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/wav_rate_node.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/wav_rate_node.dir/rule
 
 # Convenience name for target.
@@ -404,12 +404,12 @@ wav_rate_node: xfyun_waterplus/CMakeFiles/wav_rate_node.dir/rule
 
 # fast build rule for target.
 wav_rate_node/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build
 .PHONY : wav_rate_node/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/rule
 
 # Convenience name for target.
@@ -419,12 +419,12 @@ xfyun_waterplus_generate_messages: xfyun_waterplus/CMakeFiles/xfyun_waterplus_ge
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages.dir/build
 .PHONY : xfyun_waterplus_generate_messages/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -434,12 +434,12 @@ xfyun_waterplus_generate_messages_py: xfyun_waterplus/CMakeFiles/xfyun_waterplus
 
 # fast build rule for target.
 xfyun_waterplus_generate_messages_py/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/build.make xfyun_waterplus/CMakeFiles/xfyun_waterplus_generate_messages_py.dir/build
 .PHONY : xfyun_waterplus_generate_messages_py/fast
 
 # Convenience name for target.
 xfyun_waterplus/CMakeFiles/iat_node.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/iat_node.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 xfyun_waterplus/CMakeFiles/iat_node.dir/rule
 .PHONY : xfyun_waterplus/CMakeFiles/iat_node.dir/rule
 
 # Convenience name for target.
@@ -449,7 +449,7 @@ iat_node: xfyun_waterplus/CMakeFiles/iat_node.dir/rule
 
 # fast build rule for target.
 iat_node/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/build
 .PHONY : iat_node/fast
 
 src/asr_node.o: src/asr_node.cpp.o
@@ -458,7 +458,7 @@ src/asr_node.o: src/asr_node.cpp.o
 
 # target to build an object file
 src/asr_node.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.o
 .PHONY : src/asr_node.cpp.o
 
 src/asr_node.i: src/asr_node.cpp.i
@@ -467,7 +467,7 @@ src/asr_node.i: src/asr_node.cpp.i
 
 # target to preprocess a source file
 src/asr_node.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.i
 .PHONY : src/asr_node.cpp.i
 
 src/asr_node.s: src/asr_node.cpp.s
@@ -476,7 +476,7 @@ src/asr_node.s: src/asr_node.cpp.s
 
 # target to generate assembly for a file
 src/asr_node.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/asr_node.cpp.s
 .PHONY : src/asr_node.cpp.s
 
 src/iat_file.o: src/iat_file.cpp.o
@@ -485,7 +485,7 @@ src/iat_file.o: src/iat_file.cpp.o
 
 # target to build an object file
 src/iat_file.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o
 .PHONY : src/iat_file.cpp.o
 
 src/iat_file.i: src/iat_file.cpp.i
@@ -494,7 +494,7 @@ src/iat_file.i: src/iat_file.cpp.i
 
 # target to preprocess a source file
 src/iat_file.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.i
 .PHONY : src/iat_file.cpp.i
 
 src/iat_file.s: src/iat_file.cpp.s
@@ -503,7 +503,7 @@ src/iat_file.s: src/iat_file.cpp.s
 
 # target to generate assembly for a file
 src/iat_file.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.s
 .PHONY : src/iat_file.cpp.s
 
 src/iat_node.o: src/iat_node.cpp.o
@@ -512,7 +512,7 @@ src/iat_node.o: src/iat_node.cpp.o
 
 # target to build an object file
 src/iat_node.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.o
 .PHONY : src/iat_node.cpp.o
 
 src/iat_node.i: src/iat_node.cpp.i
@@ -521,7 +521,7 @@ src/iat_node.i: src/iat_node.cpp.i
 
 # target to preprocess a source file
 src/iat_node.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.i
 .PHONY : src/iat_node.cpp.i
 
 src/iat_node.s: src/iat_node.cpp.s
@@ -530,7 +530,7 @@ src/iat_node.s: src/iat_node.cpp.s
 
 # target to generate assembly for a file
 src/iat_node.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/iat_node.cpp.s
 .PHONY : src/iat_node.cpp.s
 
 src/recorder_wav_node.o: src/recorder_wav_node.cpp.o
@@ -539,7 +539,7 @@ src/recorder_wav_node.o: src/recorder_wav_node.cpp.o
 
 # target to build an object file
 src/recorder_wav_node.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.o
 .PHONY : src/recorder_wav_node.cpp.o
 
 src/recorder_wav_node.i: src/recorder_wav_node.cpp.i
@@ -548,7 +548,7 @@ src/recorder_wav_node.i: src/recorder_wav_node.cpp.i
 
 # target to preprocess a source file
 src/recorder_wav_node.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.i
 .PHONY : src/recorder_wav_node.cpp.i
 
 src/recorder_wav_node.s: src/recorder_wav_node.cpp.s
@@ -557,7 +557,7 @@ src/recorder_wav_node.s: src/recorder_wav_node.cpp.s
 
 # target to generate assembly for a file
 src/recorder_wav_node.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/build.make xfyun_waterplus/CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.s
 .PHONY : src/recorder_wav_node.cpp.s
 
 src/tts_node.o: src/tts_node.cpp.o
@@ -566,7 +566,7 @@ src/tts_node.o: src/tts_node.cpp.o
 
 # target to build an object file
 src/tts_node.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.o
 .PHONY : src/tts_node.cpp.o
 
 src/tts_node.i: src/tts_node.cpp.i
@@ -575,7 +575,7 @@ src/tts_node.i: src/tts_node.cpp.i
 
 # target to preprocess a source file
 src/tts_node.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.i
 .PHONY : src/tts_node.cpp.i
 
 src/tts_node.s: src/tts_node.cpp.s
@@ -584,7 +584,7 @@ src/tts_node.s: src/tts_node.cpp.s
 
 # target to generate assembly for a file
 src/tts_node.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/tts_node.dir/build.make xfyun_waterplus/CMakeFiles/tts_node.dir/src/tts_node.cpp.s
 .PHONY : src/tts_node.cpp.s
 
 src/wav_rate_node.o: src/wav_rate_node.cpp.o
@@ -593,7 +593,7 @@ src/wav_rate_node.o: src/wav_rate_node.cpp.o
 
 # target to build an object file
 src/wav_rate_node.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.o
 .PHONY : src/wav_rate_node.cpp.o
 
 src/wav_rate_node.i: src/wav_rate_node.cpp.i
@@ -602,7 +602,7 @@ src/wav_rate_node.i: src/wav_rate_node.cpp.i
 
 # target to preprocess a source file
 src/wav_rate_node.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.i
 .PHONY : src/wav_rate_node.cpp.i
 
 src/wav_rate_node.s: src/wav_rate_node.cpp.s
@@ -611,7 +611,7 @@ src/wav_rate_node.s: src/wav_rate_node.cpp.s
 
 # target to generate assembly for a file
 src/wav_rate_node.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wav_rate_node.dir/build.make xfyun_waterplus/CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.s
 .PHONY : src/wav_rate_node.cpp.s
 
 src/wp_voice_cmd_cn.o: src/wp_voice_cmd_cn.cpp.o
@@ -620,7 +620,7 @@ src/wp_voice_cmd_cn.o: src/wp_voice_cmd_cn.cpp.o
 
 # target to build an object file
 src/wp_voice_cmd_cn.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.o
 .PHONY : src/wp_voice_cmd_cn.cpp.o
 
 src/wp_voice_cmd_cn.i: src/wp_voice_cmd_cn.cpp.i
@@ -629,7 +629,7 @@ src/wp_voice_cmd_cn.i: src/wp_voice_cmd_cn.cpp.i
 
 # target to preprocess a source file
 src/wp_voice_cmd_cn.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.i
 .PHONY : src/wp_voice_cmd_cn.cpp.i
 
 src/wp_voice_cmd_cn.s: src/wp_voice_cmd_cn.cpp.s
@@ -638,7 +638,7 @@ src/wp_voice_cmd_cn.s: src/wp_voice_cmd_cn.cpp.s
 
 # target to generate assembly for a file
 src/wp_voice_cmd_cn.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/build.make xfyun_waterplus/CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.s
 .PHONY : src/wp_voice_cmd_cn.cpp.s
 
 src/xfyun/linuxrec.o: src/xfyun/linuxrec.c.o
@@ -647,9 +647,9 @@ src/xfyun/linuxrec.o: src/xfyun/linuxrec.c.o
 
 # target to build an object file
 src/xfyun/linuxrec.c.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.o
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.o
 .PHONY : src/xfyun/linuxrec.c.o
 
 src/xfyun/linuxrec.i: src/xfyun/linuxrec.c.i
@@ -658,9 +658,9 @@ src/xfyun/linuxrec.i: src/xfyun/linuxrec.c.i
 
 # target to preprocess a source file
 src/xfyun/linuxrec.c.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.i
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.i
 .PHONY : src/xfyun/linuxrec.c.i
 
 src/xfyun/linuxrec.s: src/xfyun/linuxrec.c.s
@@ -669,9 +669,9 @@ src/xfyun/linuxrec.s: src/xfyun/linuxrec.c.s
 
 # target to generate assembly for a file
 src/xfyun/linuxrec.c.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.s
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/linuxrec.c.s
 .PHONY : src/xfyun/linuxrec.c.s
 
 src/xfyun/speech_recognizer.o: src/xfyun/speech_recognizer.c.o
@@ -680,9 +680,9 @@ src/xfyun/speech_recognizer.o: src/xfyun/speech_recognizer.c.o
 
 # target to build an object file
 src/xfyun/speech_recognizer.c.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.o
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.o
 .PHONY : src/xfyun/speech_recognizer.c.o
 
 src/xfyun/speech_recognizer.i: src/xfyun/speech_recognizer.c.i
@@ -691,9 +691,9 @@ src/xfyun/speech_recognizer.i: src/xfyun/speech_recognizer.c.i
 
 # target to preprocess a source file
 src/xfyun/speech_recognizer.c.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.i
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.i
 .PHONY : src/xfyun/speech_recognizer.c.i
 
 src/xfyun/speech_recognizer.s: src/xfyun/speech_recognizer.c.s
@@ -702,9 +702,9 @@ src/xfyun/speech_recognizer.s: src/xfyun/speech_recognizer.c.s
 
 # target to generate assembly for a file
 src/xfyun/speech_recognizer.c.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.s
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/asr_node.dir/build.make xfyun_waterplus/CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_file.dir/build.make xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f xfyun_waterplus/CMakeFiles/iat_node.dir/build.make xfyun_waterplus/CMakeFiles/iat_node.dir/src/xfyun/speech_recognizer.c.s
 .PHONY : src/xfyun/speech_recognizer.c.s
 
 # Help Target
@@ -777,6 +777,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot6/catkin_ws/src/gazebosim_demo/src/wpr_plugin.cpp" "/home/robot6/catkin_ws/build/gazebosim_demo/CMakeFiles/wpr_plugin.dir/src/wpr_plugin.cpp.o"
+  "/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/src/wpr_plugin.cpp" "/home/xyntera/baseRos/catkin_ws/build/gazebosim_demo/CMakeFiles/wpr_plugin.dir/src/wpr_plugin.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -36,7 +36,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/OGRE"
   "/usr/include/OGRE/Terrain"
   "/usr/include/OGRE/Paging"
-  "/home/robot6/catkin_ws/src/gazebosim_demo/include"
+  "/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/opencv4"

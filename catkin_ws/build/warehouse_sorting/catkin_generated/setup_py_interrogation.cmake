@@ -1,7 +1,0 @@
-set(warehouse_sorting_SETUP_PY_SETUP_MODULE "setuptools")
-set(warehouse_sorting_SETUP_PY_VERSION "0.1.0")
-set(warehouse_sorting_SETUP_PY_SCRIPTS "")
-set(warehouse_sorting_SETUP_PY_PACKAGES "warehouse_sorting")
-set(warehouse_sorting_SETUP_PY_PACKAGE_DIRS "src/warehouse_sorting")
-set(warehouse_sorting_SETUP_PY_MODULES "")
-set(warehouse_sorting_SETUP_PY_MODULE_DIRS "")

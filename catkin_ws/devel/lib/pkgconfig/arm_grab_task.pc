@@ -1,4 +1,4 @@
-prefix=/home/robot6/catkin_ws/devel
+prefix=/home/xyntera/baseRos/catkin_ws/devel
 
 Name: arm_grab_task
 Description: Description of arm_grab_task

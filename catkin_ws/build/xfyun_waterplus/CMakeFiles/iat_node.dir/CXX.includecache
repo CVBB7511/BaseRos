@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h
 ros/service_traits.h
 -
 xfyun_waterplus/IATSwitchRequest.h
@@ -14,7 +14,7 @@ xfyun_waterplus/IATSwitchRequest.h
 xfyun_waterplus/IATSwitchResponse.h
 -
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitchRequest.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitchRequest.h
 string
 -
 vector
@@ -30,7 +30,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitchResponse.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitchResponse.h
 string
 -
 vector
@@ -46,21 +46,21 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
 msp_types.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/qisr.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/qisr.h
 msp_types.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/iat_node.cpp
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_node.cpp
 ros/ros.h
 -
 std_msgs/String.h
@@ -74,15 +74,15 @@ string.h
 unistd.h
 -
 qisr.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/qisr.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/qisr.h
 msp_cmn.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/msp_cmn.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/msp_cmn.h
 msp_errors.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/msp_errors.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/msp_errors.h
 speech_recognizer.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/speech_recognizer.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/speech_recognizer.h
 xfyun_waterplus/IATSwitch.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/xfyun_waterplus/IATSwitch.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun_waterplus/IATSwitch.h
 
 /opt/ros/noetic/include/ros/advertise_options.h
 ros/forwards.h

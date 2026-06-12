@@ -43,281 +43,53 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for palletizing_generate_messages_cpp.
 
 # Include the progress variables for this target.
 include palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/progress.make
 
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeResult.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeFeedback.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h
-palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h
+palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h
+palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h
+palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h
+palletizing/CMakeFiles/palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h
 
 
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from palletizing/NavigateAction.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h: /home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from palletizing/PalletizingStats.msg"
+	cd /home/xyntera/baseRos/catkin_ws/src/palletizing && /home/xyntera/baseRos/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg -Ipalletizing:/home/xyntera/baseRos/catkin_ws/src/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p palletizing -o /home/xyntera/baseRos/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
 
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from palletizing/NavigateActionGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h: /home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from palletizing/SafetyStatus.msg"
+	cd /home/xyntera/baseRos/catkin_ws/src/palletizing && /home/xyntera/baseRos/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg -Ipalletizing:/home/xyntera/baseRos/catkin_ws/src/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p palletizing -o /home/xyntera/baseRos/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
 
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from palletizing/NavigateActionResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h: /home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h: /opt/ros/noetic/share/gencpp/msg.h.template
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h: /opt/ros/noetic/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from palletizing/MarkZone.srv"
+	cd /home/xyntera/baseRos/catkin_ws/src/palletizing && /home/xyntera/baseRos/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv -Ipalletizing:/home/xyntera/baseRos/catkin_ws/src/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p palletizing -o /home/xyntera/baseRos/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
 
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from palletizing/NavigateActionFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating C++ code from palletizing/NavigateGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating C++ code from palletizing/NavigateResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/NavigateFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from palletizing/NavigateFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating C++ code from palletizing/GrabAction.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from palletizing/GrabActionGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from palletizing/GrabActionResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from palletizing/GrabActionFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from palletizing/GrabGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from palletizing/GrabResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/GrabFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/GrabFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/GrabFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating C++ code from palletizing/GrabFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating C++ code from palletizing/PalletizeAction.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating C++ code from palletizing/PalletizeActionGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Generating C++ code from palletizing/PalletizeActionResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Generating C++ code from palletizing/PalletizeActionFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Generating C++ code from palletizing/PalletizeGoal.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeResult.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeResult.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeResult.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Generating C++ code from palletizing/PalletizeResult.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeFeedback.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeFeedback.h: /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg
-/home/robot6/catkin_ws/devel/include/palletizing/PalletizeFeedback.h: /opt/ros/noetic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Generating C++ code from palletizing/PalletizeFeedback.msg"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h: /home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv
-/home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
-/home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h: /opt/ros/noetic/share/gencpp/msg.h.template
-/home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h: /opt/ros/noetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Generating C++ code from palletizing/TriggerDetection.srv"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
-
-/home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
-/home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h: /home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv
-/home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h: /opt/ros/noetic/share/gencpp/msg.h.template
-/home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h: /opt/ros/noetic/share/gencpp/srv.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Generating C++ code from palletizing/SystemReset.srv"
-	cd /home/robot6/catkin_ws/src/palletizing && /home/robot6/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv -Ipalletizing:/home/robot6/catkin_ws/devel/share/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p palletizing -o /home/robot6/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h: /home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h: /opt/ros/noetic/share/gencpp/msg.h.template
+/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h: /opt/ros/noetic/share/gencpp/srv.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from palletizing/StartTask.srv"
+	cd /home/xyntera/baseRos/catkin_ws/src/palletizing && /home/xyntera/baseRos/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv -Ipalletizing:/home/xyntera/baseRos/catkin_ws/src/palletizing/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p palletizing -o /home/xyntera/baseRos/catkin_ws/devel/include/palletizing -e /opt/ros/noetic/share/gencpp/cmake/..
 
 palletizing_generate_messages_cpp: palletizing/CMakeFiles/palletizing_generate_messages_cpp
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateAction.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateActionFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/NavigateFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabAction.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabActionFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/GrabFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeAction.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeActionFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeGoal.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeResult.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/PalletizeFeedback.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/TriggerDetection.h
-palletizing_generate_messages_cpp: /home/robot6/catkin_ws/devel/include/palletizing/SystemReset.h
+palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h
+palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h
+palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h
+palletizing_generate_messages_cpp: /home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h
 palletizing_generate_messages_cpp: palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build.make
 
 .PHONY : palletizing_generate_messages_cpp
@@ -328,10 +100,10 @@ palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build: palletizing_
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build
 
 palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/clean:
-	cd /home/robot6/catkin_ws/build/palletizing && $(CMAKE_COMMAND) -P CMakeFiles/palletizing_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/palletizing && $(CMAKE_COMMAND) -P CMakeFiles/palletizing_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/clean
 
 palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/palletizing /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/palletizing /home/robot6/catkin_ws/build/palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/palletizing /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/palletizing /home/xyntera/baseRos/catkin_ws/build/palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/depend
 

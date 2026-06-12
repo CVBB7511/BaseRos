@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_core"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_core.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_core"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_bringup/wpb_home_core.pdb"
   "CMakeFiles/wpb_home_core.dir/src/driver/SerialCom.cpp.o"
   "CMakeFiles/wpb_home_core.dir/src/driver/WPB_Home_driver.cpp.o"
   "CMakeFiles/wpb_home_core.dir/src/wpb_home_core.cpp.o"

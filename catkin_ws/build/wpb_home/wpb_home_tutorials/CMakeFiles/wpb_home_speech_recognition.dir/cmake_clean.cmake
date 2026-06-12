@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_speech_recognition"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_speech_recognition.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_speech_recognition"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_speech_recognition.pdb"
   "CMakeFiles/wpb_home_speech_recognition.dir/src/wpb_home_speech_recognition.cpp.o"
 )
 

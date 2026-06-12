@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "base_local_planner;costmap_2d;geometry_msgs;nav_core;nav_msgs;pluginlib;roscpp;std_msgs;tf;tf_conversions".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-lwpbh_local_planner".split(';') if "-lwpbh_local_planner" != "" else []
 PROJECT_NAME = "wpbh_local_planner"
-PROJECT_SPACE_DIR = "/home/robot6/catkin_ws/install"
+PROJECT_SPACE_DIR = "/home/xyntera/baseRos/catkin_ws/install"
 PROJECT_VERSION = "0.0.1"

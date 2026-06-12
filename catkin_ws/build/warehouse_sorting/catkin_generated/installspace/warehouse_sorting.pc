@@ -1,8 +1,0 @@
-prefix=/home/robot6/catkin_ws/install
-
-Name: warehouse_sorting
-Description: Description of warehouse_sorting
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: geometry_msgs rospy sensor_msgs std_msgs std_srvs warehouse_sorting_msgs

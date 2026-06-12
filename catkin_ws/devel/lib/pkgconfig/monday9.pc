@@ -1,8 +1,8 @@
-prefix=/home/robot6/catkin_ws/devel
+prefix=/home/xyntera/baseRos/catkin_ws/devel
 
 Name: monday9
 Description: Description of monday9
 Version: 0.0.0
-Cflags: -I/home/robot6/catkin_ws/devel/include
+Cflags: -I/home/xyntera/baseRos/catkin_ws/devel/include
 Libs: -L${prefix}/lib 
 Requires: roscpp rospy std_msgs message_runtime

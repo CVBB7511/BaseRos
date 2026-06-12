@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_serve_drinks"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_serve_drinks.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_serve_drinks"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_serve_drinks.pdb"
   "CMakeFiles/wpb_home_serve_drinks.dir/src/wpb_home_serve_drinks.cpp.o"
 )
 

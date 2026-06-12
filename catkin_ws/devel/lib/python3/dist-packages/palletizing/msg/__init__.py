@@ -19,3 +19,5 @@ from ._PalletizeActionResult import *
 from ._PalletizeFeedback import *
 from ._PalletizeGoal import *
 from ._PalletizeResult import *
+from ._PalletizingStats import *
+from ._SafetyStatus import *

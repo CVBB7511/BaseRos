@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/manifest.l"
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/msg/Coord.l"
-  "/home/robot6/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/msg/Rect.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/manifest.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/msg/Coord.l"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/wpb_home_behaviors/msg/Rect.l"
   "CMakeFiles/wpb_home_behaviors_generate_messages_eus"
 )
 

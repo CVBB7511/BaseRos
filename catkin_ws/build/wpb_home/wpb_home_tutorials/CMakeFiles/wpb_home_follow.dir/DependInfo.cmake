@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/robot6/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_follow.cpp" "/home/robot6/catkin_ws/build/wpb_home/wpb_home_tutorials/CMakeFiles/wpb_home_follow.dir/src/wpb_home_follow.cpp.o"
+  "/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_follow.cpp" "/home/xyntera/baseRos/catkin_ws/build/wpb_home/wpb_home_tutorials/CMakeFiles/wpb_home_follow.dir/src/wpb_home_follow.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -23,8 +23,8 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/robot6/catkin_ws/devel/include"
-  "/home/robot6/catkin_ws/src/wpb_home/wpb_home_tutorials/include"
+  "/home/xyntera/baseRos/catkin_ws/devel/include"
+  "/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/opencv4"

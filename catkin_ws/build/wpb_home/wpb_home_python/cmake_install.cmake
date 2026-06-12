@@ -1,8 +1,8 @@
-# Install script for directory: /home/robot6/catkin_ws/src/wpb_home/wpb_home_python
+# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_python
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/robot6/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/robot6/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_python.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_python.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wpb_home_python/cmake" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_pythonConfig.cmake"
-    "/home/robot6/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_pythonConfig-version.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_pythonConfig.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/wpb_home/wpb_home_python/catkin_generated/installspace/wpb_home_pythonConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wpb_home_python" TYPE FILE FILES "/home/robot6/catkin_ws/src/wpb_home/wpb_home_python/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/wpb_home_python" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_python/package.xml")
 endif()
 

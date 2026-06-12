@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/share/common-lisp/ros/xfyun_waterplus/srv/IATSwitch.lisp"
+  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/xfyun_waterplus/srv/IATSwitch.lisp"
   "CMakeFiles/xfyun_waterplus_generate_messages_lisp"
 )
 

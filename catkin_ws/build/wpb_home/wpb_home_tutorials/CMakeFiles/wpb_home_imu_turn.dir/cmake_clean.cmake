@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_imu_turn"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_imu_turn.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_imu_turn"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_imu_turn.pdb"
   "CMakeFiles/wpb_home_imu_turn.dir/src/wpb_home_imu_turn.cpp.o"
 )
 

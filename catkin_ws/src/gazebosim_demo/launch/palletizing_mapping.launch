@@ -1,0 +1,44 @@
+<launch>
+    <!-- ============================================ -->
+    <!-- Palletizing 建图阶段                          -->
+    <!--                                               -->
+    <!-- 终端1: roslaunch gazebosim_demo palletizing_mapping.launch -->
+    <!-- 终端2: rosrun gazebosim_demo vel_ctrl_node.py  -->
+    <!--         W/S 前进/后退  A/D 左移/右移  Q/E 左旋/右旋  Space 急停 -->
+    <!--                                               -->
+    <!-- 建图完成后保存地图:                             -->
+    <!--   rosrun map_server map_saver \               -->
+    <!--     -f ~/baseRos/catkin_ws/src/gazebosim_demo/maps/palletizing_map -->
+    <!-- ============================================ -->
+
+    <env name="GAZEBO_MODEL_PATH" value="$(find gazebosim_demo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+    <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebosim_demo)/worlds:$(optenv GAZEBO_RESOURCE_PATH)" />
+
+    <!-- World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find gazebosim_demo)/worlds/palletizing_test.world" />
+        <arg name="paused" value="false" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="gui" value="true" />
+    </include>
+
+    <!-- Robot -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-file $(find gazebosim_demo)/models/wpb_home_mani.model -urdf -model wpb_home_mani" />
+
+    <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+
+    <!-- Gmapping -->
+    <include file="$(find gazebosim_demo)/launch/gmapping.launch" />
+
+    <!--
+        键盘遥操作在独立终端中启动:
+            rosrun gazebosim_demo vel_ctrl_node.py
+        按键映射:
+            W/S   → 前进/后退
+            A/D   → 左移/右移
+            Q/E   → 左旋/右旋
+            Space → 急停
+    -->
+
+</launch>

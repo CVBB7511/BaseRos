@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_capture_image.cpp
+/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_capture_image.cpp
 ros/ros.h
 -
 unistd.h

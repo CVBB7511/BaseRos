@@ -1,9 +1,0 @@
-<launch>
-  <arg name="check_robot" default="false"/>
-  <arg name="wait_seconds" default="2.0"/>
-
-  <node pkg="warehouse_sorting" type="preflight_check.py" name="warehouse_sorting_preflight" output="screen" required="true">
-    <param name="check_robot" value="$(arg check_robot)"/>
-    <param name="wait_seconds" value="$(arg wait_seconds)"/>
-  </node>
-</launch>

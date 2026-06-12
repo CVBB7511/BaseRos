@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h
 ros/service_traits.h
 -
 xfyun_waterplus/IATSwitchRequest.h
@@ -14,7 +14,7 @@ xfyun_waterplus/IATSwitchRequest.h
 xfyun_waterplus/IATSwitchResponse.h
 -
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitchRequest.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitchRequest.h
 string
 -
 vector
@@ -30,7 +30,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/robot6/catkin_ws/devel/include/xfyun_waterplus/IATSwitchResponse.h
+/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitchResponse.h
 string
 -
 vector
@@ -46,11 +46,11 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/recorder_wav_node.cpp
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/recorder_wav_node.cpp
 ros/ros.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/ros/ros.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/ros/ros.h
 std_msgs/String.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/std_msgs/String.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/std_msgs/String.h
 sstream
 -
 alsa/asoundlib.h
@@ -62,7 +62,7 @@ signal.h
 sound_play/SoundRequest.h
 -
 xfyun_waterplus/IATSwitch.h
-/home/robot6/catkin_ws/src/xfyun_waterplus/src/xfyun_waterplus/IATSwitch.h
+/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun_waterplus/IATSwitch.h
 
 /opt/ros/noetic/include/ros/advertise_options.h
 ros/forwards.h

@@ -1,8 +1,8 @@
-# Install script for directory: /home/robot6/catkin_ws/src
+# Install script for directory: /home/xyntera/baseRos/catkin_ws/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/robot6/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -49,137 +49,105 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/_setup_util.py")
+   "/home/xyntera/baseRos/catkin_ws/install/_setup_util.py")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE PROGRAM FILES "/home/robot6/catkin_ws/build/catkin_generated/installspace/_setup_util.py")
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/_setup_util.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/env.sh")
+   "/home/xyntera/baseRos/catkin_ws/install/env.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE PROGRAM FILES "/home/robot6/catkin_ws/build/catkin_generated/installspace/env.sh")
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/env.sh")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/setup.bash;/home/robot6/catkin_ws/install/local_setup.bash")
+   "/home/xyntera/baseRos/catkin_ws/install/setup.bash;/home/xyntera/baseRos/catkin_ws/install/local_setup.bash")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/setup.bash"
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/local_setup.bash"
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE FILE FILES
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/setup.bash"
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/local_setup.bash"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/setup.sh;/home/robot6/catkin_ws/install/local_setup.sh")
+   "/home/xyntera/baseRos/catkin_ws/install/setup.sh;/home/xyntera/baseRos/catkin_ws/install/local_setup.sh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/setup.sh"
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/local_setup.sh"
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE FILE FILES
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/setup.sh"
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/local_setup.sh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/setup.zsh;/home/robot6/catkin_ws/install/local_setup.zsh")
+   "/home/xyntera/baseRos/catkin_ws/install/setup.zsh;/home/xyntera/baseRos/catkin_ws/install/local_setup.zsh")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/setup.zsh"
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/local_setup.zsh"
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE FILE FILES
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/setup.zsh"
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/local_setup.zsh"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/setup.fish;/home/robot6/catkin_ws/install/local_setup.fish")
+   "/home/xyntera/baseRos/catkin_ws/install/setup.fish;/home/xyntera/baseRos/catkin_ws/install/local_setup.fish")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/setup.fish"
-    "/home/robot6/catkin_ws/build/catkin_generated/installspace/local_setup.fish"
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE FILE FILES
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/setup.fish"
+    "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/local_setup.fish"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/robot6/catkin_ws/install/.rosinstall")
+   "/home/xyntera/baseRos/catkin_ws/install/.rosinstall")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/home/robot6/catkin_ws/install" TYPE FILE FILES "/home/robot6/catkin_ws/build/catkin_generated/installspace/.rosinstall")
+file(INSTALL DESTINATION "/home/xyntera/baseRos/catkin_ws/install" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/catkin_generated/installspace/.rosinstall")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/robot6/catkin_ws/build/gtest/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/iai_kinect2/iai_kinect2/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/ros_end_core/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/ros_end_core_sim/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/warehouse_sorting_msgs/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_bringup/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_remote/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/arm_controller/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/fetch_server/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/gazebosim_demo/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/mapping/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/realbot_demo/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/test-main/src/core/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/test-main/src/interaction/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/navigation/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/iai_kinect2/kinect2_registration/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/rplidar_ros/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/library_robot_interfaces/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/iai_kinect2/kinect2_bridge/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/iai_kinect2/kinect2_calibration/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/iai_kinect2/kinect2_viewer/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/test-main/src/navigation/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/monday9/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/vizanti/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/warehouse_sorting/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/warehouse_tuning/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/waterplus_map_tools/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_behaviors/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/arm_grab_task/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/palletizing/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_python/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_python3/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpb_home_tutorials/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/wpb_home/wpbh_local_planner/cmake_install.cmake")
-  include("/home/robot6/catkin_ws/build/xfyun_waterplus/cmake_install.cmake")
+  include("/home/xyntera/baseRos/catkin_ws/build/gtest/cmake_install.cmake")
+  include("/home/xyntera/baseRos/catkin_ws/build/wpb_home/wpb_home_behaviors/cmake_install.cmake")
+  include("/home/xyntera/baseRos/catkin_ws/build/palletizing/cmake_install.cmake")
 
 endif()
 
@@ -191,5 +159,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/robot6/catkin_ws/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/xyntera/baseRos/catkin_ws/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

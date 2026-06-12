@@ -43,81 +43,81 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for vizanti_generate_messages_py.
 
 # Include the progress variables for this target.
 include vizanti/CMakeFiles/vizanti_generate_messages_py.dir/progress.make
 
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
-vizanti/CMakeFiles/vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
+vizanti/CMakeFiles/vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py
 
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py: /home/robot6/catkin_ws/src/vizanti/srv/GetNodeParameters.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV vizanti/GetNodeParameters"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/GetNodeParameters.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python code from SRV vizanti/GetNodeParameters"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py: /home/robot6/catkin_ws/src/vizanti/srv/SaveMap.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV vizanti/SaveMap"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/SaveMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV vizanti/SaveMap"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py: /home/robot6/catkin_ws/src/vizanti/srv/LoadMap.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV vizanti/LoadMap"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/LoadMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python code from SRV vizanti/LoadMap"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py: /home/robot6/catkin_ws/src/vizanti/srv/RecordRosbag.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python code from SRV vizanti/RecordRosbag"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/RecordRosbag.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python code from SRV vizanti/RecordRosbag"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py: /home/robot6/catkin_ws/src/vizanti/srv/ManageNode.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python code from SRV vizanti/ManageNode"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/ManageNode.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating Python code from SRV vizanti/ManageNode"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py: /home/robot6/catkin_ws/src/vizanti/srv/ListPackages.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python code from SRV vizanti/ListPackages"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/ListPackages.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating Python code from SRV vizanti/ListPackages"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py: /home/robot6/catkin_ws/src/vizanti/srv/ListExecutables.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python code from SRV vizanti/ListExecutables"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/robot6/catkin_ws/src/vizanti/srv/ListExecutables.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py: /opt/ros/noetic/lib/genpy/gensrv_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py: /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating Python code from SRV vizanti/ListExecutables"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p vizanti -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv
 
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
-/home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/robot6/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Python srv __init__.py for vizanti"
-	cd /home/robot6/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv --initpy
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
+/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Generating Python srv __init__.py for vizanti"
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv --initpy
 
 vizanti_generate_messages_py: vizanti/CMakeFiles/vizanti_generate_messages_py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
-vizanti_generate_messages_py: /home/robot6/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py
+vizanti_generate_messages_py: /home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py
 vizanti_generate_messages_py: vizanti/CMakeFiles/vizanti_generate_messages_py.dir/build.make
 
 .PHONY : vizanti_generate_messages_py
@@ -128,10 +128,10 @@ vizanti/CMakeFiles/vizanti_generate_messages_py.dir/build: vizanti_generate_mess
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_py.dir/build
 
 vizanti/CMakeFiles/vizanti_generate_messages_py.dir/clean:
-	cd /home/robot6/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/vizanti && $(CMAKE_COMMAND) -P CMakeFiles/vizanti_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_py.dir/clean
 
 vizanti/CMakeFiles/vizanti_generate_messages_py.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/vizanti /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/vizanti /home/robot6/catkin_ws/build/vizanti/CMakeFiles/vizanti_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/vizanti /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/vizanti /home/xyntera/baseRos/catkin_ws/build/vizanti/CMakeFiles/vizanti_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : vizanti/CMakeFiles/vizanti_generate_messages_py.dir/depend
 

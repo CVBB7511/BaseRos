@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/gazebosim_demo/lidar_filter"
-  "/home/robot6/catkin_ws/devel/lib/gazebosim_demo/lidar_filter.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/lidar_filter"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/lidar_filter.pdb"
   "CMakeFiles/lidar_filter.dir/src/lidar_filter.cpp.o"
 )
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/xfyun_waterplus/wp_voice_cmd_cn"
-  "/home/robot6/catkin_ws/devel/lib/xfyun_waterplus/wp_voice_cmd_cn.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/wp_voice_cmd_cn"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/wp_voice_cmd_cn.pdb"
   "CMakeFiles/wp_voice_cmd_cn.dir/src/wp_voice_cmd_cn.cpp.o"
 )
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_voice_cmd"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_voice_cmd.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_voice_cmd"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_voice_cmd.pdb"
   "CMakeFiles/wpb_home_voice_cmd.dir/src/wpb_home_voice_cmd.cpp.o"
 )
 

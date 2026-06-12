@@ -1,11 +1,11 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateAction.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/NavigateFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabAction.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/GrabFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeAction.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeActionFeedback.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeGoal.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeResult.msg;/home/robot6/catkin_ws/devel/share/palletizing/msg/PalletizeFeedback.msg"
-services_str = "/home/robot6/catkin_ws/src/palletizing/srv/TriggerDetection.srv;/home/robot6/catkin_ws/src/palletizing/srv/SystemReset.srv"
+messages_str = "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg;/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
+services_str = "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv;/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
 pkg_name = "palletizing"
-dependencies_str = "std_msgs;geometry_msgs;actionlib_msgs"
+dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"
-dep_include_paths_str = "palletizing;/home/robot6/catkin_ws/devel/share/palletizing/msg;std_msgs;/opt/ros/noetic/share/std_msgs/cmake/../msg;geometry_msgs;/opt/ros/noetic/share/geometry_msgs/cmake/../msg;actionlib_msgs;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg"
+dep_include_paths_str = "palletizing;/home/xyntera/baseRos/catkin_ws/src/palletizing/msg;std_msgs;/opt/ros/noetic/share/std_msgs/cmake/../msg"
 PYTHON_EXECUTABLE = "/usr/bin/python3"
 package_has_static_sources = '' == 'TRUE'
 genmsg_check_deps_script = "/opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py"

@@ -1,8 +1,8 @@
-# Install script for directory: /home/robot6/catkin_ws/src/xfyun_waterplus
+# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/robot6/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,53 +38,53 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/srv" TYPE FILE FILES "/home/robot6/catkin_ws/src/xfyun_waterplus/srv/IATSwitch.srv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/srv" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/srv/IATSwitch.srv")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/cmake" TYPE FILE FILES "/home/robot6/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/include/xfyun_waterplus")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/roseus/ros/xfyun_waterplus")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/common-lisp/ros/xfyun_waterplus")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/share/gennodejs/ros/xfyun_waterplus")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/robot6/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/robot6/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/cmake" TYPE FILE FILES "/home/robot6/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplus-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus/cmake" TYPE FILE FILES
-    "/home/robot6/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplusConfig.cmake"
-    "/home/robot6/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplusConfig-version.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplusConfig.cmake"
+    "/home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/catkin_generated/installspace/xfyun_waterplusConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus" TYPE FILE FILES "/home/robot6/catkin_ws/src/xfyun_waterplus/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xfyun_waterplus" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/package.xml")
 endif()
 

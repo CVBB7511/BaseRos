@@ -17,14 +17,14 @@ add_custom_target(mapping_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_custom_target(_mapping_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "mapping" "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "mapping" "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" ""
 )
 
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_custom_target(_mapping_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "mapping" "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "mapping" "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" ""
 )
 
 #
@@ -36,13 +36,13 @@ add_custom_target(_mapping_generate_messages_check_deps_${_filename}
 
 ### Generating Services
 _generate_srv_cpp(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/mapping
 )
 _generate_srv_cpp(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/mapping
@@ -60,9 +60,9 @@ add_custom_target(mapping_generate_messages_cpp
 add_dependencies(mapping_generate_messages mapping_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_cpp _mapping_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_cpp _mapping_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -77,13 +77,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS mapping_generate_messages_cpp)
 
 ### Generating Services
 _generate_srv_eus(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/mapping
 )
 _generate_srv_eus(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/mapping
@@ -101,9 +101,9 @@ add_custom_target(mapping_generate_messages_eus
 add_dependencies(mapping_generate_messages mapping_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_eus _mapping_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_eus _mapping_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -118,13 +118,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS mapping_generate_messages_eus)
 
 ### Generating Services
 _generate_srv_lisp(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/mapping
 )
 _generate_srv_lisp(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/mapping
@@ -142,9 +142,9 @@ add_custom_target(mapping_generate_messages_lisp
 add_dependencies(mapping_generate_messages mapping_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_lisp _mapping_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_lisp _mapping_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -159,13 +159,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS mapping_generate_messages_lisp)
 
 ### Generating Services
 _generate_srv_nodejs(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/mapping
 )
 _generate_srv_nodejs(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/mapping
@@ -183,9 +183,9 @@ add_custom_target(mapping_generate_messages_nodejs
 add_dependencies(mapping_generate_messages mapping_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_nodejs _mapping_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_nodejs _mapping_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -200,13 +200,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS mapping_generate_messages_nodejs)
 
 ### Generating Services
 _generate_srv_py(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Start.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/mapping
 )
 _generate_srv_py(mapping
-  "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv"
+  "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/mapping
@@ -224,9 +224,9 @@ add_custom_target(mapping_generate_messages_py
 add_dependencies(mapping_generate_messages mapping_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_py _mapping_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/robot6/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
+get_filename_component(_filename "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv" NAME_WE)
 add_dependencies(mapping_generate_messages_py _mapping_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

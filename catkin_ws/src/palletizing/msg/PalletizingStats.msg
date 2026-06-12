@@ -1,0 +1,10 @@
+uint32 total_objects
+uint32 success_count
+uint32 fail_count
+uint32 current_layer
+uint32 hard_zone_layers
+uint32 soft_zone_layers
+float64 success_rate
+float64 avg_cycle_time
+float64 elapsed_time
+string current_state

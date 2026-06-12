@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for xfyun_waterplus_genpy.
 
@@ -63,10 +63,10 @@ xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build: xfyun_waterplus_genp
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/build
 
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/clean:
-	cd /home/robot6/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -P CMakeFiles/xfyun_waterplus_genpy.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -P CMakeFiles/xfyun_waterplus_genpy.dir/cmake_clean.cmake
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/clean
 
 xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/xfyun_waterplus /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/xfyun_waterplus /home/robot6/catkin_ws/build/xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : xfyun_waterplus/CMakeFiles/xfyun_waterplus_genpy.dir/depend
 

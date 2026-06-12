@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_plane_detect"
-  "/home/robot6/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_plane_detect.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_plane_detect"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_plane_detect.pdb"
   "CMakeFiles/wpb_home_plane_detect.dir/src/wpb_home_plane_detect.cpp.o"
 )
 

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 # Utility rule file for navigation_gennodejs.
 
@@ -63,10 +63,10 @@ navigation/CMakeFiles/navigation_gennodejs.dir/build: navigation_gennodejs
 .PHONY : navigation/CMakeFiles/navigation_gennodejs.dir/build
 
 navigation/CMakeFiles/navigation_gennodejs.dir/clean:
-	cd /home/robot6/catkin_ws/build/navigation && $(CMAKE_COMMAND) -P CMakeFiles/navigation_gennodejs.dir/cmake_clean.cmake
+	cd /home/xyntera/baseRos/catkin_ws/build/navigation && $(CMAKE_COMMAND) -P CMakeFiles/navigation_gennodejs.dir/cmake_clean.cmake
 .PHONY : navigation/CMakeFiles/navigation_gennodejs.dir/clean
 
 navigation/CMakeFiles/navigation_gennodejs.dir/depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/robot6/catkin_ws/src /home/robot6/catkin_ws/src/navigation /home/robot6/catkin_ws/build /home/robot6/catkin_ws/build/navigation /home/robot6/catkin_ws/build/navigation/CMakeFiles/navigation_gennodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/navigation /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/navigation /home/xyntera/baseRos/catkin_ws/build/navigation/CMakeFiles/navigation_gennodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : navigation/CMakeFiles/navigation_gennodejs.dir/depend
 

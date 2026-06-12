@@ -1,9 +1,0 @@
-# 触发单次视觉识别服务
-# 请求：货物类型
-string cargo_type
----
-# 响应：是否成功、目标在 base_link 坐标系下的三维坐标
-bool success
-string message
-geometry_msgs/Point position
-int32 remaining_count

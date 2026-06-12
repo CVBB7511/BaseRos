@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/robot6/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/robot6/catkin_ws/build
+CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,6 +68,18 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -77,28 +89,6 @@ list_install_components:
 list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -111,17 +101,27 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
@@ -137,14 +137,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/robot6/catkin_ws/build/CMakeFiles /home/robot6/catkin_ws/build/palletizing/CMakeFiles/progress.marks
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/robot6/catkin_ws/build/CMakeFiles 0
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/xyntera/baseRos/catkin_ws/build/CMakeFiles /home/xyntera/baseRos/catkin_ws/build/palletizing/CMakeFiles/progress.marks
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/xyntera/baseRos/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/clean
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,37 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/preinstall
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/preinstall
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-palletizing/CMakeFiles/custom_grab_action.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/custom_grab_action.dir/rule
-.PHONY : palletizing/CMakeFiles/custom_grab_action.dir/rule
-
-# Convenience name for target.
-custom_grab_action: palletizing/CMakeFiles/custom_grab_action.dir/rule
-
-.PHONY : custom_grab_action
-
-# fast build rule for target.
-custom_grab_action/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_grab_action.dir/build.make palletizing/CMakeFiles/custom_grab_action.dir/build
-.PHONY : custom_grab_action/fast
-
-# Convenience name for target.
 palletizing/CMakeFiles/palletizing_genpy.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_genpy.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_genpy.dir/rule
 .PHONY : palletizing/CMakeFiles/palletizing_genpy.dir/rule
 
 # Convenience name for target.
@@ -194,12 +179,12 @@ palletizing_genpy: palletizing/CMakeFiles/palletizing_genpy.dir/rule
 
 # fast build rule for target.
 palletizing_genpy/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_genpy.dir/build.make palletizing/CMakeFiles/palletizing_genpy.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_genpy.dir/build.make palletizing/CMakeFiles/palletizing_genpy.dir/build
 .PHONY : palletizing_genpy/fast
 
 # Convenience name for target.
 palletizing/CMakeFiles/palletizing_generate_messages_py.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_py.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_py.dir/rule
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -209,12 +194,27 @@ palletizing_generate_messages_py: palletizing/CMakeFiles/palletizing_generate_me
 
 # fast build rule for target.
 palletizing_generate_messages_py/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_py.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_py.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_py.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_py.dir/build
 .PHONY : palletizing_generate_messages_py/fast
 
 # Convenience name for target.
+palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/rule
+.PHONY : palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+sound_play_generate_messages_cpp: palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/rule
+
+.PHONY : sound_play_generate_messages_cpp
+
+# fast build rule for target.
+sound_play_generate_messages_cpp/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/build.make palletizing/CMakeFiles/sound_play_generate_messages_cpp.dir/build
+.PHONY : sound_play_generate_messages_cpp/fast
+
+# Convenience name for target.
 palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/rule
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -224,492 +224,42 @@ palletizing_generate_messages_nodejs: palletizing/CMakeFiles/palletizing_generat
 
 # fast build rule for target.
 palletizing_generate_messages_nodejs/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_nodejs.dir/build
 .PHONY : palletizing_generate_messages_nodejs/fast
 
 # Convenience name for target.
-palletizing/CMakeFiles/palletizing_genlisp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_genlisp.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_genlisp.dir/rule
+palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/rule
+.PHONY : palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/rule
 
 # Convenience name for target.
-palletizing_genlisp: palletizing/CMakeFiles/palletizing_genlisp.dir/rule
+sound_play_generate_messages_eus: palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/rule
 
-.PHONY : palletizing_genlisp
+.PHONY : sound_play_generate_messages_eus
 
 # fast build rule for target.
-palletizing_genlisp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_genlisp.dir/build.make palletizing/CMakeFiles/palletizing_genlisp.dir/build
-.PHONY : palletizing_genlisp/fast
+sound_play_generate_messages_eus/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/build.make palletizing/CMakeFiles/sound_play_generate_messages_eus.dir/build
+.PHONY : sound_play_generate_messages_eus/fast
 
 # Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/rule
+palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/rule
+.PHONY : palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/rule
+sound_play_generate_messages_lisp: palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/rule
 
-.PHONY : _palletizing_generate_messages_check_deps_GrabGoal
+.PHONY : sound_play_generate_messages_lisp
 
 # fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateGoal
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateActionResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateActionResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabAction: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabAction
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabAction/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabAction.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabAction/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabActionFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabActionFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeActionResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeActionResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateActionFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateActionFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateActionGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionGoal
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateActionGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateActionGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateActionGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeActionGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionGoal
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeActionGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateAction: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateAction
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateAction/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateAction.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateAction/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/color_objects_3d.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/color_objects_3d.dir/rule
-.PHONY : palletizing/CMakeFiles/color_objects_3d.dir/rule
-
-# Convenience name for target.
-color_objects_3d: palletizing/CMakeFiles/color_objects_3d.dir/rule
-
-.PHONY : color_objects_3d
-
-# fast build rule for target.
-color_objects_3d/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/color_objects_3d.dir/build.make palletizing/CMakeFiles/color_objects_3d.dir/build
-.PHONY : color_objects_3d/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabActionGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionGoal
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabActionGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/custom_place_action.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/custom_place_action.dir/rule
-.PHONY : palletizing/CMakeFiles/custom_place_action.dir/rule
-
-# Convenience name for target.
-custom_place_action: palletizing/CMakeFiles/custom_place_action.dir/rule
-
-.PHONY : custom_place_action
-
-# fast build rule for target.
-custom_place_action/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_place_action.dir/build.make palletizing/CMakeFiles/custom_place_action.dir/build
-.PHONY : custom_place_action/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_generate_messages.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
-
-# Convenience name for target.
-palletizing_generate_messages: palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
-
-.PHONY : palletizing_generate_messages
-
-# fast build rule for target.
-palletizing_generate_messages/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages.dir/build
-.PHONY : palletizing_generate_messages/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_TriggerDetection: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_TriggerDetection
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_TriggerDetection/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_TriggerDetection.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_TriggerDetection/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeAction: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeAction
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeAction/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeAction.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeAction/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeActionFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeActionFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeActionFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeActionFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_GrabActionResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_GrabActionResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_GrabActionResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_GrabActionResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeGoal: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeGoal
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeGoal/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeGoal.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeGoal/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-palletizing_generate_messages_eus: palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
-
-.PHONY : palletizing_generate_messages_eus
-
-# fast build rule for target.
-palletizing_generate_messages_eus/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/build
-.PHONY : palletizing_generate_messages_eus/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_geneus.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_geneus.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_geneus.dir/rule
-
-# Convenience name for target.
-palletizing_geneus: palletizing/CMakeFiles/palletizing_geneus.dir/rule
-
-.PHONY : palletizing_geneus
-
-# fast build rule for target.
-palletizing_geneus/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_geneus.dir/build.make palletizing/CMakeFiles/palletizing_geneus.dir/build
-.PHONY : palletizing_geneus/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_gennodejs.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
-
-# Convenience name for target.
-palletizing_gennodejs: palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
-
-.PHONY : palletizing_gennodejs
-
-# fast build rule for target.
-palletizing_gennodejs/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_gennodejs.dir/build.make palletizing/CMakeFiles/palletizing_gennodejs.dir/build
-.PHONY : palletizing_gennodejs/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_NavigateResult: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_NavigateResult
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_NavigateResult/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_NavigateResult.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_NavigateResult/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_gencpp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_gencpp.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_gencpp.dir/rule
-
-# Convenience name for target.
-palletizing_gencpp: palletizing/CMakeFiles/palletizing_gencpp.dir/rule
-
-.PHONY : palletizing_gencpp
-
-# fast build rule for target.
-palletizing_gencpp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_gencpp.dir/build.make palletizing/CMakeFiles/palletizing_gencpp.dir/build
-.PHONY : palletizing_gencpp/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_PalletizeFeedback: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeFeedback
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_PalletizeFeedback/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizeFeedback.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_PalletizeFeedback/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/rule
-.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/rule
-
-# Convenience name for target.
-_palletizing_generate_messages_check_deps_SystemReset: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/rule
-
-.PHONY : _palletizing_generate_messages_check_deps_SystemReset
-
-# fast build rule for target.
-_palletizing_generate_messages_check_deps_SystemReset/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SystemReset.dir/build
-.PHONY : _palletizing_generate_messages_check_deps_SystemReset/fast
-
-# Convenience name for target.
-palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
-.PHONY : palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-palletizing_generate_messages_cpp: palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
-
-.PHONY : palletizing_generate_messages_cpp
-
-# fast build rule for target.
-palletizing_generate_messages_cpp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build
-.PHONY : palletizing_generate_messages_cpp/fast
+sound_play_generate_messages_lisp/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/build.make palletizing/CMakeFiles/sound_play_generate_messages_lisp.dir/build
+.PHONY : sound_play_generate_messages_lisp/fast
 
 # Convenience name for target.
 palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/rule:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/rule
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/rule
 .PHONY : palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -719,89 +269,203 @@ palletizing_generate_messages_lisp: palletizing/CMakeFiles/palletizing_generate_
 
 # fast build rule for target.
 palletizing_generate_messages_lisp/fast:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/build
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_lisp.dir/build
 .PHONY : palletizing_generate_messages_lisp/fast
 
-src/color_objects_3d.o: src/color_objects_3d.cpp.o
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
 
-.PHONY : src/color_objects_3d.o
+# Convenience name for target.
+palletizing_generate_messages_cpp: palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/rule
 
-# target to build an object file
-src/color_objects_3d.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/color_objects_3d.dir/build.make palletizing/CMakeFiles/color_objects_3d.dir/src/color_objects_3d.cpp.o
-.PHONY : src/color_objects_3d.cpp.o
+.PHONY : palletizing_generate_messages_cpp
 
-src/color_objects_3d.i: src/color_objects_3d.cpp.i
+# fast build rule for target.
+palletizing_generate_messages_cpp/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_cpp.dir/build
+.PHONY : palletizing_generate_messages_cpp/fast
 
-.PHONY : src/color_objects_3d.i
+# Convenience name for target.
+palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/rule
+.PHONY : palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/rule
 
-# target to preprocess a source file
-src/color_objects_3d.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/color_objects_3d.dir/build.make palletizing/CMakeFiles/color_objects_3d.dir/src/color_objects_3d.cpp.i
-.PHONY : src/color_objects_3d.cpp.i
+# Convenience name for target.
+sound_play_generate_messages_nodejs: palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/rule
 
-src/color_objects_3d.s: src/color_objects_3d.cpp.s
+.PHONY : sound_play_generate_messages_nodejs
 
-.PHONY : src/color_objects_3d.s
+# fast build rule for target.
+sound_play_generate_messages_nodejs/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/build.make palletizing/CMakeFiles/sound_play_generate_messages_nodejs.dir/build
+.PHONY : sound_play_generate_messages_nodejs/fast
 
-# target to generate assembly for a file
-src/color_objects_3d.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/color_objects_3d.dir/build.make palletizing/CMakeFiles/color_objects_3d.dir/src/color_objects_3d.cpp.s
-.PHONY : src/color_objects_3d.cpp.s
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_genlisp.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_genlisp.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_genlisp.dir/rule
 
-src/custom_grab_action.o: src/custom_grab_action.cpp.o
+# Convenience name for target.
+palletizing_genlisp: palletizing/CMakeFiles/palletizing_genlisp.dir/rule
 
-.PHONY : src/custom_grab_action.o
+.PHONY : palletizing_genlisp
 
-# target to build an object file
-src/custom_grab_action.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_grab_action.dir/build.make palletizing/CMakeFiles/custom_grab_action.dir/src/custom_grab_action.cpp.o
-.PHONY : src/custom_grab_action.cpp.o
+# fast build rule for target.
+palletizing_genlisp/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_genlisp.dir/build.make palletizing/CMakeFiles/palletizing_genlisp.dir/build
+.PHONY : palletizing_genlisp/fast
 
-src/custom_grab_action.i: src/custom_grab_action.cpp.i
+# Convenience name for target.
+palletizing/CMakeFiles/sound_play_generate_messages_py.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/sound_play_generate_messages_py.dir/rule
+.PHONY : palletizing/CMakeFiles/sound_play_generate_messages_py.dir/rule
 
-.PHONY : src/custom_grab_action.i
+# Convenience name for target.
+sound_play_generate_messages_py: palletizing/CMakeFiles/sound_play_generate_messages_py.dir/rule
 
-# target to preprocess a source file
-src/custom_grab_action.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_grab_action.dir/build.make palletizing/CMakeFiles/custom_grab_action.dir/src/custom_grab_action.cpp.i
-.PHONY : src/custom_grab_action.cpp.i
+.PHONY : sound_play_generate_messages_py
 
-src/custom_grab_action.s: src/custom_grab_action.cpp.s
+# fast build rule for target.
+sound_play_generate_messages_py/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/sound_play_generate_messages_py.dir/build.make palletizing/CMakeFiles/sound_play_generate_messages_py.dir/build
+.PHONY : sound_play_generate_messages_py/fast
 
-.PHONY : src/custom_grab_action.s
+# Convenience name for target.
+palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/rule
+.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/rule
 
-# target to generate assembly for a file
-src/custom_grab_action.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_grab_action.dir/build.make palletizing/CMakeFiles/custom_grab_action.dir/src/custom_grab_action.cpp.s
-.PHONY : src/custom_grab_action.cpp.s
+# Convenience name for target.
+_palletizing_generate_messages_check_deps_SafetyStatus: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/rule
 
-src/custom_place_action.o: src/custom_place_action.cpp.o
+.PHONY : _palletizing_generate_messages_check_deps_SafetyStatus
 
-.PHONY : src/custom_place_action.o
+# fast build rule for target.
+_palletizing_generate_messages_check_deps_SafetyStatus/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_SafetyStatus.dir/build
+.PHONY : _palletizing_generate_messages_check_deps_SafetyStatus/fast
 
-# target to build an object file
-src/custom_place_action.cpp.o:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_place_action.dir/build.make palletizing/CMakeFiles/custom_place_action.dir/src/custom_place_action.cpp.o
-.PHONY : src/custom_place_action.cpp.o
+# Convenience name for target.
+palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/rule
+.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/rule
 
-src/custom_place_action.i: src/custom_place_action.cpp.i
+# Convenience name for target.
+_palletizing_generate_messages_check_deps_PalletizingStats: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/rule
 
-.PHONY : src/custom_place_action.i
+.PHONY : _palletizing_generate_messages_check_deps_PalletizingStats
 
-# target to preprocess a source file
-src/custom_place_action.cpp.i:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_place_action.dir/build.make palletizing/CMakeFiles/custom_place_action.dir/src/custom_place_action.cpp.i
-.PHONY : src/custom_place_action.cpp.i
+# fast build rule for target.
+_palletizing_generate_messages_check_deps_PalletizingStats/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_PalletizingStats.dir/build
+.PHONY : _palletizing_generate_messages_check_deps_PalletizingStats/fast
 
-src/custom_place_action.s: src/custom_place_action.cpp.s
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_generate_messages.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
 
-.PHONY : src/custom_place_action.s
+# Convenience name for target.
+palletizing_generate_messages: palletizing/CMakeFiles/palletizing_generate_messages.dir/rule
 
-# target to generate assembly for a file
-src/custom_place_action.cpp.s:
-	cd /home/robot6/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/custom_place_action.dir/build.make palletizing/CMakeFiles/custom_place_action.dir/src/custom_place_action.cpp.s
-.PHONY : src/custom_place_action.cpp.s
+.PHONY : palletizing_generate_messages
+
+# fast build rule for target.
+palletizing_generate_messages/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages.dir/build
+.PHONY : palletizing_generate_messages/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/rule
+.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/rule
+
+# Convenience name for target.
+_palletizing_generate_messages_check_deps_MarkZone: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/rule
+
+.PHONY : _palletizing_generate_messages_check_deps_MarkZone
+
+# fast build rule for target.
+_palletizing_generate_messages_check_deps_MarkZone/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_MarkZone.dir/build
+.PHONY : _palletizing_generate_messages_check_deps_MarkZone/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/rule
+.PHONY : palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/rule
+
+# Convenience name for target.
+_palletizing_generate_messages_check_deps_StartTask: palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/rule
+
+.PHONY : _palletizing_generate_messages_check_deps_StartTask
+
+# fast build rule for target.
+_palletizing_generate_messages_check_deps_StartTask/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/build.make palletizing/CMakeFiles/_palletizing_generate_messages_check_deps_StartTask.dir/build
+.PHONY : _palletizing_generate_messages_check_deps_StartTask/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_gennodejs.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
+
+# Convenience name for target.
+palletizing_gennodejs: palletizing/CMakeFiles/palletizing_gennodejs.dir/rule
+
+.PHONY : palletizing_gennodejs
+
+# fast build rule for target.
+palletizing_gennodejs/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_gennodejs.dir/build.make palletizing/CMakeFiles/palletizing_gennodejs.dir/build
+.PHONY : palletizing_gennodejs/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_gencpp.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_gencpp.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_gencpp.dir/rule
+
+# Convenience name for target.
+palletizing_gencpp: palletizing/CMakeFiles/palletizing_gencpp.dir/rule
+
+.PHONY : palletizing_gencpp
+
+# fast build rule for target.
+palletizing_gencpp/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_gencpp.dir/build.make palletizing/CMakeFiles/palletizing_gencpp.dir/build
+.PHONY : palletizing_gencpp/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_geneus.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_geneus.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_geneus.dir/rule
+
+# Convenience name for target.
+palletizing_geneus: palletizing/CMakeFiles/palletizing_geneus.dir/rule
+
+.PHONY : palletizing_geneus
+
+# fast build rule for target.
+palletizing_geneus/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_geneus.dir/build.make palletizing/CMakeFiles/palletizing_geneus.dir/build
+.PHONY : palletizing_geneus/fast
+
+# Convenience name for target.
+palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
+.PHONY : palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+palletizing_generate_messages_eus: palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/rule
+
+.PHONY : palletizing_generate_messages_eus
+
+# fast build rule for target.
+palletizing_generate_messages_eus/fast:
+	cd /home/xyntera/baseRos/catkin_ws/build && $(MAKE) -f palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/build.make palletizing/CMakeFiles/palletizing_generate_messages_eus.dir/build
+.PHONY : palletizing_generate_messages_eus/fast
 
 # Help Target
 help:
@@ -810,58 +474,32 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/local"
+	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... custom_grab_action"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... test"
 	@echo "... palletizing_genpy"
 	@echo "... palletizing_generate_messages_py"
+	@echo "... sound_play_generate_messages_cpp"
 	@echo "... palletizing_generate_messages_nodejs"
-	@echo "... palletizing_genlisp"
-	@echo "... _palletizing_generate_messages_check_deps_GrabGoal"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateGoal"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateActionResult"
-	@echo "... _palletizing_generate_messages_check_deps_GrabAction"
-	@echo "... _palletizing_generate_messages_check_deps_GrabActionFeedback"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeActionResult"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateActionFeedback"
-	@echo "... test"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateActionGoal"
-	@echo "... edit_cache"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeActionGoal"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateAction"
-	@echo "... color_objects_3d"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateFeedback"
-	@echo "... _palletizing_generate_messages_check_deps_GrabActionGoal"
-	@echo "... rebuild_cache"
-	@echo "... custom_place_action"
-	@echo "... palletizing_generate_messages"
-	@echo "... _palletizing_generate_messages_check_deps_TriggerDetection"
-	@echo "... _palletizing_generate_messages_check_deps_GrabFeedback"
-	@echo "... _palletizing_generate_messages_check_deps_GrabResult"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeAction"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeActionFeedback"
-	@echo "... _palletizing_generate_messages_check_deps_GrabActionResult"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeGoal"
-	@echo "... install"
-	@echo "... palletizing_generate_messages_eus"
-	@echo "... palletizing_geneus"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeResult"
-	@echo "... palletizing_gennodejs"
-	@echo "... _palletizing_generate_messages_check_deps_NavigateResult"
-	@echo "... palletizing_gencpp"
-	@echo "... _palletizing_generate_messages_check_deps_PalletizeFeedback"
-	@echo "... _palletizing_generate_messages_check_deps_SystemReset"
-	@echo "... palletizing_generate_messages_cpp"
-	@echo "... install/strip"
+	@echo "... sound_play_generate_messages_eus"
+	@echo "... sound_play_generate_messages_lisp"
 	@echo "... palletizing_generate_messages_lisp"
-	@echo "... src/color_objects_3d.o"
-	@echo "... src/color_objects_3d.i"
-	@echo "... src/color_objects_3d.s"
-	@echo "... src/custom_grab_action.o"
-	@echo "... src/custom_grab_action.i"
-	@echo "... src/custom_grab_action.s"
-	@echo "... src/custom_place_action.o"
-	@echo "... src/custom_place_action.i"
-	@echo "... src/custom_place_action.s"
+	@echo "... palletizing_generate_messages_cpp"
+	@echo "... sound_play_generate_messages_nodejs"
+	@echo "... palletizing_genlisp"
+	@echo "... sound_play_generate_messages_py"
+	@echo "... _palletizing_generate_messages_check_deps_SafetyStatus"
+	@echo "... _palletizing_generate_messages_check_deps_PalletizingStats"
+	@echo "... palletizing_generate_messages"
+	@echo "... _palletizing_generate_messages_check_deps_MarkZone"
+	@echo "... _palletizing_generate_messages_check_deps_StartTask"
+	@echo "... palletizing_gennodejs"
+	@echo "... palletizing_gencpp"
+	@echo "... install/strip"
+	@echo "... palletizing_geneus"
+	@echo "... palletizing_generate_messages_eus"
 .PHONY : help
 
 
@@ -873,6 +511,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/robot6/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

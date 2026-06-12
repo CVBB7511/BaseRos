@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/robot6/catkin_ws/devel/lib/kinect2_viewer/kinect2_viewer"
-  "/home/robot6/catkin_ws/devel/lib/kinect2_viewer/kinect2_viewer.pdb"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_viewer/kinect2_viewer"
+  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_viewer/kinect2_viewer.pdb"
   "CMakeFiles/kinect2_viewer.dir/src/viewer.cpp.o"
 )
 

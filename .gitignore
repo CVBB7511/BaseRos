@@ -1,0 +1,41 @@
+# ROS / catkin generated files
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/install/
+catkin_ws/logs/
+catkin_ws/.catkin_tools/
+.ros/
+.ignition/
+
+# Generated maps and recordings
+catkin_ws/src/se_map/maps/*.pgm
+catkin_ws/src/se_map/maps/*.yaml
+!catkin_ws/src/se_map/maps/.gitkeep
+*.bag
+*.bag.active
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/.pnpm-store/
+frontend/dist/
+frontend/.vite/
+frontend/.env.local
+frontend/.env.*.local
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+pnpm-debug.log*
+tmp/
+temp/
+
+# Local editor / OS files
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,58 @@
+<launch>
+  <arg name="sim" default="false"/>
+  <arg name="real_bringup" default="false"/>
+  <arg name="rviz" default="true"/>
+  <arg name="live_map" default="false"/>
+  <arg name="map_file" default="$(find se_map)/maps/saved_map.yaml"/>
+  <arg name="map_dir" default="$(find se_map)/maps"/>
+  <arg name="map_manager" default="true"/>
+  <arg name="base_serial_port" default="/dev/ftdi"/>
+  <arg name="lidar_serial_port" default="/dev/rplidar"/>
+  <arg name="lidar_serial_baudrate" default="115200"/>
+
+  <!-- Simulation world. For a real robot, start hardware either here via real_bringup or externally. -->
+  <include if="$(arg sim)" file="$(find wpr_simulation)/launch/wpb_stage_robocup.launch"/>
+
+  <!-- Real robot base and lidar. Disable this if lab scripts already start the hardware. -->
+  <group if="$(arg real_bringup)">
+    <include file="$(find wpb_home_bringup)/launch/normal.launch">
+      <arg name="serial_port" value="$(arg base_serial_port)"/>
+    </include>
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+      <param name="serial_port" type="string" value="$(arg lidar_serial_port)"/>
+      <param name="serial_baudrate" type="int" value="$(arg lidar_serial_baudrate)"/>
+      <param name="frame_id" type="string" value="laser"/>
+      <param name="inverted" type="bool" value="false"/>
+      <param name="angle_compensate" type="bool" value="true"/>
+      <remap from="scan" to="scan_raw"/>
+    </node>
+    <node pkg="wpb_home_bringup" type="wpb_home_lidar_filter" name="wpb_home_lidar_filter">
+      <param name="pub_topic" value="/scan"/>
+    </node>
+  </group>
+
+  <node unless="$(arg live_map)" name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" output="screen"/>
+  <include unless="$(arg live_map)" file="$(find wpb_home_tutorials)/nav_lidar/amcl_omni.launch"/>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find wpb_home_tutorials)/nav_lidar/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+    <rosparam file="$(find wpb_home_tutorials)/nav_lidar/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find wpb_home_tutorials)/nav_lidar/local_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find wpb_home_tutorials)/nav_lidar/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find wpb_home_tutorials)/nav_lidar/local_planner_params.yaml" command="load"/>
+    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <param name="use_dijkstra" value="true"/>
+    <param name="base_local_planner" value="wpbh_local_planner/WpbhLocalPlanner"/>
+    <param name="controller_frequency" value="10" type="double"/>
+    <param name="oscillation_timeout" value="8" type="double"/>
+    <param name="oscillation_distance" value="0.2" type="double"/>
+  </node>
+
+  <node if="$(arg map_manager)" pkg="se_map" type="map_manager.py" name="se_map_manager" output="screen">
+    <param name="map_dir" value="$(arg map_dir)"/>
+  </node>
+  <node pkg="se_navigation" type="navigator.py" name="se_navigation_navigator" output="screen"/>
+
+  <arg name="rvizconfig" default="$(find wpr_simulation)/rviz/nav.rviz"/>
+  <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/>
+</launch>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>se_map</name>
+  <version>0.1.0</version>
+  <description>Mapping and map-file management package for the software engineering course project.</description>
+
+  <maintainer email="student@example.com">se_map</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>wpb_home_bringup</exec_depend>
+  <exec_depend>wpr_simulation</exec_depend>
+
+  <export>
+  </export>
+</package>

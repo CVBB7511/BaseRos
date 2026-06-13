@@ -1,0 +1,5 @@
+# Must be true to avoid accidental deletion.
+bool confirm
+---
+bool success
+string message

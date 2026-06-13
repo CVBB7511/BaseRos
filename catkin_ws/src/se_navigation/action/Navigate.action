@@ -1,0 +1,10 @@
+# Destination pose in the map frame. The robot's current pose is provided by
+# AMCL/TF, so callers only need to provide a goal.
+geometry_msgs/Pose goal
+---
+bool success
+string result
+string message
+---
+uint8 percentage
+string state

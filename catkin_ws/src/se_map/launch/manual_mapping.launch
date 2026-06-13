@@ -1,0 +1,62 @@
+<launch>
+  <arg name="sim" default="false"/>
+  <arg name="real_bringup" default="false"/>
+  <arg name="keyboard" default="true"/>
+  <arg name="rviz" default="true"/>
+  <arg name="map_name" default="saved_map"/>
+  <arg name="map_dir" default="$(find se_map)/maps"/>
+  <arg name="gmapping_xmin" default="-20.0"/>
+  <arg name="gmapping_xmax" default="20.0"/>
+  <arg name="gmapping_ymin" default="-20.0"/>
+  <arg name="gmapping_ymax" default="20.0"/>
+  <arg name="gmapping_delta" default="0.05"/>
+  <arg name="base_serial_port" default="/dev/ftdi"/>
+  <arg name="lidar_serial_port" default="/dev/rplidar"/>
+  <arg name="lidar_serial_baudrate" default="115200"/>
+
+  <!-- Simulation world. For a real robot, start hardware either here via real_bringup or externally. -->
+  <include if="$(arg sim)" file="$(find wpr_simulation)/launch/wpb_stage_robocup.launch"/>
+
+  <!-- Real robot base and lidar. Disable this if lab scripts already start the hardware. -->
+  <group if="$(arg real_bringup)">
+    <include file="$(find wpb_home_bringup)/launch/normal.launch">
+      <arg name="serial_port" value="$(arg base_serial_port)"/>
+    </include>
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+      <param name="serial_port" type="string" value="$(arg lidar_serial_port)"/>
+      <param name="serial_baudrate" type="int" value="$(arg lidar_serial_baudrate)"/>
+      <param name="frame_id" type="string" value="laser"/>
+      <param name="inverted" type="bool" value="false"/>
+      <param name="angle_compensate" type="bool" value="true"/>
+      <remap from="scan" to="scan_raw"/>
+    </node>
+    <node pkg="wpb_home_bringup" type="wpb_home_lidar_filter" name="wpb_home_lidar_filter">
+      <param name="pub_topic" value="/scan"/>
+    </node>
+  </group>
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <param name="base_frame" value="base_footprint"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="map_frame" value="map"/>
+    <param name="xmin" value="$(arg gmapping_xmin)"/>
+    <param name="xmax" value="$(arg gmapping_xmax)"/>
+    <param name="ymin" value="$(arg gmapping_ymin)"/>
+    <param name="ymax" value="$(arg gmapping_ymax)"/>
+    <param name="delta" value="$(arg gmapping_delta)"/>
+    <param name="map_update_interval" value="1.0"/>
+    <param name="linearUpdate" value="0.2"/>
+    <param name="angularUpdate" value="0.2"/>
+    <param name="temporalUpdate" value="1.0"/>
+  </node>
+
+  <node pkg="se_map" type="map_manager.py" name="se_map_manager" output="screen">
+    <param name="map_dir" value="$(arg map_dir)"/>
+    <param name="default_map_name" value="$(arg map_name)"/>
+  </node>
+
+  <node if="$(arg keyboard)" pkg="wpr_simulation" type="keyboard_vel_ctrl" name="keyboard_vel_ctrl" output="screen"/>
+
+  <arg name="rvizconfig" default="$(find wpr_simulation)/rviz/slam.rviz"/>
+  <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)"/>
+</launch>

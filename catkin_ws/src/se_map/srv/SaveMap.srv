@@ -1,0 +1,6 @@
+# Map file base name. Empty means the node's default_map_name parameter.
+string name
+---
+bool success
+string path
+string message

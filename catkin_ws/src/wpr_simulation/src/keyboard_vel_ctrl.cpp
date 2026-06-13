@@ -37,7 +37,10 @@
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string>
 #include <termios.h>
 
 static float linear_vel = 0.1;
@@ -56,6 +59,20 @@ int GetCh()
   return c;
 }
 
+bool IsSafeMapName(const std::string& name)
+{
+  if(name.empty())
+    return false;
+
+  for(size_t i = 0; i < name.size(); ++i)
+  {
+    unsigned char ch = static_cast<unsigned char>(name[i]);
+    if(!isalnum(ch) && ch != '_' && ch != '-')
+      return false;
+  }
+  return true;
+}
+
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "keyboard_vel_cmd");
@@ -67,12 +84,16 @@ int main(int argc, char** argv)
   printf("d - 向右加速 \n");
   printf("q - 左旋加速 \n");
   printf("e - 右旋加速 \n");
+  printf("m - 保存地图 \n");
   printf("空格 - 刹车 \n");
   printf("x - 退出 \n");
   printf("------------- \n");
 
   ros::NodeHandle n;
+  ros::NodeHandle private_nh("~");
   ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+  std::string save_map_name;
+  private_nh.param<std::string>("save_map_name", save_map_name, "saved_map");
 
   geometry_msgs::Twist base_cmd;
   base_cmd.linear.x = 0;
@@ -139,6 +160,19 @@ int main(int argc, char** argv)
       cmd_vel_pub.publish(base_cmd);
       printf(" - linear.x= %.2f linear.y= %.2f angular.z= %.2f \n",base_cmd.linear.x,base_cmd.linear.y,base_cmd.angular.z);
     } 
+    else if(cKey=='m')
+    {
+      if(!IsSafeMapName(save_map_name))
+      {
+        printf(" - 保存地图失败: 地图名称只能包含字母、数字、下划线和短横线。\n");
+        continue;
+      }
+
+      printf("正在保存地图: %s ...\n", save_map_name.c_str());
+      std::string command = "rosservice call /se_map/save_map \"name: '" + save_map_name + "'\"";
+      int ret = system(command.c_str());
+      printf(ret == 0 ? " - 保存地图命令已执行。\n" : " - 保存地图失败，请确认 se_map_manager 已启动。\n");
+    }
     else if(cKey=='x')
     {
       base_cmd.linear.x = 0;

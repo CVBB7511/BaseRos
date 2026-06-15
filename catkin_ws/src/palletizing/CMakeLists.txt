@@ -35,6 +35,7 @@ catkin_package(
 
 catkin_install_python(PROGRAMS
   scripts/palletizing_executor.py
+  scripts/mark_table_positions.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

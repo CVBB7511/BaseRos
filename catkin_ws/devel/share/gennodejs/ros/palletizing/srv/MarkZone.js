@@ -25,6 +25,9 @@ class MarkZoneRequest {
       this.x = null;
       this.y = null;
       this.z = null;
+      this.yaw = null;
+      this.length = null;
+      this.width = null;
     }
     else {
       if (initObj.hasOwnProperty('zone_name')) {
@@ -51,6 +54,24 @@ class MarkZoneRequest {
       else {
         this.z = 0.0;
       }
+      if (initObj.hasOwnProperty('yaw')) {
+        this.yaw = initObj.yaw
+      }
+      else {
+        this.yaw = 0.0;
+      }
+      if (initObj.hasOwnProperty('length')) {
+        this.length = initObj.length
+      }
+      else {
+        this.length = 0.0;
+      }
+      if (initObj.hasOwnProperty('width')) {
+        this.width = initObj.width
+      }
+      else {
+        this.width = 0.0;
+      }
     }
   }
 
@@ -64,6 +85,12 @@ class MarkZoneRequest {
     bufferOffset = _serializer.float64(obj.y, buffer, bufferOffset);
     // Serialize message field [z]
     bufferOffset = _serializer.float64(obj.z, buffer, bufferOffset);
+    // Serialize message field [yaw]
+    bufferOffset = _serializer.float64(obj.yaw, buffer, bufferOffset);
+    // Serialize message field [length]
+    bufferOffset = _serializer.float64(obj.length, buffer, bufferOffset);
+    // Serialize message field [width]
+    bufferOffset = _serializer.float64(obj.width, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -79,13 +106,19 @@ class MarkZoneRequest {
     data.y = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [z]
     data.z = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [yaw]
+    data.yaw = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [length]
+    data.length = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [width]
+    data.width = _deserializer.float64(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
     length += _getByteLength(object.zone_name);
-    return length + 28;
+    return length + 52;
   }
 
   static datatype() {
@@ -95,7 +128,7 @@ class MarkZoneRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '05f8e5e50d6ac2c48de64e9cd6a03639';
+    return '69a51bcff6162d7a8b6c4f8ab9edfbd7';
   }
 
   static messageDefinition() {
@@ -105,6 +138,9 @@ class MarkZoneRequest {
     float64 x
     float64 y
     float64 z
+    float64 yaw           # 桌面朝向 (radians in /map frame)
+    float64 length        # 桌面长度 (沿朝向方向, m)
+    float64 width         # 桌面宽度/深度 (垂直朝向方向, m)
     
     `;
   }
@@ -141,6 +177,27 @@ class MarkZoneRequest {
     }
     else {
       resolved.z = 0.0
+    }
+
+    if (msg.yaw !== undefined) {
+      resolved.yaw = msg.yaw;
+    }
+    else {
+      resolved.yaw = 0.0
+    }
+
+    if (msg.length !== undefined) {
+      resolved.length = msg.length;
+    }
+    else {
+      resolved.length = 0.0
+    }
+
+    if (msg.width !== undefined) {
+      resolved.width = msg.width;
+    }
+    else {
+      resolved.width = 0.0
     }
 
     return resolved;
@@ -222,6 +279,6 @@ class MarkZoneResponse {
 module.exports = {
   Request: MarkZoneRequest,
   Response: MarkZoneResponse,
-  md5sum() { return '4045fd5b1bf547873a43552f46cf555f'; },
+  md5sum() { return '5878b2b5be49cb4126351933277cdaa2'; },
   datatype() { return 'palletizing/MarkZone'; }
 };

@@ -103,6 +103,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/palletizing" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/mark_table_positions.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/launch" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/src/palletizing/launch/")
 endif()
 

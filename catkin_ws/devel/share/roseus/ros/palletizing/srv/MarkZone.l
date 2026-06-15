@@ -20,7 +20,7 @@
 
 (defclass palletizing::MarkZoneRequest
   :super ros::object
-  :slots (_zone_name _x _y _z ))
+  :slots (_zone_name _x _y _z _yaw _length _width ))
 
 (defmethod palletizing::MarkZoneRequest
   (:init
@@ -29,12 +29,18 @@
     ((:x __x) 0.0)
     ((:y __y) 0.0)
     ((:z __z) 0.0)
+    ((:yaw __yaw) 0.0)
+    ((:length __length) 0.0)
+    ((:width __width) 0.0)
     )
    (send-super :init)
    (setq _zone_name (string __zone_name))
    (setq _x (float __x))
    (setq _y (float __y))
    (setq _z (float __z))
+   (setq _yaw (float __yaw))
+   (setq _length (float __length))
+   (setq _width (float __width))
    self)
   (:zone_name
    (&optional __zone_name)
@@ -48,6 +54,15 @@
   (:z
    (&optional __z)
    (if __z (setq _z __z)) _z)
+  (:yaw
+   (&optional __yaw)
+   (if __yaw (setq _yaw __yaw)) _yaw)
+  (:length
+   (&optional __length)
+   (if __length (setq _length __length)) _length)
+  (:width
+   (&optional __width)
+   (if __width (setq _width __width)) _width)
   (:serialization-length
    ()
    (+
@@ -58,6 +73,12 @@
     ;; float64 _y
     8
     ;; float64 _z
+    8
+    ;; float64 _yaw
+    8
+    ;; float64 _length
+    8
+    ;; float64 _width
     8
     ))
   (:serialize
@@ -72,6 +93,12 @@
        (sys::poke _y (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; float64 _z
        (sys::poke _z (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _yaw
+       (sys::poke _yaw (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _length
+       (sys::poke _length (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _width
+       (sys::poke _width (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -84,6 +111,12 @@
      (setq _y (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; float64 _z
      (setq _z (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _yaw
+     (setq _yaw (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _length
+     (setq _length (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _width
+     (setq _width (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;;
    self)
   )
@@ -129,7 +162,7 @@
   :super ros::object
   :slots ())
 
-(setf (get palletizing::MarkZone :md5sum-) "4045fd5b1bf547873a43552f46cf555f")
+(setf (get palletizing::MarkZone :md5sum-) "5878b2b5be49cb4126351933277cdaa2")
 (setf (get palletizing::MarkZone :datatype-) "palletizing/MarkZone")
 (setf (get palletizing::MarkZone :request) palletizing::MarkZoneRequest)
 (setf (get palletizing::MarkZone :response) palletizing::MarkZoneResponse)
@@ -137,25 +170,31 @@
 (defmethod palletizing::MarkZoneRequest
   (:response () (instance palletizing::MarkZoneResponse :init)))
 
-(setf (get palletizing::MarkZoneRequest :md5sum-) "4045fd5b1bf547873a43552f46cf555f")
+(setf (get palletizing::MarkZoneRequest :md5sum-) "5878b2b5be49cb4126351933277cdaa2")
 (setf (get palletizing::MarkZoneRequest :datatype-) "palletizing/MarkZoneRequest")
 (setf (get palletizing::MarkZoneRequest :definition-)
       "string zone_name      # 'source' or 'dest'
 float64 x
 float64 y
 float64 z
+float64 yaw           # 桌面朝向 (radians in /map frame)
+float64 length        # 桌面长度 (沿朝向方向, m)
+float64 width         # 桌面宽度/深度 (垂直朝向方向, m)
 ---
 bool success
 
 ")
 
-(setf (get palletizing::MarkZoneResponse :md5sum-) "4045fd5b1bf547873a43552f46cf555f")
+(setf (get palletizing::MarkZoneResponse :md5sum-) "5878b2b5be49cb4126351933277cdaa2")
 (setf (get palletizing::MarkZoneResponse :datatype-) "palletizing/MarkZoneResponse")
 (setf (get palletizing::MarkZoneResponse :definition-)
       "string zone_name      # 'source' or 'dest'
 float64 x
 float64 y
 float64 z
+float64 yaw           # 桌面朝向 (radians in /map frame)
+float64 length        # 桌面长度 (沿朝向方向, m)
+float64 width         # 桌面宽度/深度 (垂直朝向方向, m)
 ---
 bool success
 
@@ -163,6 +202,6 @@ bool success
 
 
 
-(provide :palletizing/MarkZone "4045fd5b1bf547873a43552f46cf555f")
+(provide :palletizing/MarkZone "5878b2b5be49cb4126351933277cdaa2")
 
 

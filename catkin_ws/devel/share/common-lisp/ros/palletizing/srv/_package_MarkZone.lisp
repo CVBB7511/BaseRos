@@ -7,6 +7,12 @@
           Y
           Z-VAL
           Z
+          YAW-VAL
+          YAW
+          LENGTH-VAL
+          LENGTH
+          WIDTH-VAL
+          WIDTH
           SUCCESS-VAL
           SUCCESS
 ))

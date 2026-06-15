@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::palletizing::MarkZone > {
   static const char* value()
   {
-    return "4045fd5b1bf547873a43552f46cf555f";
+    return "5878b2b5be49cb4126351933277cdaa2";
   }
 
   static const char* value(const ::palletizing::MarkZone&) { return value(); }

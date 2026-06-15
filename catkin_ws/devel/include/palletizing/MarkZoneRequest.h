@@ -27,13 +27,19 @@ struct MarkZoneRequest_
     : zone_name()
     , x(0.0)
     , y(0.0)
-    , z(0.0)  {
+    , z(0.0)
+    , yaw(0.0)
+    , length(0.0)
+    , width(0.0)  {
     }
   MarkZoneRequest_(const ContainerAllocator& _alloc)
     : zone_name(_alloc)
     , x(0.0)
     , y(0.0)
-    , z(0.0)  {
+    , z(0.0)
+    , yaw(0.0)
+    , length(0.0)
+    , width(0.0)  {
   (void)_alloc;
     }
 
@@ -50,6 +56,15 @@ struct MarkZoneRequest_
 
    typedef double _z_type;
   _z_type z;
+
+   typedef double _yaw_type;
+  _yaw_type yaw;
+
+   typedef double _length_type;
+  _length_type length;
+
+   typedef double _width_type;
+  _width_type width;
 
 
 
@@ -83,7 +98,10 @@ bool operator==(const ::palletizing::MarkZoneRequest_<ContainerAllocator1> & lhs
   return lhs.zone_name == rhs.zone_name &&
     lhs.x == rhs.x &&
     lhs.y == rhs.y &&
-    lhs.z == rhs.z;
+    lhs.z == rhs.z &&
+    lhs.yaw == rhs.yaw &&
+    lhs.length == rhs.length &&
+    lhs.width == rhs.width;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -140,12 +158,12 @@ struct MD5Sum< ::palletizing::MarkZoneRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "05f8e5e50d6ac2c48de64e9cd6a03639";
+    return "69a51bcff6162d7a8b6c4f8ab9edfbd7";
   }
 
   static const char* value(const ::palletizing::MarkZoneRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x05f8e5e50d6ac2c4ULL;
-  static const uint64_t static_value2 = 0x8de64e9cd6a03639ULL;
+  static const uint64_t static_value1 = 0x69a51bcff6162d7aULL;
+  static const uint64_t static_value2 = 0x8b6c4f8ab9edfbd7ULL;
 };
 
 template<class ContainerAllocator>
@@ -168,6 +186,9 @@ struct Definition< ::palletizing::MarkZoneRequest_<ContainerAllocator> >
 "float64 x\n"
 "float64 y\n"
 "float64 z\n"
+"float64 yaw           # 桌面朝向 (radians in /map frame)\n"
+"float64 length        # 桌面长度 (沿朝向方向, m)\n"
+"float64 width         # 桌面宽度/深度 (垂直朝向方向, m)\n"
 ;
   }
 
@@ -190,6 +211,9 @@ namespace serialization
       stream.next(m.x);
       stream.next(m.y);
       stream.next(m.z);
+      stream.next(m.yaw);
+      stream.next(m.length);
+      stream.next(m.width);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -224,6 +248,18 @@ struct Printer< ::palletizing::MarkZoneRequest_<ContainerAllocator> >
       s << std::endl;
     s << indent << "z: ";
     Printer<double>::stream(s, indent + "  ", v.z);
+    if (true || !indent.empty())
+      s << std::endl;
+    s << indent << "yaw: ";
+    Printer<double>::stream(s, indent + "  ", v.yaw);
+    if (true || !indent.empty())
+      s << std::endl;
+    s << indent << "length: ";
+    Printer<double>::stream(s, indent + "  ", v.length);
+    if (true || !indent.empty())
+      s << std::endl;
+    s << indent << "width: ";
+    Printer<double>::stream(s, indent + "  ", v.width);
   }
 };
 

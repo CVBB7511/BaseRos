@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/xyntera/baseRos/catkin_ws/devel/setup.sh

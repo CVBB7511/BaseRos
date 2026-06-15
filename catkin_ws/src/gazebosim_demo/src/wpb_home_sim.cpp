@@ -70,7 +70,12 @@ void ManiGripper(float inGripperValue)
 }
 static float nMinHeight = 0.493;
 static float nMaxHeight = 1.036;
-static float nBottomHeight = 0.32;
+// Offset from mani_base joint to gripper fingertip Z.
+// Originally 0.32 — calibrated for the standard WPB Home manipulator without
+// extended finger-tip links.  The wpb_home_mani model adds ~8 cm of fingertip
+// length (finger 10 cm + finger_tip 7 cm from the palm joint), so the actual
+// gripper Z ≈ lift_pos + 0.40.
+static float nBottomHeight = 0.40;
 void ManiHeight(float inHeight)
 {
     std_msgs::Float64 joint_pos_msg;

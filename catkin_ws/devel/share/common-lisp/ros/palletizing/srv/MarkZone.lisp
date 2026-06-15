@@ -26,6 +26,21 @@
     :reader z
     :initarg :z
     :type cl:float
+    :initform 0.0)
+   (yaw
+    :reader yaw
+    :initarg :yaw
+    :type cl:float
+    :initform 0.0)
+   (length
+    :reader length
+    :initarg :length
+    :type cl:float
+    :initform 0.0)
+   (width
+    :reader width
+    :initarg :width
+    :type cl:float
     :initform 0.0))
 )
 
@@ -56,6 +71,21 @@
 (cl:defmethod z-val ((m <MarkZone-request>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader palletizing-srv:z-val is deprecated.  Use palletizing-srv:z instead.")
   (z m))
+
+(cl:ensure-generic-function 'yaw-val :lambda-list '(m))
+(cl:defmethod yaw-val ((m <MarkZone-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader palletizing-srv:yaw-val is deprecated.  Use palletizing-srv:yaw instead.")
+  (yaw m))
+
+(cl:ensure-generic-function 'length-val :lambda-list '(m))
+(cl:defmethod length-val ((m <MarkZone-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader palletizing-srv:length-val is deprecated.  Use palletizing-srv:length instead.")
+  (length m))
+
+(cl:ensure-generic-function 'width-val :lambda-list '(m))
+(cl:defmethod width-val ((m <MarkZone-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader palletizing-srv:width-val is deprecated.  Use palletizing-srv:width instead.")
+  (width m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <MarkZone-request>) ostream)
   "Serializes a message object of type '<MarkZone-request>"
   (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'zone_name))))
@@ -83,6 +113,33 @@
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'z))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'yaw))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'length))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'width))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -132,6 +189,36 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'z) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'yaw) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'length) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'width) (roslisp-utils:decode-double-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<MarkZone-request>)))
@@ -142,19 +229,22 @@
   "palletizing/MarkZoneRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<MarkZone-request>)))
   "Returns md5sum for a message object of type '<MarkZone-request>"
-  "4045fd5b1bf547873a43552f46cf555f")
+  "5878b2b5be49cb4126351933277cdaa2")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'MarkZone-request)))
   "Returns md5sum for a message object of type 'MarkZone-request"
-  "4045fd5b1bf547873a43552f46cf555f")
+  "5878b2b5be49cb4126351933277cdaa2")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MarkZone-request>)))
   "Returns full string definition for message of type '<MarkZone-request>"
-  (cl:format cl:nil "string zone_name      # 'source' or 'dest'~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string zone_name      # 'source' or 'dest'~%float64 x~%float64 y~%float64 z~%float64 yaw           # 桌面朝向 (radians in /map frame)~%float64 length        # 桌面长度 (沿朝向方向, m)~%float64 width         # 桌面宽度/深度 (垂直朝向方向, m)~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'MarkZone-request)))
   "Returns full string definition for message of type 'MarkZone-request"
-  (cl:format cl:nil "string zone_name      # 'source' or 'dest'~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string zone_name      # 'source' or 'dest'~%float64 x~%float64 y~%float64 z~%float64 yaw           # 桌面朝向 (radians in /map frame)~%float64 length        # 桌面长度 (沿朝向方向, m)~%float64 width         # 桌面宽度/深度 (垂直朝向方向, m)~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <MarkZone-request>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'zone_name))
+     8
+     8
+     8
      8
      8
      8
@@ -166,6 +256,9 @@
     (cl:cons ':x (x msg))
     (cl:cons ':y (y msg))
     (cl:cons ':z (z msg))
+    (cl:cons ':yaw (yaw msg))
+    (cl:cons ':length (length msg))
+    (cl:cons ':width (width msg))
 ))
 ;//! \htmlinclude MarkZone-response.msg.html
 
@@ -206,10 +299,10 @@
   "palletizing/MarkZoneResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<MarkZone-response>)))
   "Returns md5sum for a message object of type '<MarkZone-response>"
-  "4045fd5b1bf547873a43552f46cf555f")
+  "5878b2b5be49cb4126351933277cdaa2")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'MarkZone-response)))
   "Returns md5sum for a message object of type 'MarkZone-response"
-  "4045fd5b1bf547873a43552f46cf555f")
+  "5878b2b5be49cb4126351933277cdaa2")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<MarkZone-response>)))
   "Returns full string definition for message of type '<MarkZone-response>"
   (cl:format cl:nil "bool success~%~%~%~%"))

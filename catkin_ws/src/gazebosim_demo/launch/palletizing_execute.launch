@@ -9,6 +9,22 @@
     <!--   3. 触发码垛: rosservice call /palletizing/start "{}"  -->
     <!-- ============================================ -->
 
+    <!-- ===== Table Configuration (可命令行传参) ===== -->
+    <!-- 取货桌（source table） -->
+    <arg name="source_table_x" default="-1.5"/>
+    <arg name="source_table_y" default="0.0"/>
+    <arg name="source_table_z" default="0.765"/>
+    <arg name="source_table_yaw" default="0.0"/>      <!-- 桌面长边朝向 (/map 坐标系, rad). 0=沿X轴. 不传则用默认 approach_yaw -->
+    <arg name="source_table_length" default="1.0"/>   <!-- 桌面长边 (m) -->
+    <arg name="source_table_width" default="0.5"/>    <!-- 桌面短边/深度 (m) -->
+    <!-- 码垛桌（dest table） -->
+    <arg name="dest_table_x" default="1.5"/>
+    <arg name="dest_table_y" default="0.0"/>
+    <arg name="dest_table_z" default="0.765"/>
+    <arg name="dest_table_yaw" default="3.1416"/>     <!-- 桌面朝向, π=朝向-x (迎向机器人) -->
+    <arg name="dest_table_length" default="1.0"/>
+    <arg name="dest_table_width" default="0.5"/>
+
     <!-- Environment Variables -->
     <env name="GAZEBO_MODEL_PATH" value="$(find gazebosim_demo)/models:$(optenv GAZEBO_MODEL_PATH)" />
     <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebosim_demo)/worlds:$(optenv GAZEBO_RESOURCE_PATH)" />
@@ -71,20 +87,35 @@
         <param name="use_dijkstra" value="true" />
         <param name="base_local_planner" value="wpbh_local_planner/WpbhLocalPlanner" />
         <param name="controller_frequency" value="10" type="double" />
-        <param name="xy_goal_tolerance" value="0.10" type="double" />
-        <param name="yaw_goal_tolerance" value="0.10" type="double" />
+        <param name="xy_goal_tolerance" value="0.05" type="double" />
+        <param name="yaw_goal_tolerance" value="0.05" type="double" />
         <param name="planner_frequency" value="0.5" type="double" />
         <param name="planner_patience" value="10.0" type="double" />
+        <!-- WpbhLocalPlanner velocity limits (+30%) -->
+        <param name="WpbhLocalPlanner/max_vel_trans" value="0.4" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_rot" value="1.2" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_trans" value="2.0" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_rot" value="0.65" type="double" />
+        <param name="WpbhLocalPlanner/goal_dist_tolerance" value="0.05" type="double" />
+        <param name="WpbhLocalPlanner/goal_yaw_tolerance" value="0.05" type="double" />
     </node>
 
     <!-- ===== Palletizing Executor (waits for /palletizing/start service) ===== -->
     <node pkg="palletizing" type="palletizing_executor.py" name="palletizing_executor" output="screen">
-        <param name="source_table_x" type="double" value="-1.5"/>
-        <param name="source_table_y" type="double" value="0.0"/>
-        <param name="source_table_z" type="double" value="0.765"/>
-        <param name="dest_table_x" type="double" value="1.5"/>
-        <param name="dest_table_y" type="double" value="0.0"/>
-        <param name="dest_table_z" type="double" value="0.765"/>
+        <!-- Table positions & dimensions (from <arg>, overridable via command line) -->
+        <param name="source_table_x" type="double" value="$(arg source_table_x)"/>
+        <param name="source_table_y" type="double" value="$(arg source_table_y)"/>
+        <param name="source_table_z" type="double" value="$(arg source_table_z)"/>
+        <param name="source_table_yaw" type="double" value="$(arg source_table_yaw)"/>
+        <param name="source_table_length" type="double" value="$(arg source_table_length)"/>
+        <param name="source_table_width" type="double" value="$(arg source_table_width)"/>
+        <param name="dest_table_x" type="double" value="$(arg dest_table_x)"/>
+        <param name="dest_table_y" type="double" value="$(arg dest_table_y)"/>
+        <param name="dest_table_z" type="double" value="$(arg dest_table_z)"/>
+        <param name="dest_table_yaw" type="double" value="$(arg dest_table_yaw)"/>
+        <param name="dest_table_length" type="double" value="$(arg dest_table_length)"/>
+        <param name="dest_table_width" type="double" value="$(arg dest_table_width)"/>
+        <!-- Stacking params -->
         <param name="grid_cols" type="int" value="2"/>
         <param name="grid_rows" type="int" value="3"/>
         <param name="cube_height" type="double" value="0.06"/>

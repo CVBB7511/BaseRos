@@ -1,0 +1,137 @@
+<launch>
+    <!-- ============================================ -->
+    <!-- Palletizing 执行阶段 — 真机版                  -->
+    <!-- 使用已保存的地图 + AMCL 定位 + 码垛执行器      -->
+    <!--                                               -->
+    <!-- 与仿真版的区别:                                 -->
+    <!--   - 不含 Gazebo (world / spawn_model)          -->
+    <!--   - 使用真实机器人硬件 (需提前启动底盘驱动等)    -->
+    <!--   - use_sim_time = false (使用系统时钟)         -->
+    <!--                                               -->
+    <!-- 前提条件:                                      -->
+    <!--   - 机器人底盘驱动、激光雷达、Kinect2 已启动     -->
+    <!--   - 已完成建图并保存地图                         -->
+    <!--                                               -->
+    <!-- 使用方法:                                      -->
+    <!--   1. roslaunch gazebosim_demo palletizing_execute_real.launch \  -->
+    <!--        map_file:=/path/to/your_map.yaml                          -->
+    <!--   2. 在 RViz 中设置机器人初始位置 (2D Pose Estimate)             -->
+    <!--   3. 标定桌面位置 (可选):                                        -->
+    <!--      rosrun palletizing mark_table_positions.py                  -->
+    <!--   4. 触发码垛: rosservice call /palletizing/start "{}"           -->
+    <!--                                               -->
+    <!-- 命令行传参示例:                                 -->
+    <!--   roslaunch gazebosim_demo palletizing_execute_real.launch \    -->
+    <!--     map_file:=/home/robot/maps/workshop.yaml \                  -->
+    <!--     source_table_x:=-2.0 source_table_y:=0.5 source_table_yaw:=1.57 \ -->
+    <!--     dest_table_x:=2.0 dest_table_y:=-0.3 dest_table_yaw:=0.0    -->
+    <!-- ============================================ -->
+
+    <!-- ===== Map file path ===== -->
+    <arg name="map_file" default="$(find gazebosim_demo)/maps/palletizing_map.yaml"/>
+
+    <!-- ===== Table Configuration (可命令行传参) ===== -->
+    <arg name="source_table_x" default="-1.5"/>
+    <arg name="source_table_y" default="0.0"/>
+    <arg name="source_table_z" default="0.765"/>
+    <arg name="source_table_yaw" default="0.0"/>
+    <arg name="source_table_length" default="1.0"/>
+    <arg name="source_table_width" default="0.5"/>
+    <arg name="dest_table_x" default="1.5"/>
+    <arg name="dest_table_y" default="0.0"/>
+    <arg name="dest_table_z" default="0.765"/>
+    <arg name="dest_table_yaw" default="3.1416"/>
+    <arg name="dest_table_length" default="1.0"/>
+    <arg name="dest_table_width" default="0.5"/>
+
+    <!-- ===== Robot Controllers (真机) ===== -->
+    <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+
+    <!-- ===== Behavior nodes (grab / place / object detect) ===== -->
+    <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d" output="screen">
+        <param name="topic" type="string" value="/kinect2/sd/points" />
+        <param name="start" type="bool" value="true" />
+    </node>
+    <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
+        <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
+        <param name="grab/grab_lift_offset" type="double" value="0.0" />
+        <param name="grab/grab_forward_offset" type="double" value="0.0" />
+    </node>
+    <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action" />
+
+    <!-- ===== Map Server ===== -->
+    <node name="map_server" pkg="map_server" type="map_server"
+        args="$(arg map_file)" />
+
+    <!-- ===== AMCL Localization ===== -->
+    <include file="$(find wpb_home_tutorials)/nav_lidar/amcl_omni.launch" />
+
+    <!-- ===== Navigation (move_base) ===== -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam ns="global_costmap">
+            robot_radius: 0.25
+            inflation_radius: 0.5
+            obstacle_range: 6.0
+            raytrace_range: 6.0
+            observation_sources: base_lidar
+            base_lidar: {data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+        </rosparam>
+        <rosparam file="$(find navigation)/launch/wj_costmap_common_params.yaml" command="load"
+            ns="local_costmap" />
+        <rosparam file="$(find wpb_home_tutorials)/nav_lidar/local_costmap_params.yaml"
+            command="load" />
+        <rosparam file="$(find wpb_home_tutorials)/nav_lidar/global_costmap_params.yaml"
+            command="load" />
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+        <param name="use_dijkstra" value="true" />
+        <param name="base_local_planner" value="wpbh_local_planner/WpbhLocalPlanner" />
+        <param name="controller_frequency" value="10" type="double" />
+        <param name="xy_goal_tolerance" value="0.05" type="double" />
+        <param name="yaw_goal_tolerance" value="0.05" type="double" />
+        <param name="planner_frequency" value="0.5" type="double" />
+        <param name="planner_patience" value="10.0" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_trans" value="0.4" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_rot" value="1.2" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_trans" value="2.0" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_rot" value="0.65" type="double" />
+        <param name="WpbhLocalPlanner/goal_dist_tolerance" value="0.05" type="double" />
+        <param name="WpbhLocalPlanner/goal_yaw_tolerance" value="0.05" type="double" />
+    </node>
+
+    <!-- ===== Palletizing Executor ===== -->
+    <node pkg="palletizing" type="palletizing_executor.py" name="palletizing_executor" output="screen">
+        <param name="source_table_x" type="double" value="$(arg source_table_x)"/>
+        <param name="source_table_y" type="double" value="$(arg source_table_y)"/>
+        <param name="source_table_z" type="double" value="$(arg source_table_z)"/>
+        <param name="source_table_yaw" type="double" value="$(arg source_table_yaw)"/>
+        <param name="source_table_length" type="double" value="$(arg source_table_length)"/>
+        <param name="source_table_width" type="double" value="$(arg source_table_width)"/>
+        <param name="dest_table_x" type="double" value="$(arg dest_table_x)"/>
+        <param name="dest_table_y" type="double" value="$(arg dest_table_y)"/>
+        <param name="dest_table_z" type="double" value="$(arg dest_table_z)"/>
+        <param name="dest_table_yaw" type="double" value="$(arg dest_table_yaw)"/>
+        <param name="dest_table_length" type="double" value="$(arg dest_table_length)"/>
+        <param name="dest_table_width" type="double" value="$(arg dest_table_width)"/>
+        <param name="grid_cols" type="int" value="2"/>
+        <param name="grid_rows" type="int" value="3"/>
+        <param name="cube_height" type="double" value="0.06"/>
+        <param name="hard_cube_height" type="double" value="0.10"/>
+        <param name="soft_cube_height" type="double" value="0.15"/>
+        <param name="soft_place_offset" type="double" value="0.005"/>
+        <param name="stacking_pattern" type="string" value="aligned"/>
+        <param name="spacing_x" type="double" value="0.18"/>
+        <param name="spacing_y" type="double" value="0.17"/>
+        <param name="zone_separation_y" type="double" value="0.35"/>
+        <param name="nav_timeout" type="double" value="120.0"/>
+        <param name="approach_offset" type="double" value="0.70"/>
+        <param name="place_approach_offset" type="double" value="0.30"/>
+        <param name="table_half_depth" type="double" value="0.25"/>
+        <param name="gripper_hard_cube" type="double" value="0.052"/>
+        <param name="gripper_soft_cube" type="double" value="0.078"/>
+    </node>
+
+    <!-- ===== RViz (navigation view) ===== -->
+    <node pkg="rviz" type="rviz" name="rviz_nav"
+        args="-d $(find gazebosim_demo)/rviz/nav.rviz" />
+
+</launch>

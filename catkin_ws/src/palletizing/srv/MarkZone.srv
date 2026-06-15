@@ -2,5 +2,8 @@ string zone_name      # 'source' or 'dest'
 float64 x
 float64 y
 float64 z
+float64 yaw           # 桌面朝向 (radians in /map frame)
+float64 length        # 桌面长度 (沿朝向方向, m)
+float64 width         # 桌面宽度/深度 (垂直朝向方向, m)
 ---
 bool success

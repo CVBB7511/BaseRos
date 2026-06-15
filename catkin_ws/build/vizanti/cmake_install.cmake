@@ -1,8 +1,8 @@
-# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/vizanti
+# Install script for directory: /home/yubowen/BaseRos/catkin_ws/src/vizanti
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/yubowen/BaseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,83 +39,83 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/srv" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/SaveMap.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/LoadMap.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ManageNode.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ListPackages.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/vizanti")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/vizanti")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizanti-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti/cmake" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizantiConfig.cmake"
-    "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizantiConfig-version.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizantiConfig.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/vizantiConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/vizanti/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/src/vizanti/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/server.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/server.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/service_handler.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/service_handler.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/topic_handler.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/topic_handler.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/vizanti/catkin_generated/installspace/waypoints_to_simple_goals.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/vizanti" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/vizanti/catkin_generated/installspace/waypoints_to_simple_goals.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/vizanti" TYPE DIRECTORY FILES
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/public"
-    "/home/xyntera/baseRos/catkin_ws/src/vizanti/launch"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/public"
+    "/home/yubowen/BaseRos/catkin_ws/src/vizanti/launch"
     )
 endif()
 

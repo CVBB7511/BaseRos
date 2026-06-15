@@ -1,4 +1,4 @@
-prefix=/home/xyntera/baseRos/catkin_ws/install
+prefix=/home/yubowen/BaseRos/catkin_ws/install
 
 Name: kinect2_viewer
 Description: Description of kinect2_viewer

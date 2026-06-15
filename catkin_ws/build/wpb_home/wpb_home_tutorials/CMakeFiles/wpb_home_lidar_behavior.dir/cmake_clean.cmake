@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_lidar_behavior"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_lidar_behavior.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_lidar_behavior"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_lidar_behavior.pdb"
   "CMakeFiles/wpb_home_lidar_behavior.dir/src/wpb_home_lidar_behavior.cpp.o"
 )
 

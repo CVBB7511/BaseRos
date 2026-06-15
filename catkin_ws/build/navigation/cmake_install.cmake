@@ -1,8 +1,8 @@
-# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/navigation
+# Install script for directory: /home/yubowen/BaseRos/catkin_ws/src/navigation
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/yubowen/BaseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,72 +39,72 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/srv" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/src/navigation/srv/Start.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/navigation/srv/Goal.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/navigation/srv/Halt.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/navigation/srv/Start.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/navigation/srv/Goal.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/navigation/srv/Halt.srv"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/action" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/navigation/action/Navigate.action")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/action" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/src/navigation/action/Navigate.action")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/msg" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
-    "/home/xyntera/baseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
+    "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/include/navigation")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/include/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/navigation")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/navigation")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/navigation")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/navigation")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/navigation")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/navigation")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigation-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation/cmake" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigationConfig.cmake"
-    "/home/xyntera/baseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigationConfig-version.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigationConfig.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/navigation/catkin_generated/installspace/navigationConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/navigation/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/navigation" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/src/navigation/package.xml")
 endif()
 

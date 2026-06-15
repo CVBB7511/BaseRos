@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/srv/IATSwitch.srv"
+services_str = "/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/srv/IATSwitch.srv"
 pkg_name = "xfyun_waterplus"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

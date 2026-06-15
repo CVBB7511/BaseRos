@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing/manifest.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing/msg/PalletizingStats.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing/msg/SafetyStatus.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing/srv/MarkZone.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing/srv/StartTask.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing/manifest.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing/msg/PalletizingStats.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing/msg/SafetyStatus.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing/srv/MarkZone.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing/srv/StartTask.l"
   "CMakeFiles/palletizing_generate_messages_eus"
 )
 

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_simple_goal.cpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_simple_goal.cpp
 ros/ros.h
 -
 move_base_msgs/MoveBaseAction.h

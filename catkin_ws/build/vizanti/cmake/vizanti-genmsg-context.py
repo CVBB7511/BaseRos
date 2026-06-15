@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/SaveMap.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/LoadMap.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ManageNode.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListPackages.srv;/home/xyntera/baseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv"
+services_str = "/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/GetNodeParameters.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/SaveMap.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/LoadMap.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/RecordRosbag.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ManageNode.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ListPackages.srv;/home/yubowen/BaseRos/catkin_ws/src/vizanti/srv/ListExecutables.srv"
 pkg_name = "vizanti"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

@@ -25,7 +25,6 @@ struct Coord_
 
   Coord_()
     : name()
-    , type()
     , x()
     , y()
     , z()
@@ -33,7 +32,6 @@ struct Coord_
     }
   Coord_(const ContainerAllocator& _alloc)
     : name(_alloc)
-    , type(_alloc)
     , x(_alloc)
     , y(_alloc)
     , z(_alloc)
@@ -45,9 +43,6 @@ struct Coord_
 
    typedef std::vector<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>> _name_type;
   _name_type name;
-
-   typedef std::vector<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>> _type_type;
-  _type_type type;
 
    typedef std::vector<double, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<double>> _x_type;
   _x_type x;
@@ -91,7 +86,6 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::wpb_home_behaviors::Coord_<ContainerAllocator1> & lhs, const ::wpb_home_behaviors::Coord_<ContainerAllocator2> & rhs)
 {
   return lhs.name == rhs.name &&
-    lhs.type == rhs.type &&
     lhs.x == rhs.x &&
     lhs.y == rhs.y &&
     lhs.z == rhs.z &&
@@ -152,12 +146,12 @@ struct MD5Sum< ::wpb_home_behaviors::Coord_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "229f4c4f50d2ba58f92ac2bca15e4e75";
+    return "f4c6bf06051abcb9913c14ef2b4e56f0";
   }
 
   static const char* value(const ::wpb_home_behaviors::Coord_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x229f4c4f50d2ba58ULL;
-  static const uint64_t static_value2 = 0xf92ac2bca15e4e75ULL;
+  static const uint64_t static_value1 = 0xf4c6bf06051abcb9ULL;
+  static const uint64_t static_value2 = 0x913c14ef2b4e56f0ULL;
 };
 
 template<class ContainerAllocator>
@@ -177,7 +171,6 @@ struct Definition< ::wpb_home_behaviors::Coord_<ContainerAllocator> >
   static const char* value()
   {
     return "string[] name\n"
-"string[] type\n"
 "float64[] x\n"
 "float64[] y\n"
 "float64[] z\n"
@@ -201,7 +194,6 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.name);
-      stream.next(m.type);
       stream.next(m.x);
       stream.next(m.y);
       stream.next(m.z);
@@ -238,21 +230,6 @@ struct Printer< ::wpb_home_behaviors::Coord_<ContainerAllocator> >
       Printer<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>::stream(s, true ? std::string() : indent + "    ", v.name[i]);
     }
     if (v.name.empty() || true)
-      s << "]";
-    if (true || !indent.empty())
-      s << std::endl;
-    s << indent << "type: ";
-    if (v.type.empty() || true)
-      s << "[";
-    for (size_t i = 0; i < v.type.size(); ++i)
-    {
-      if (true && i > 0)
-        s << ", ";
-      else if (!true)
-        s << std::endl << indent << "  -";
-      Printer<std::basic_string<char, std::char_traits<char>, typename std::allocator_traits<ContainerAllocator>::template rebind_alloc<char>>>::stream(s, true ? std::string() : indent + "    ", v.type[i]);
-    }
-    if (v.type.empty() || true)
       s << "]";
     if (true || !indent.empty())
       s << std::endl;

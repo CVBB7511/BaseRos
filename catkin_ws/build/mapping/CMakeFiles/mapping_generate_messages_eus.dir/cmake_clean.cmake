@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/mapping/manifest.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/mapping/srv/Halt.l"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/mapping/srv/Start.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/mapping/manifest.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/mapping/srv/Halt.l"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/mapping/srv/Start.l"
   "CMakeFiles/mapping_generate_messages_eus"
 )
 

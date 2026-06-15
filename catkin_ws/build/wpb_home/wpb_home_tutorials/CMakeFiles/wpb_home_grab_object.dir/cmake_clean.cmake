@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_object"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_object.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_object"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_grab_object.pdb"
   "CMakeFiles/wpb_home_grab_object.dir/src/wpb_home_grab_object.cpp.o"
 )
 

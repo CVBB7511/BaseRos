@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_behaviors/wpb_home_objects_3d"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_behaviors/wpb_home_objects_3d.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_behaviors/wpb_home_objects_3d"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_behaviors/wpb_home_objects_3d.pdb"
   "CMakeFiles/wpb_home_objects_3d.dir/src/wpb_home_objects_3d.cpp.o"
 )
 

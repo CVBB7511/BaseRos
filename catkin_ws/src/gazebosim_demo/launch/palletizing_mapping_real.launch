@@ -1,0 +1,53 @@
+<launch>
+    <!-- ============================================ -->
+    <!-- Palletizing 建图阶段 — 真机版                  -->
+    <!--                                               -->
+    <!-- 与仿真版的区别:                                 -->
+    <!--   - 不含 Gazebo (world / spawn_model)          -->
+    <!--   - 使用真实硬件驱动 (wpb_home_core)            -->
+    <!--   - 使用真实传感器 (RPLIDAR + Kinect2)          -->
+    <!--                                               -->
+    <!-- 使用方法:                                      -->
+    <!--   终端1: roslaunch gazebosim_demo palletizing_mapping_real.launch -->
+    <!--   终端2: rosrun gazebosim_demo vel_ctrl_node.py     # 键盘遥控   -->
+    <!--    或     roslaunch wpb_home_bringup js_ctrl.launch  # 手柄遥控   -->
+    <!--                                               -->
+    <!--   建图完成后保存:                               -->
+    <!--     rosrun map_server map_saver -f ~/maps/workshop -->
+    <!-- ============================================ -->
+
+    <!-- ===== 机器人 URDF 模型 ===== -->
+    <arg name="model" default="$(find wpb_home_bringup)/urdf/wpb_home.urdf"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- ===== 机器人底盘 + 机械臂驱动 (真机核心) ===== -->
+    <node pkg="wpb_home_bringup" type="wpb_home_core" name="wpb_home_core" output="screen">
+        <param name="serial_port" type="string" value="/dev/ftdi"/>
+        <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
+    </node>
+
+    <!-- ===== RPLIDAR 激光雷达 ===== -->
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <param name="serial_port"     type="string" value="/dev/rplidar"/>
+        <param name="serial_baudrate" type="int"    value="115200"/>
+        <param name="frame_id"        type="string" value="laser"/>
+        <param name="inverted"        type="bool"   value="false"/>
+        <param name="angle_compensate" type="bool"  value="true"/>
+        <remap from="scan" to="scan_raw"/>
+    </node>
+    <node pkg="wpb_home_bringup" type="wpb_home_lidar_filter" name="wpb_home_lidar_filter">
+        <param name="pub_topic" value="/scan"/>
+    </node>
+
+    <!-- ===== Kinect2 RGB-D 相机 (建图阶段可选，但建议开着) ===== -->
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+
+    <!-- ===== Gmapping SLAM ===== -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" />
+
+    <!-- ===== RViz ===== -->
+    <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find gazebosim_demo)/rviz/slam.rviz" />
+
+</launch>

@@ -1,20 +1,20 @@
 
 "use strict";
 
+let ManageNode = require('./ManageNode.js')
 let LoadMap = require('./LoadMap.js')
+let SaveMap = require('./SaveMap.js')
 let GetNodeParameters = require('./GetNodeParameters.js')
 let ListExecutables = require('./ListExecutables.js')
-let ManageNode = require('./ManageNode.js')
-let RecordRosbag = require('./RecordRosbag.js')
 let ListPackages = require('./ListPackages.js')
-let SaveMap = require('./SaveMap.js')
+let RecordRosbag = require('./RecordRosbag.js')
 
 module.exports = {
+  ManageNode: ManageNode,
   LoadMap: LoadMap,
+  SaveMap: SaveMap,
   GetNodeParameters: GetNodeParameters,
   ListExecutables: ListExecutables,
-  ManageNode: ManageNode,
-  RecordRosbag: RecordRosbag,
   ListPackages: ListPackages,
-  SaveMap: SaveMap,
+  RecordRosbag: RecordRosbag,
 };

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus/srv/_IATSwitch.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus/srv/__init__.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus/srv/_IATSwitch.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/xfyun_waterplus/srv/__init__.py"
   "CMakeFiles/xfyun_waterplus_generate_messages_py"
 )
 

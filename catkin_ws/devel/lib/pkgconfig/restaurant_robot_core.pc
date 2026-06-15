@@ -1,8 +1,0 @@
-prefix=/home/xyntera/baseRos/catkin_ws/devel
-
-Name: restaurant_robot_core
-Description: Description of restaurant_robot_core
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

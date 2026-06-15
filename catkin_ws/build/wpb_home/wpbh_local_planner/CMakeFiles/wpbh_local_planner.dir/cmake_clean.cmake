@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/libwpbh_local_planner.pdb"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/libwpbh_local_planner.so"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/libwpbh_local_planner.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/libwpbh_local_planner.so"
   "CMakeFiles/wpbh_local_planner.dir/src/CLidarAC.cpp.o"
   "CMakeFiles/wpbh_local_planner.dir/src/wpbh_local_planner.cpp.o"
 )

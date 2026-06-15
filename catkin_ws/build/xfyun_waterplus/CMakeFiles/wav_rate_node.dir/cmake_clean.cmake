@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/wav_rate_node"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/wav_rate_node.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/wav_rate_node"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/wav_rate_node.pdb"
   "CMakeFiles/wav_rate_node.dir/src/wav_rate_node.cpp.o"
 )
 

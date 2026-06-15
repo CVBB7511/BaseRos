@@ -12,11 +12,6 @@
     :initarg :name
     :type (cl:vector cl:string)
    :initform (cl:make-array 0 :element-type 'cl:string :initial-element ""))
-   (type
-    :reader type
-    :initarg :type
-    :type (cl:vector cl:string)
-   :initform (cl:make-array 0 :element-type 'cl:string :initial-element ""))
    (x
     :reader x
     :initarg :x
@@ -52,11 +47,6 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader wpb_home_behaviors-msg:name-val is deprecated.  Use wpb_home_behaviors-msg:name instead.")
   (name m))
 
-(cl:ensure-generic-function 'type-val :lambda-list '(m))
-(cl:defmethod type-val ((m <Coord>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader wpb_home_behaviors-msg:type-val is deprecated.  Use wpb_home_behaviors-msg:type instead.")
-  (type m))
-
 (cl:ensure-generic-function 'x-val :lambda-list '(m))
 (cl:defmethod x-val ((m <Coord>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader wpb_home_behaviors-msg:x-val is deprecated.  Use wpb_home_behaviors-msg:x instead.")
@@ -90,18 +80,6 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
   (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) ele))
    (cl:slot-value msg 'name))
-  (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'type))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_arr_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
-  (cl:map cl:nil #'(cl:lambda (ele) (cl:let ((__ros_str_len (cl:length ele)))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
-  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) ele))
-   (cl:slot-value msg 'type))
   (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'x))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
@@ -172,22 +150,6 @@
     (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
   (cl:setf (cl:slot-value msg 'name) (cl:make-array __ros_arr_len))
   (cl:let ((vals (cl:slot-value msg 'name)))
-    (cl:dotimes (i __ros_arr_len)
-    (cl:let ((__ros_str_len 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:aref vals i) (cl:make-string __ros_str_len))
-      (cl:dotimes (__ros_str_idx __ros_str_len msg)
-        (cl:setf (cl:char (cl:aref vals i) __ros_str_idx) (cl:code-char (cl:read-byte istream))))))))
-  (cl:let ((__ros_arr_len 0))
-    (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 16) __ros_arr_len) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
-  (cl:setf (cl:slot-value msg 'type) (cl:make-array __ros_arr_len))
-  (cl:let ((vals (cl:slot-value msg 'type)))
     (cl:dotimes (i __ros_arr_len)
     (cl:let ((__ros_str_len 0))
       (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
@@ -279,20 +241,19 @@
   "wpb_home_behaviors/Coord")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<Coord>)))
   "Returns md5sum for a message object of type '<Coord>"
-  "229f4c4f50d2ba58f92ac2bca15e4e75")
+  "f4c6bf06051abcb9913c14ef2b4e56f0")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'Coord)))
   "Returns md5sum for a message object of type 'Coord"
-  "229f4c4f50d2ba58f92ac2bca15e4e75")
+  "f4c6bf06051abcb9913c14ef2b4e56f0")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<Coord>)))
   "Returns full string definition for message of type '<Coord>"
-  (cl:format cl:nil "string[] name~%string[] type~%float64[] x~%float64[] y~%float64[] z~%float64[] probability~%~%"))
+  (cl:format cl:nil "string[] name~%float64[] x~%float64[] y~%float64[] z~%float64[] probability~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'Coord)))
   "Returns full string definition for message of type 'Coord"
-  (cl:format cl:nil "string[] name~%string[] type~%float64[] x~%float64[] y~%float64[] z~%float64[] probability~%~%"))
+  (cl:format cl:nil "string[] name~%float64[] x~%float64[] y~%float64[] z~%float64[] probability~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <Coord>))
   (cl:+ 0
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'name) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 4 (cl:length ele))))
-     4 (cl:reduce #'cl:+ (cl:slot-value msg 'type) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 4 (cl:length ele))))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'x) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 8)))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'y) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 8)))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'z) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 8)))
@@ -302,7 +263,6 @@
   "Converts a ROS message object to a list"
   (cl:list 'Coord
     (cl:cons ':name (name msg))
-    (cl:cons ':type (type msg))
     (cl:cons ':x (x msg))
     (cl:cons ':y (y msg))
     (cl:cons ':z (z msg))

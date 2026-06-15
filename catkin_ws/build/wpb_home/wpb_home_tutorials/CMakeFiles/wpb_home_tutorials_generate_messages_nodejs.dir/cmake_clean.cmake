@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/wpb_home_tutorials/srv/Follow.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/wpb_home_tutorials/srv/Follow.js"
   "CMakeFiles/wpb_home_tutorials_generate_messages_nodejs"
 )
 

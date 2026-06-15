@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_face_detect.cpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_face_detect.cpp
 ros/ros.h
 -
 sensor_msgs/PointCloud2.h
@@ -22,7 +22,7 @@ opencv2/imgproc/imgproc.hpp
 opencv2/highgui/highgui.hpp
 -
 opencv2/objdetect/objdetect.hpp
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/opencv2/objdetect/objdetect.hpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/opencv2/objdetect/objdetect.hpp
 visualization_msgs/Marker.h
 -
 tf/transform_listener.h

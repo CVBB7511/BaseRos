@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/_PalletizingStats.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/_SafetyStatus.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/__init__.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/_MarkZone.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/_StartTask.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/__init__.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/_PalletizingStats.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/_SafetyStatus.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/msg/__init__.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/_MarkZone.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/_StartTask.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing/srv/__init__.py"
   "CMakeFiles/palletizing_generate_messages_py"
 )
 

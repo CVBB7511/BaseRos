@@ -1,7 +1,0 @@
-set(palletizing_SETUP_PY_SETUP_MODULE "setuptools")
-set(palletizing_SETUP_PY_VERSION "0.1.0")
-set(palletizing_SETUP_PY_SCRIPTS "")
-set(palletizing_SETUP_PY_PACKAGES "palletizing_core")
-set(palletizing_SETUP_PY_PACKAGE_DIRS "src/palletizing_core")
-set(palletizing_SETUP_PY_MODULES "")
-set(palletizing_SETUP_PY_MODULE_DIRS "")

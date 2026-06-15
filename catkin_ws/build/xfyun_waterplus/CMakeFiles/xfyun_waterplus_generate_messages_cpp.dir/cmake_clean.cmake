@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/xfyun_waterplus/IATSwitch.h"
   "CMakeFiles/xfyun_waterplus_generate_messages_cpp"
 )
 

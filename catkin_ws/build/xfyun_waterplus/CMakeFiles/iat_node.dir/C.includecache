@@ -6,27 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/formats.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/formats.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/linuxrec.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/linuxrec.h
 formats.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/formats.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/formats.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/msp_cmn.h
 msp_types.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/msp_errors.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/qisr.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/qisr.h
 msp_types.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/msp_types.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/include/speech_recognizer.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
 stdio.h
 -
 stdlib.h
@@ -42,11 +42,11 @@ sys/stat.h
 pthread.h
 -
 formats.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/formats.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/formats.h
 linuxrec.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.h
 
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
 stdio.h
 -
 stdlib.h
@@ -56,13 +56,13 @@ unistd.h
 string.h
 -
 speech_recognizer.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.h
 qisr.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/qisr.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/qisr.h
 msp_cmn.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/msp_cmn.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/msp_cmn.h
 msp_errors.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/msp_errors.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/msp_errors.h
 linuxrec.h
-/home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.h
+/home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.h
 

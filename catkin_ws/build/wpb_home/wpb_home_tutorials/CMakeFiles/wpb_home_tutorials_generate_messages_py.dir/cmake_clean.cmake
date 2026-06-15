@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_tutorials/srv/_Follow.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_tutorials/srv/__init__.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_tutorials/srv/_Follow.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/wpb_home_tutorials/srv/__init__.py"
   "CMakeFiles/wpb_home_tutorials_generate_messages_py"
 )
 

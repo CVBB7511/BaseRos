@@ -1,8 +1,8 @@
-# Install script for directory: /home/xyntera/baseRos/catkin_ws/src/palletizing
+# Install script for directory: /home/yubowen/BaseRos/catkin_ws/src/palletizing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/xyntera/baseRos/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/yubowen/BaseRos/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,74 +39,74 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/srv" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
-    "/home/xyntera/baseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/palletizing/srv/MarkZone.srv"
+    "/home/yubowen/BaseRos/catkin_ws/src/palletizing/srv/StartTask.srv"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/msg" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
-    "/home/xyntera/baseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
+    "/home/yubowen/BaseRos/catkin_ws/src/palletizing/msg/PalletizingStats.msg"
+    "/home/yubowen/BaseRos/catkin_ws/src/palletizing/msg/SafetyStatus.msg"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing-msg-paths.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing-msg-paths.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/include/palletizing")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/include/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/roseus/ros/palletizing")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/roseus/ros/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/palletizing")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/palletizing")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing")
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/palletizing")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/cmake" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing-msg-extras.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/cmake" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/cmake" TYPE FILE FILES
-    "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizingConfig.cmake"
-    "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizingConfig-version.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizingConfig.cmake"
+    "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizingConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing" TYPE FILE FILES "/home/xyntera/baseRos/catkin_ws/src/palletizing/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing" TYPE FILE FILES "/home/yubowen/BaseRos/catkin_ws/src/palletizing/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/palletizing" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing_executor.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/palletizing" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/palletizing_executor.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/palletizing" TYPE PROGRAM FILES "/home/xyntera/baseRos/catkin_ws/build/palletizing/catkin_generated/installspace/mark_table_positions.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/palletizing" TYPE PROGRAM FILES "/home/yubowen/BaseRos/catkin_ws/build/palletizing/catkin_generated/installspace/mark_table_positions.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/launch" TYPE DIRECTORY FILES "/home/xyntera/baseRos/catkin_ws/src/palletizing/launch/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/palletizing/launch" TYPE DIRECTORY FILES "/home/yubowen/BaseRos/catkin_ws/src/palletizing/launch/")
 endif()
 

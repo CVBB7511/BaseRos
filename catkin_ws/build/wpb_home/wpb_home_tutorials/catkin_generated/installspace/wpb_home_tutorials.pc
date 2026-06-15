@@ -1,4 +1,4 @@
-prefix=/home/xyntera/baseRos/catkin_ws/install
+prefix=/home/yubowen/BaseRos/catkin_ws/install
 
 Name: wpb_home_tutorials
 Description: Description of wpb_home_tutorials

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_bridge/kinect2_bridge"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_bridge/kinect2_bridge.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/kinect2_bridge/kinect2_bridge"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/kinect2_bridge/kinect2_bridge.pdb"
   "CMakeFiles/kinect2_bridge.dir/src/kinect2_bridge.cpp.o"
 )
 

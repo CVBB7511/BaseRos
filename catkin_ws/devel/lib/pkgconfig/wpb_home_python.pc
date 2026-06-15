@@ -1,4 +1,4 @@
-prefix=/home/xyntera/baseRos/catkin_ws/devel
+prefix=/home/yubowen/BaseRos/catkin_ws/devel
 
 Name: wpb_home_python
 Description: Description of wpb_home_python

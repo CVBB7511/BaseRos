@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_calibration/kinect2_calibration"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/kinect2_calibration/kinect2_calibration.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/kinect2_calibration/kinect2_calibration"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/kinect2_calibration/kinect2_calibration.pdb"
   "CMakeFiles/kinect2_calibration.dir/src/kinect2_calibration.cpp.o"
 )
 

@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/msg/PalletizingStats.lisp"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/msg/SafetyStatus.lisp"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/srv/MarkZone.lisp"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/srv/StartTask.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/msg/PalletizingStats.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/msg/SafetyStatus.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/srv/MarkZone.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/palletizing/srv/StartTask.lisp"
   "CMakeFiles/palletizing_generate_messages_lisp"
 )
 

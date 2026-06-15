@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/yubowen/BaseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
+CMAKE_BINARY_DIR = /home/yubowen/BaseRos/catkin_ws/build
 
 # Utility rule file for sound_play_generate_messages_py.
 
@@ -63,10 +63,10 @@ palletizing/CMakeFiles/sound_play_generate_messages_py.dir/build: sound_play_gen
 .PHONY : palletizing/CMakeFiles/sound_play_generate_messages_py.dir/build
 
 palletizing/CMakeFiles/sound_play_generate_messages_py.dir/clean:
-	cd /home/xyntera/baseRos/catkin_ws/build/palletizing && $(CMAKE_COMMAND) -P CMakeFiles/sound_play_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/yubowen/BaseRos/catkin_ws/build/palletizing && $(CMAKE_COMMAND) -P CMakeFiles/sound_play_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : palletizing/CMakeFiles/sound_play_generate_messages_py.dir/clean
 
 palletizing/CMakeFiles/sound_play_generate_messages_py.dir/depend:
-	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/palletizing /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/palletizing /home/xyntera/baseRos/catkin_ws/build/palletizing/CMakeFiles/sound_play_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/yubowen/BaseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/yubowen/BaseRos/catkin_ws/src /home/yubowen/BaseRos/catkin_ws/src/palletizing /home/yubowen/BaseRos/catkin_ws/build /home/yubowen/BaseRos/catkin_ws/build/palletizing /home/yubowen/BaseRos/catkin_ws/build/palletizing/CMakeFiles/sound_play_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : palletizing/CMakeFiles/sound_play_generate_messages_py.dir/depend
 

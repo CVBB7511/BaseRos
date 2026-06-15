@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_bridge/include/kinect2_bridge/kinect2_definitions.h
+/home/yubowen/BaseRos/catkin_ws/src/iai_kinect2/kinect2_bridge/include/kinect2_bridge/kinect2_definitions.h
 kinect2_registration/kinect2_console.h
 -
 
-/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include/kinect2_registration/kinect2_console.h
+/home/yubowen/BaseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include/kinect2_registration/kinect2_console.h
 string
 -
 ros/console.h
 -
 
-/home/xyntera/baseRos/catkin_ws/src/iai_kinect2/kinect2_viewer/src/viewer.cpp
+/home/yubowen/BaseRos/catkin_ws/src/iai_kinect2/kinect2_viewer/src/viewer.cpp
 stdlib.h
 -
 stdio.h

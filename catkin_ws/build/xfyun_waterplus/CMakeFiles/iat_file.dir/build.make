@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/yubowen/BaseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
+CMAKE_BINARY_DIR = /home/yubowen/BaseRos/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include xfyun_waterplus/CMakeFiles/iat_file.dir/depend.make
@@ -58,43 +58,43 @@ include xfyun_waterplus/CMakeFiles/iat_file.dir/progress.make
 include xfyun_waterplus/CMakeFiles/iat_file.dir/flags.make
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o: xfyun_waterplus/CMakeFiles/iat_file.dir/flags.make
-xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o: /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/iat_file.dir/src/iat_file.cpp.o -c /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
+xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o: /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yubowen/BaseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o"
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/iat_file.dir/src/iat_file.cpp.o -c /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/iat_file.dir/src/iat_file.cpp.i"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp > CMakeFiles/iat_file.dir/src/iat_file.cpp.i
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp > CMakeFiles/iat_file.dir/src/iat_file.cpp.i
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/iat_file.dir/src/iat_file.cpp.s"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp -o CMakeFiles/iat_file.dir/src/iat_file.cpp.s
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/iat_file.cpp -o CMakeFiles/iat_file.dir/src/iat_file.cpp.s
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o: xfyun_waterplus/CMakeFiles/iat_file.dir/flags.make
-xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o: /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o   -c /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
+xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o: /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yubowen/BaseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o"
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o   -c /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c > CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c > CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.i
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c -o CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/speech_recognizer.c -o CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.s
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o: xfyun_waterplus/CMakeFiles/iat_file.dir/flags.make
-xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o: /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o   -c /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
+xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o: /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/yubowen/BaseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o"
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o   -c /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c > CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c > CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.i
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c -o CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus/src/xfyun/linuxrec.c -o CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.s
 
 # Object files for target iat_file
 iat_file_OBJECTS = \
@@ -105,58 +105,58 @@ iat_file_OBJECTS = \
 # External object files for target iat_file
 iat_file_EXTERNAL_OBJECTS =
 
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/build.make
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librostime.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libcpp_common.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librostime.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libcpp_common.so
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
-/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xyntera/baseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable /home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file"
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/iat_file.dir/link.txt --verbose=$(VERBOSE)
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/iat_file.cpp.o
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/build.make
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_log4cxx.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_backend_interface.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp_serialization.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librostime.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libcpp_common.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libpthread.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_log4cxx.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librosconsole_backend_interface.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_regex.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libroscpp_serialization.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/librostime.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_date_time.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /opt/ros/noetic/lib/libcpp_common.so
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file: xfyun_waterplus/CMakeFiles/iat_file.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/yubowen/BaseRos/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable /home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file"
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/iat_file.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-xfyun_waterplus/CMakeFiles/iat_file.dir/build: /home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file
+xfyun_waterplus/CMakeFiles/iat_file.dir/build: /home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file
 
 .PHONY : xfyun_waterplus/CMakeFiles/iat_file.dir/build
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/clean:
-	cd /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -P CMakeFiles/iat_file.dir/cmake_clean.cmake
+	cd /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus && $(CMAKE_COMMAND) -P CMakeFiles/iat_file.dir/cmake_clean.cmake
 .PHONY : xfyun_waterplus/CMakeFiles/iat_file.dir/clean
 
 xfyun_waterplus/CMakeFiles/iat_file.dir/depend:
-	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/xfyun_waterplus /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus /home/xyntera/baseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/iat_file.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/yubowen/BaseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/yubowen/BaseRos/catkin_ws/src /home/yubowen/BaseRos/catkin_ws/src/xfyun_waterplus /home/yubowen/BaseRos/catkin_ws/build /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus /home/yubowen/BaseRos/catkin_ws/build/xfyun_waterplus/CMakeFiles/iat_file.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : xfyun_waterplus/CMakeFiles/iat_file.dir/depend
 

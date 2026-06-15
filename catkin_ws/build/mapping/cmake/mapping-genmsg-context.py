@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = ""
-services_str = "/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Start.srv;/home/xyntera/baseRos/catkin_ws/src/mapping/srv/Halt.srv"
+services_str = "/home/yubowen/BaseRos/catkin_ws/src/mapping/srv/Start.srv;/home/yubowen/BaseRos/catkin_ws/src/mapping/srv/Halt.srv"
 pkg_name = "mapping"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

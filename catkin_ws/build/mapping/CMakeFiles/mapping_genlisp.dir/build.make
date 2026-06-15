@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/xyntera/baseRos/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/yubowen/BaseRos/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/xyntera/baseRos/catkin_ws/build
+CMAKE_BINARY_DIR = /home/yubowen/BaseRos/catkin_ws/build
 
 # Utility rule file for mapping_genlisp.
 
@@ -63,10 +63,10 @@ mapping/CMakeFiles/mapping_genlisp.dir/build: mapping_genlisp
 .PHONY : mapping/CMakeFiles/mapping_genlisp.dir/build
 
 mapping/CMakeFiles/mapping_genlisp.dir/clean:
-	cd /home/xyntera/baseRos/catkin_ws/build/mapping && $(CMAKE_COMMAND) -P CMakeFiles/mapping_genlisp.dir/cmake_clean.cmake
+	cd /home/yubowen/BaseRos/catkin_ws/build/mapping && $(CMAKE_COMMAND) -P CMakeFiles/mapping_genlisp.dir/cmake_clean.cmake
 .PHONY : mapping/CMakeFiles/mapping_genlisp.dir/clean
 
 mapping/CMakeFiles/mapping_genlisp.dir/depend:
-	cd /home/xyntera/baseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xyntera/baseRos/catkin_ws/src /home/xyntera/baseRos/catkin_ws/src/mapping /home/xyntera/baseRos/catkin_ws/build /home/xyntera/baseRos/catkin_ws/build/mapping /home/xyntera/baseRos/catkin_ws/build/mapping/CMakeFiles/mapping_genlisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/yubowen/BaseRos/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/yubowen/BaseRos/catkin_ws/src /home/yubowen/BaseRos/catkin_ws/src/mapping /home/yubowen/BaseRos/catkin_ws/build /home/yubowen/BaseRos/catkin_ws/build/mapping /home/yubowen/BaseRos/catkin_ws/build/mapping/CMakeFiles/mapping_genlisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : mapping/CMakeFiles/mapping_genlisp.dir/depend
 

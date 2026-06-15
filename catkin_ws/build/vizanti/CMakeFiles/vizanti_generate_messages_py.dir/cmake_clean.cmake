@@ -1,12 +1,12 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_GetNodeParameters.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListExecutables.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ListPackages.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_LoadMap.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_ManageNode.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_RecordRosbag.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/_SaveMap.py"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages/vizanti/srv/__init__.py"
   "CMakeFiles/vizanti_generate_messages_py"
 )
 

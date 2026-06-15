@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/mapping/srv/Halt.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/mapping/srv/Start.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/mapping/srv/Halt.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/mapping/srv/Start.js"
   "CMakeFiles/mapping_generate_messages_nodejs"
 )
 

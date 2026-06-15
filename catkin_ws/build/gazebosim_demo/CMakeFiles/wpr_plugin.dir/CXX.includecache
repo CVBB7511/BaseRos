@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/include/gazebosim_demo/wpr_plugin.h
+/home/yubowen/BaseRos/catkin_ws/src/gazebosim_demo/include/gazebosim_demo/wpr_plugin.h
 boost/bind.hpp
 -
 boost/thread.hpp
@@ -36,7 +36,7 @@ tf/transform_broadcaster.h
 tf/transform_listener.h
 -
 
-/home/xyntera/baseRos/catkin_ws/src/gazebosim_demo/src/wpr_plugin.cpp
+/home/yubowen/BaseRos/catkin_ws/src/gazebosim_demo/src/wpr_plugin.cpp
 gazebosim_demo/wpr_plugin.h
 -
 

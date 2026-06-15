@@ -1,8 +1,0 @@
-prefix=/home/xyntera/baseRos/catkin_ws/devel
-
-Name: restaurant_voice_interaction
-Description: Description of restaurant_voice_interaction
-Version: 0.2.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

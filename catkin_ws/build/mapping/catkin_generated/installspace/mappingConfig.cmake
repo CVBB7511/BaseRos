@@ -67,14 +67,14 @@ set(mapping_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(mapping_SOURCE_PREFIX /home/xyntera/baseRos/catkin_ws/src/mapping)
-  set(mapping_DEVEL_PREFIX /home/xyntera/baseRos/catkin_ws/devel)
+  set(mapping_SOURCE_PREFIX /home/yubowen/BaseRos/catkin_ws/src/mapping)
+  set(mapping_DEVEL_PREFIX /home/yubowen/BaseRos/catkin_ws/devel)
   set(mapping_INSTALL_PREFIX "")
   set(mapping_PREFIX ${mapping_DEVEL_PREFIX})
 else()
   set(mapping_SOURCE_PREFIX "")
   set(mapping_DEVEL_PREFIX "")
-  set(mapping_INSTALL_PREFIX /home/xyntera/baseRos/catkin_ws/install)
+  set(mapping_INSTALL_PREFIX /home/yubowen/BaseRos/catkin_ws/install)
   set(mapping_PREFIX ${mapping_INSTALL_PREFIX})
 endif()
 
@@ -156,7 +156,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/xyntera/baseRos/catkin_ws/install/lib;/home/xyntera/baseRos/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/yubowen/BaseRos/catkin_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

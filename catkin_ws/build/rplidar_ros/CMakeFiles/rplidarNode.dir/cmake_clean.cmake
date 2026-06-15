@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/rplidar_ros/rplidarNode"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/rplidar_ros/rplidarNode.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/rplidar_ros/rplidarNode"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/rplidar_ros/rplidarNode.pdb"
   "CMakeFiles/rplidarNode.dir/sdk/src/arch/linux/net_serial.cpp.o"
   "CMakeFiles/rplidarNode.dir/sdk/src/arch/linux/net_socket.cpp.o"
   "CMakeFiles/rplidarNode.dir/sdk/src/arch/linux/timer.cpp.o"

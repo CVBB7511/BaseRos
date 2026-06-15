@@ -19,7 +19,6 @@ class Coord {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.name = null;
-      this.type = null;
       this.x = null;
       this.y = null;
       this.z = null;
@@ -31,12 +30,6 @@ class Coord {
       }
       else {
         this.name = [];
-      }
-      if (initObj.hasOwnProperty('type')) {
-        this.type = initObj.type
-      }
-      else {
-        this.type = [];
       }
       if (initObj.hasOwnProperty('x')) {
         this.x = initObj.x
@@ -69,8 +62,6 @@ class Coord {
     // Serializes a message object of type Coord
     // Serialize message field [name]
     bufferOffset = _arraySerializer.string(obj.name, buffer, bufferOffset, null);
-    // Serialize message field [type]
-    bufferOffset = _arraySerializer.string(obj.type, buffer, bufferOffset, null);
     // Serialize message field [x]
     bufferOffset = _arraySerializer.float64(obj.x, buffer, bufferOffset, null);
     // Serialize message field [y]
@@ -88,8 +79,6 @@ class Coord {
     let data = new Coord(null);
     // Deserialize message field [name]
     data.name = _arrayDeserializer.string(buffer, bufferOffset, null)
-    // Deserialize message field [type]
-    data.type = _arrayDeserializer.string(buffer, bufferOffset, null)
     // Deserialize message field [x]
     data.x = _arrayDeserializer.float64(buffer, bufferOffset, null)
     // Deserialize message field [y]
@@ -106,14 +95,11 @@ class Coord {
     object.name.forEach((val) => {
       length += 4 + _getByteLength(val);
     });
-    object.type.forEach((val) => {
-      length += 4 + _getByteLength(val);
-    });
     length += 8 * object.x.length;
     length += 8 * object.y.length;
     length += 8 * object.z.length;
     length += 8 * object.probability.length;
-    return length + 24;
+    return length + 20;
   }
 
   static datatype() {
@@ -123,14 +109,13 @@ class Coord {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '229f4c4f50d2ba58f92ac2bca15e4e75';
+    return 'f4c6bf06051abcb9913c14ef2b4e56f0';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     string[] name
-    string[] type
     float64[] x
     float64[] y
     float64[] z
@@ -149,13 +134,6 @@ class Coord {
     }
     else {
       resolved.name = []
-    }
-
-    if (msg.type !== undefined) {
-      resolved.type = msg.type;
-    }
-    else {
-      resolved.type = []
     }
 
     if (msg.x !== undefined) {

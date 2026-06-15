@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/iat_file.pdb"
   "CMakeFiles/iat_file.dir/src/iat_file.cpp.o"
   "CMakeFiles/iat_file.dir/src/xfyun/linuxrec.c.o"
   "CMakeFiles/iat_file.dir/src/xfyun/speech_recognizer.c.o"

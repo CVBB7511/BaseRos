@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_pointcloud_cluster"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_pointcloud_cluster.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_pointcloud_cluster"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/wpb_home_tutorials/wpb_home_pointcloud_cluster.pdb"
   "CMakeFiles/wpb_home_pointcloud_cluster.dir/src/wpb_home_pointcloud_cluster.cpp.o"
 )
 

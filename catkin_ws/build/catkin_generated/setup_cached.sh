@@ -7,11 +7,10 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/xyntera/baseRos/catkin_ws/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/xyntera/baseRos/catkin_ws/devel/lib:$LD_LIBRARY_PATH"
-export PATH='/opt/ros/noetic/bin:/home/xyntera/.local/bin:/home/xyntera/miniconda3/bin:/home/xyntera/miniconda3/condabin:/home/xyntera/.nvm/versions/node/v17.9.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/snap/bin'
-export PKG_CONFIG_PATH="/home/xyntera/baseRos/catkin_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PWD='/home/xyntera/baseRos/catkin_ws/build'
-export PYTHONPATH="/home/xyntera/baseRos/catkin_ws/devel/lib/python3/dist-packages:$PYTHONPATH"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/xyntera/baseRos/catkin_ws/src:$ROS_PACKAGE_PATH"
+export CMAKE_PREFIX_PATH="/home/yubowen/BaseRos/catkin_ws/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/yubowen/BaseRos/catkin_ws/devel/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/yubowen/BaseRos/catkin_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PWD='/home/yubowen/BaseRos/catkin_ws/build'
+export PYTHONPATH="/home/yubowen/BaseRos/catkin_ws/devel/lib/python3/dist-packages:$PYTHONPATH"
+export ROSLISP_PACKAGE_DIRECTORIES='/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/yubowen/BaseRos/catkin_ws/src:$ROS_PACKAGE_PATH"

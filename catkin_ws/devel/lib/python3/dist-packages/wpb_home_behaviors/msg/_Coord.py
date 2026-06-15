@@ -8,17 +8,16 @@ import struct
 
 
 class Coord(genpy.Message):
-  _md5sum = "229f4c4f50d2ba58f92ac2bca15e4e75"
+  _md5sum = "f4c6bf06051abcb9913c14ef2b4e56f0"
   _type = "wpb_home_behaviors/Coord"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """string[] name
-string[] type
 float64[] x
 float64[] y
 float64[] z
 float64[] probability"""
-  __slots__ = ['name','type','x','y','z','probability']
-  _slot_types = ['string[]','string[]','float64[]','float64[]','float64[]','float64[]']
+  __slots__ = ['name','x','y','z','probability']
+  _slot_types = ['string[]','float64[]','float64[]','float64[]','float64[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -28,7 +27,7 @@ float64[] probability"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       name,type,x,y,z,probability
+       name,x,y,z,probability
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -39,8 +38,6 @@ float64[] probability"""
       # message fields cannot be None, assign default values for those that are
       if self.name is None:
         self.name = []
-      if self.type is None:
-        self.type = []
       if self.x is None:
         self.x = []
       if self.y is None:
@@ -51,7 +48,6 @@ float64[] probability"""
         self.probability = []
     else:
       self.name = []
-      self.type = []
       self.x = []
       self.y = []
       self.z = []
@@ -72,14 +68,6 @@ float64[] probability"""
       length = len(self.name)
       buff.write(_struct_I.pack(length))
       for val1 in self.name:
-        length = len(val1)
-        if python3 or type(val1) == unicode:
-          val1 = val1.encode('utf-8')
-          length = len(val1)
-        buff.write(struct.Struct('<I%ss'%length).pack(length, val1))
-      length = len(self.type)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.type:
         length = len(val1)
         if python3 or type(val1) == unicode:
           val1 = val1.encode('utf-8')
@@ -128,21 +116,6 @@ float64[] probability"""
         else:
           val1 = str[start:end]
         self.name.append(val1)
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.type = []
-      for i in range(0, length):
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        if python3:
-          val1 = str[start:end].decode('utf-8', 'rosmsg')
-        else:
-          val1 = str[start:end]
-        self.type.append(val1)
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -195,14 +168,6 @@ float64[] probability"""
           val1 = val1.encode('utf-8')
           length = len(val1)
         buff.write(struct.Struct('<I%ss'%length).pack(length, val1))
-      length = len(self.type)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.type:
-        length = len(val1)
-        if python3 or type(val1) == unicode:
-          val1 = val1.encode('utf-8')
-          length = len(val1)
-        buff.write(struct.Struct('<I%ss'%length).pack(length, val1))
       length = len(self.x)
       buff.write(_struct_I.pack(length))
       pattern = '<%sd'%length
@@ -247,21 +212,6 @@ float64[] probability"""
         else:
           val1 = str[start:end]
         self.name.append(val1)
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.type = []
-      for i in range(0, length):
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        if python3:
-          val1 = str[start:end].decode('utf-8', 'rosmsg')
-        else:
-          val1 = str[start:end]
-        self.type.append(val1)
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])

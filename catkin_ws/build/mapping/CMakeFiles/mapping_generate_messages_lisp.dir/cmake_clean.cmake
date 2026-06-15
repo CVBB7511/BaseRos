@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/mapping/srv/Halt.lisp"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/mapping/srv/Start.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/mapping/srv/Halt.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/mapping/srv/Start.lisp"
   "CMakeFiles/mapping_generate_messages_lisp"
 )
 

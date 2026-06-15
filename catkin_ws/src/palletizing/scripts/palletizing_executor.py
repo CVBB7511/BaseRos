@@ -414,6 +414,21 @@ class PalletizingExecutor:
         # Persistent cmd_vel publisher for releasing move_base control after nav
         self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 
+        self.state = 'IDLE'  # IDLE, DETECTING, GRABBING, PLACING, DONE
+        self.latest_objects = None
+        self.grab_done = False
+        self.place_done = False
+        self.grab_feedback = ""
+        self.place_feedback = ""
+        self.objects_processed = 0
+        self.objects_total = 0
+        self.current_object_type = ""
+        self.objects_succeeded = 0
+        self.objects_failed = 0
+        self.cycle_times = []
+        self.task_start_time = 0.0
+        self.last_cycle_start = 0.0
+
         # Subscribers
         self.objects_sub = rospy.Subscriber(
             '/wpb_home/objects_3d', Coord, self._objects_callback)
@@ -488,21 +503,6 @@ class PalletizingExecutor:
 
         # TF listener for robot position lookup
         self.tf_listener = tf.TransformListener()
-
-        self.state = 'IDLE'  # IDLE, DETECTING, GRABBING, PLACING, DONE
-        self.latest_objects = None
-        self.grab_done = False
-        self.place_done = False
-        self.grab_feedback = ""
-        self.place_feedback = ""
-        self.objects_processed = 0
-        self.objects_total = 0
-        self.current_object_type = ""
-        self.objects_succeeded = 0
-        self.objects_failed = 0
-        self.cycle_times = []
-        self.task_start_time = 0.0
-        self.last_cycle_start = 0.0
 
     def _load_zones(self):
         try:

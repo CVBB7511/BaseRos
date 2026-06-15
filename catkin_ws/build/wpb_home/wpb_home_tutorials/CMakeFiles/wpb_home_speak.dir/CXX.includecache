@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_speak.cpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_speak.cpp
 ros/ros.h
 -
 sound_play/SoundRequest.h

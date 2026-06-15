@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/wpb_home_behaviors/msg/Coord.lisp"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/common-lisp/ros/wpb_home_behaviors/msg/Rect.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/wpb_home_behaviors/msg/Coord.lisp"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/common-lisp/ros/wpb_home_behaviors/msg/Rect.lisp"
   "CMakeFiles/wpb_home_behaviors_generate_messages_lisp"
 )
 

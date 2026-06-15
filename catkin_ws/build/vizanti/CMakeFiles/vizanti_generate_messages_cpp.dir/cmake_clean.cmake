@@ -1,11 +1,11 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/GetNodeParameters.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/ListExecutables.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/ListPackages.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/LoadMap.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/ManageNode.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/RecordRosbag.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/vizanti/SaveMap.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/GetNodeParameters.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/ListExecutables.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/ListPackages.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/LoadMap.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/ManageNode.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/RecordRosbag.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/vizanti/SaveMap.h"
   "CMakeFiles/vizanti_generate_messages_cpp"
 )
 

@@ -1,11 +1,11 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js"
-  "/home/xyntera/baseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/GetNodeParameters.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListExecutables.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ListPackages.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/LoadMap.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/ManageNode.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/RecordRosbag.js"
+  "/home/yubowen/BaseRos/catkin_ws/devel/share/gennodejs/ros/vizanti/srv/SaveMap.js"
   "CMakeFiles/vizanti_generate_messages_nodejs"
 )
 

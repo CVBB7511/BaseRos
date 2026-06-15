@@ -1,8 +1,0 @@
-prefix=/home/xyntera/baseRos/catkin_ws/devel
-
-Name: arm_grab_task
-Description: Description of arm_grab_task
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

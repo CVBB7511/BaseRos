@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/MarkZone.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/palletizing/StartTask.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/palletizing/MarkZone.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/palletizing/PalletizingStats.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/palletizing/SafetyStatus.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/palletizing/StartTask.h"
   "CMakeFiles/palletizing_generate_messages_cpp"
 )
 

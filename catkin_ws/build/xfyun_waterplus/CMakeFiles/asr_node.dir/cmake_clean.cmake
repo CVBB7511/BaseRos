@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/asr_node"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/asr_node.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/asr_node"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/asr_node.pdb"
   "CMakeFiles/asr_node.dir/src/asr_node.cpp.o"
   "CMakeFiles/asr_node.dir/src/xfyun/linuxrec.c.o"
   "CMakeFiles/asr_node.dir/src/xfyun/speech_recognizer.c.o"

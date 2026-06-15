@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_behaviors/Rect.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_behaviors/Rect.h"
   "CMakeFiles/wpb_home_behaviors_generate_messages_cpp"
 )
 

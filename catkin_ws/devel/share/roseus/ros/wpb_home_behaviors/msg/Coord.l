@@ -14,13 +14,12 @@
 
 (defclass wpb_home_behaviors::Coord
   :super ros::object
-  :slots (_name _type _x _y _z _probability ))
+  :slots (_name _x _y _z _probability ))
 
 (defmethod wpb_home_behaviors::Coord
   (:init
    (&key
     ((:name __name) (let (r) (dotimes (i 0) (push "" r)) r))
-    ((:type __type) (let (r) (dotimes (i 0) (push "" r)) r))
     ((:x __x) (make-array 0 :initial-element 0.0 :element-type :float))
     ((:y __y) (make-array 0 :initial-element 0.0 :element-type :float))
     ((:z __z) (make-array 0 :initial-element 0.0 :element-type :float))
@@ -28,7 +27,6 @@
     )
    (send-super :init)
    (setq _name __name)
-   (setq _type __type)
    (setq _x __x)
    (setq _y __y)
    (setq _z __z)
@@ -37,9 +35,6 @@
   (:name
    (&optional __name)
    (if __name (setq _name __name)) _name)
-  (:type
-   (&optional __type)
-   (if __type (setq _type __type)) _type)
   (:x
    (&optional __x)
    (if __x (setq _x __x)) _x)
@@ -57,8 +52,6 @@
    (+
     ;; string[] _name
     (apply #'+ (mapcar #'(lambda (x) (+ 4 (length x))) _name)) 4
-    ;; string[] _type
-    (apply #'+ (mapcar #'(lambda (x) (+ 4 (length x))) _type)) 4
     ;; float64[] _x
     (* 8    (length _x)) 4
     ;; float64[] _y
@@ -75,11 +68,6 @@
      ;; string[] _name
      (write-long (length _name) s)
      (dolist (elem _name)
-       (write-long (length elem) s) (princ elem s)
-       )
-     ;; string[] _type
-     (write-long (length _type) s)
-     (dolist (elem _type)
        (write-long (length elem) s) (princ elem s)
        )
      ;; float64[] _x
@@ -113,13 +101,6 @@
      (dotimes (i n)
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setf (elt _name i) (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
      ))
-   ;; string[] _type
-   (let (n)
-     (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
-     (setq _type (make-list n))
-     (dotimes (i n)
-     (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setf (elt _type i) (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
-     ))
    ;; float64[] _x
    (let (n)
      (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
@@ -152,11 +133,10 @@
    self)
   )
 
-(setf (get wpb_home_behaviors::Coord :md5sum-) "229f4c4f50d2ba58f92ac2bca15e4e75")
+(setf (get wpb_home_behaviors::Coord :md5sum-) "f4c6bf06051abcb9913c14ef2b4e56f0")
 (setf (get wpb_home_behaviors::Coord :datatype-) "wpb_home_behaviors/Coord")
 (setf (get wpb_home_behaviors::Coord :definition-)
       "string[] name
-string[] type
 float64[] x
 float64[] y
 float64[] z
@@ -165,6 +145,6 @@ float64[] probability
 
 
 
-(provide :wpb_home_behaviors/Coord "229f4c4f50d2ba58f92ac2bca15e4e75")
+(provide :wpb_home_behaviors/Coord "f4c6bf06051abcb9913c14ef2b4e56f0")
 
 

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/recorder_wav_node"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/recorder_wav_node.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/recorder_wav_node"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/recorder_wav_node.pdb"
   "CMakeFiles/recorder_wav_node.dir/src/recorder_wav_node.cpp.o"
 )
 

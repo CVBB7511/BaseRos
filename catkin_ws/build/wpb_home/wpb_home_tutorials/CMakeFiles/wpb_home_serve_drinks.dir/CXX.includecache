@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h
+/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h
 string
 -
 vector
@@ -22,7 +22,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_serve_drinks.cpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_tutorials/src/wpb_home_serve_drinks.cpp
 ros/ros.h
 -
 std_msgs/String.h

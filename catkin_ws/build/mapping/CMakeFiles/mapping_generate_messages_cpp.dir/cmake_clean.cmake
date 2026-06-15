@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/mapping/Halt.h"
-  "/home/xyntera/baseRos/catkin_ws/devel/include/mapping/Start.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/mapping/Halt.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/mapping/Start.h"
   "CMakeFiles/mapping_generate_messages_cpp"
 )
 

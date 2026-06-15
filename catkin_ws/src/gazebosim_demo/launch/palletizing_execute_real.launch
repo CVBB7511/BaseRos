@@ -5,11 +5,10 @@
     <!--                                               -->
     <!-- 与仿真版的区别:                                 -->
     <!--   - 不含 Gazebo (world / spawn_model)          -->
-    <!--   - 使用真实机器人硬件 (需提前启动底盘驱动等)    -->
-    <!--   - use_sim_time = false (使用系统时钟)         -->
+    <!--   - 使用真实硬件驱动 (wpb_home_core)            -->
+    <!--   - 不含 use_sim_time                           -->
     <!--                                               -->
     <!-- 前提条件:                                      -->
-    <!--   - 机器人底盘驱动、激光雷达、Kinect2 已启动     -->
     <!--   - 已完成建图并保存地图                         -->
     <!--                                               -->
     <!-- 使用方法:                                      -->
@@ -44,8 +43,32 @@
     <arg name="dest_table_length" default="1.0"/>
     <arg name="dest_table_width" default="0.5"/>
 
-    <!-- ===== Robot Controllers (真机) ===== -->
-    <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+    <!-- ===== 机器人 URDF 模型 ===== -->
+    <arg name="model" default="$(find wpb_home_bringup)/urdf/wpb_home.urdf"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- ===== 机器人底盘 + 机械臂驱动 (真机核心) ===== -->
+    <node pkg="wpb_home_bringup" type="wpb_home_core" name="wpb_home_core" output="screen">
+        <param name="serial_port" type="string" value="/dev/ftdi"/>
+        <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
+    </node>
+
+    <!-- ===== RPLIDAR 激光雷达 ===== -->
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <param name="serial_port"     type="string" value="/dev/rplidar"/>
+        <param name="serial_baudrate" type="int"    value="115200"/>
+        <param name="frame_id"        type="string" value="laser"/>
+        <param name="inverted"        type="bool"   value="false"/>
+        <param name="angle_compensate" type="bool"  value="true"/>
+        <remap from="scan" to="scan_raw"/>
+    </node>
+    <node pkg="wpb_home_bringup" type="wpb_home_lidar_filter" name="wpb_home_lidar_filter">
+        <param name="pub_topic" value="/scan"/>
+    </node>
+
+    <!-- ===== Kinect2 RGB-D 相机 ===== -->
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
 
     <!-- ===== Behavior nodes (grab / place / object detect) ===== -->
     <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d" output="screen">

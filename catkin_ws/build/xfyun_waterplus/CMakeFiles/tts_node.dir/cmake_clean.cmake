@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/tts_node"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/xfyun_waterplus/tts_node.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/tts_node"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/xfyun_waterplus/tts_node.pdb"
   "CMakeFiles/tts_node.dir/src/tts_node.cpp.o"
 )
 

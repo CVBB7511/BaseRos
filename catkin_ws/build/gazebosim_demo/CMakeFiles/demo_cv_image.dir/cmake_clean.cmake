@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/demo_cv_image"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/demo_cv_image.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/gazebosim_demo/demo_cv_image"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/gazebosim_demo/demo_cv_image.pdb"
   "CMakeFiles/demo_cv_image.dir/src/demo_cv_image.cpp.o"
 )
 

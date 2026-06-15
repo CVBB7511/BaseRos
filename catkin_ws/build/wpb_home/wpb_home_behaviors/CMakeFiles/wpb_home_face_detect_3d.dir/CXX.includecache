@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h
+/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_behaviors/Coord.h
 string
 -
 vector
@@ -22,7 +22,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_behaviors/Rect.h
+/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_behaviors/Rect.h
 string
 -
 vector
@@ -38,7 +38,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/wpb_home_face_detect_3d.cpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/wpb_home_face_detect_3d.cpp
 ros/ros.h
 -
 sensor_msgs/PointCloud2.h
@@ -54,7 +54,7 @@ opencv2/imgproc/imgproc.hpp
 opencv2/highgui/highgui.hpp
 -
 opencv2/objdetect/objdetect.hpp
-/home/xyntera/baseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/opencv2/objdetect/objdetect.hpp
+/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/src/opencv2/objdetect/objdetect.hpp
 visualization_msgs/Marker.h
 -
 tf/transform_listener.h

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/libkinect2_registration.pdb"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/libkinect2_registration.so"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/libkinect2_registration.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/libkinect2_registration.so"
   "CMakeFiles/kinect2_registration.dir/src/depth_registration_cpu.cpp.o"
   "CMakeFiles/kinect2_registration.dir/src/kinect2_registration.cpp.o"
 )

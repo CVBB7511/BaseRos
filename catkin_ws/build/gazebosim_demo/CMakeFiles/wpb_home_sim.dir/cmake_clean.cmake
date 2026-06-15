@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/wpb_home_sim"
-  "/home/xyntera/baseRos/catkin_ws/devel/lib/gazebosim_demo/wpb_home_sim.pdb"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/gazebosim_demo/wpb_home_sim"
+  "/home/yubowen/BaseRos/catkin_ws/devel/lib/gazebosim_demo/wpb_home_sim.pdb"
   "CMakeFiles/wpb_home_sim.dir/src/wpb_home_sim.cpp.o"
 )
 

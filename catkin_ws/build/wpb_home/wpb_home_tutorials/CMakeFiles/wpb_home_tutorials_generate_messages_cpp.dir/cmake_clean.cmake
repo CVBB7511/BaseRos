@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/xyntera/baseRos/catkin_ws/devel/include/wpb_home_tutorials/Follow.h"
+  "/home/yubowen/BaseRos/catkin_ws/devel/include/wpb_home_tutorials/Follow.h"
   "CMakeFiles/wpb_home_tutorials_generate_messages_cpp"
 )
 

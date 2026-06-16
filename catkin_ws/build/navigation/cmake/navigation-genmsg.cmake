@@ -19,17 +19,17 @@ add_custom_target(navigation_generate_messages ALL)
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg" NAME_WE)
 add_custom_target(_navigation_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg" "actionlib_msgs/GoalID:navigation/NavigateResult:navigation/NavigateFeedback:navigation/NavigateActionGoal:actionlib_msgs/GoalStatus:geometry_msgs/Quaternion:geometry_msgs/Point:navigation/NavigateGoal:geometry_msgs/Pose:navigation/NavigateActionFeedback:std_msgs/Header:navigation/NavigateActionResult"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg" "std_msgs/Header:actionlib_msgs/GoalStatus:navigation/NavigateResult:navigation/NavigateActionFeedback:navigation/NavigateActionGoal:navigation/NavigateFeedback:geometry_msgs/Quaternion:geometry_msgs/Point:actionlib_msgs/GoalID:geometry_msgs/Pose:navigation/NavigateActionResult:navigation/NavigateGoal"
 )
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg" NAME_WE)
 add_custom_target(_navigation_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg" "actionlib_msgs/GoalID:geometry_msgs/Quaternion:geometry_msgs/Point:navigation/NavigateGoal:geometry_msgs/Pose:std_msgs/Header"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg" "std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Point:actionlib_msgs/GoalID:geometry_msgs/Pose:navigation/NavigateGoal"
 )
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg" NAME_WE)
 add_custom_target(_navigation_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg" "actionlib_msgs/GoalID:std_msgs/Header:navigation/NavigateResult:actionlib_msgs/GoalStatus"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg" "actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus:navigation/NavigateResult"
 )
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg" NAME_WE)
@@ -39,7 +39,7 @@ add_custom_target(_navigation_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg" NAME_WE)
 add_custom_target(_navigation_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg" "geometry_msgs/Quaternion:geometry_msgs/Point:geometry_msgs/Pose"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "navigation" "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg" "geometry_msgs/Pose:geometry_msgs/Quaternion:geometry_msgs/Point"
 )
 
 get_filename_component(_filename "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg" NAME_WE)
@@ -76,19 +76,19 @@ add_custom_target(_navigation_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/navigation
 )
 _generate_msg_cpp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/navigation
 )
 _generate_msg_cpp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/navigation
 )
 _generate_msg_cpp(navigation
@@ -100,7 +100,7 @@ _generate_msg_cpp(navigation
 _generate_msg_cpp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/navigation
 )
 _generate_msg_cpp(navigation
@@ -181,19 +181,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_cpp)
 _generate_msg_eus(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/navigation
 )
 _generate_msg_eus(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/navigation
 )
 _generate_msg_eus(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/navigation
 )
 _generate_msg_eus(navigation
@@ -205,7 +205,7 @@ _generate_msg_eus(navigation
 _generate_msg_eus(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/navigation
 )
 _generate_msg_eus(navigation
@@ -286,19 +286,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_eus)
 _generate_msg_lisp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/navigation
 )
 _generate_msg_lisp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/navigation
 )
 _generate_msg_lisp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/navigation
 )
 _generate_msg_lisp(navigation
@@ -310,7 +310,7 @@ _generate_msg_lisp(navigation
 _generate_msg_lisp(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/navigation
 )
 _generate_msg_lisp(navigation
@@ -391,19 +391,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_lisp)
 _generate_msg_nodejs(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/navigation
 )
 _generate_msg_nodejs(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/navigation
 )
 _generate_msg_nodejs(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/navigation
 )
 _generate_msg_nodejs(navigation
@@ -415,7 +415,7 @@ _generate_msg_nodejs(navigation
 _generate_msg_nodejs(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/navigation
 )
 _generate_msg_nodejs(navigation
@@ -496,19 +496,19 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS navigation_generate_messages_nodejs
 _generate_msg_py(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateFeedback.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation
 )
 _generate_msg_py(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation
 )
 _generate_msg_py(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation
 )
 _generate_msg_py(navigation
@@ -520,7 +520,7 @@ _generate_msg_py(navigation
 _generate_msg_py(navigation
   "/home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateGoal.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/navigation
 )
 _generate_msg_py(navigation

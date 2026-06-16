@@ -19,9 +19,20 @@
 import sys
 import math
 import argparse
+import os
+import rospkg
 import tf
 import rospy
 from palletizing.srv import MarkZone, MarkZoneResponse
+
+
+def default_zones_file():
+    try:
+        pkg_path = rospkg.RosPack().get_path('palletizing')
+        project_root = os.path.abspath(os.path.join(pkg_path, '..', '..', '..'))
+        return os.path.join(project_root, 'zones.yaml')
+    except Exception:
+        return os.path.join(os.path.expanduser('~'), 'waterjet', 'zones.yaml')
 
 
 def normalize_angle(yaw):
@@ -144,7 +155,7 @@ def interactive_mode():
     ok = call_mark_zone(zone_name, table_x, table_y, table_z,
                         table_yaw, length, width)
     if ok:
-        print(f"✓ 已保存到 ~/waterjet/zones.yaml (zone='{zone_name}')")
+        print(f"✓ 已保存到 {default_zones_file()} (zone='{zone_name}')")
         print(f"  下次启动 palletizing_executor 时会自动加载。")
     else:
         print("ERROR: 保存失败，请检查 palletizing_executor 是否在运行。")
@@ -182,7 +193,7 @@ def direct_mode(args):
     ok = call_mark_zone(args.zone, table_x, table_y, table_z,
                         table_yaw, length, width)
     if ok:
-        print("✓ Saved to ~/waterjet/zones.yaml")
+        print(f"✓ Saved to {default_zones_file()}")
     else:
         print("ERROR: Save failed. Is palletizing_executor running?")
         sys.exit(1)

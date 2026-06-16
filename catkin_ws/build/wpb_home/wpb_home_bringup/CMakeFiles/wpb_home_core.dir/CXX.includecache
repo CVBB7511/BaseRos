@@ -32,16 +32,6 @@ pthread.h
 SerialCom.h
 /home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_bringup/include/driver/SerialCom.h
 
-/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_bringup/src/driver/SerialCom.cpp
-driver/SerialCom.h
--
-
-/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_bringup/src/driver/WPB_Home_driver.cpp
-driver/WPB_Home_driver.h
--
-math.h
--
-
 /home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_bringup/src/wpb_home_core.cpp
 ros/ros.h
 -

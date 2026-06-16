@@ -77,7 +77,7 @@
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 12,
+	"PARALLEL" : 8,
 	"PARSE_CACHE_FILE" : "/home/yubowen/BaseRos/catkin_ws/build/waterplus_map_tools/CMakeFiles/waterplus_map_tools_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
 	"QT_UIC_EXECUTABLE" : "",

@@ -9,6 +9,7 @@ import tf
 import yaml
 import threading
 import actionlib
+import rospkg
 from std_msgs.msg import String, Float32
 from geometry_msgs.msg import Pose, Twist
 from sensor_msgs.msg import JointState
@@ -447,7 +448,7 @@ class PalletizingExecutor:
             rospy.logwarn("move_base action server not available, navigation disabled")
 
         # Load saved zone positions from YAML (persisted by mark_zone service)
-        self.zones_file = os.path.join(os.path.expanduser('~'), 'waterjet', 'zones.yaml')
+        self.zones_file = rospy.get_param('~zones_file', self._default_zones_file())
         saved = self._load_zones()
         if saved:
             self.source_table_x = saved.get('source_x', self.source_table_x)
@@ -503,6 +504,15 @@ class PalletizingExecutor:
 
         # TF listener for robot position lookup
         self.tf_listener = tf.TransformListener()
+
+    def _default_zones_file(self):
+        try:
+            pkg_path = rospkg.RosPack().get_path('palletizing')
+            project_root = os.path.abspath(os.path.join(pkg_path, '..', '..', '..'))
+            return os.path.join(project_root, 'zones.yaml')
+        except Exception as e:
+            rospy.logwarn("Failed to locate project zones file, falling back to ~/waterjet/zones.yaml: %s", e)
+            return os.path.join(os.path.expanduser('~'), 'waterjet', 'zones.yaml')
 
     def _load_zones(self):
         try:
@@ -589,6 +599,13 @@ class PalletizingExecutor:
             self.latest_objects = msg
             self.objects_total = len(msg.name)
 
+    def _object_type(self, objects, idx, default='hard_cube'):
+        """Return object type when available; legacy Coord messages have none."""
+        types = getattr(objects, 'type', [])
+        if idx < len(types) and types[idx]:
+            return types[idx]
+        return default
+
     def _grab_result_callback(self, msg):
         self.grab_feedback = msg.data
         rospy.loginfo("[grab_result] %s", msg.data)
@@ -635,8 +652,9 @@ class PalletizingExecutor:
         """
         mani_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=1)
         cmd = JointState()
-        cmd.name = ['lift']
-        cmd.position = [0.8]
+        cmd.name = ['lift', 'gripper']
+        cmd.position = [0.8, 0.15]
+        cmd.velocity = [0.0, 0.0]
         for _ in range(5):
             mani_pub.publish(cmd)
             rospy.sleep(0.2)
@@ -669,7 +687,7 @@ class PalletizingExecutor:
         z_top = []    # top Z
         z_bot = []    # bottom Z
         for i in range(n):
-            obj_type = objects.type[i] if i < len(objects.type) else ""
+            obj_type = self._object_type(objects, i)
             hsize = self._estimate_half_size(obj_type)
             half.append(hsize)
             ex = objects.x[i] if i < len(objects.x) else 999.0
@@ -806,14 +824,14 @@ class PalletizingExecutor:
             remaining.remove(best)
 
         # Log rationale
-        n_types = len(objects.type)
+        n_types = len(getattr(objects, 'type', []))
         dep_counts = [len(arm_blockers[i]) for i in range(n)]
         rospy.loginfo("Picking order (collision-aware, hard-deps, arm_body>=5cm):")
         rospy.loginfo("  %4s %-8s %6s %6s %6s %6s %6s %6s %6s %6s %6s %6s %s",
                       "Rank", "Name", "cX", "cY", "cZ", "Risk", "XBlk",
                       "ArmBlk", "Deps", "YNbrs", "Xedge", "Ztop", "Type")
         for rank, idx in enumerate(sorted_indices):
-            obj_type = objects.type[idx] if idx < n_types else "??"
+            obj_type = self._object_type(objects, idx, "??")
             rospy.loginfo("  %4d %-8s %6.3f %6.3f %6.3f %6.1f %6s %6s %6d %6d %6.3f %6.3f %s",
                           rank + 1, objects.name[idx],
                           cx[idx], cy[idx], cz[idx], risk[idx],
@@ -1120,8 +1138,8 @@ class PalletizingExecutor:
                 rospy.loginfo("No objects remaining on source table.")
                 break
 
-            # Raise arm after detection — object_detect may have lowered it.
-            self._raise_arm()
+            # Keep the arm unchanged here.  Raise it only after the
+            # object-centered source alignment succeeds.
 
             # Fresh sort on fresh detection
             sorted_indices = self._sort_objects(self.latest_objects)
@@ -1129,8 +1147,7 @@ class PalletizingExecutor:
 
             self.last_cycle_start = time.time()
             obj_name = self.latest_objects.name[best_idx]
-            obj_type = (self.latest_objects.type[best_idx]
-                        if best_idx < len(self.latest_objects.type) else "")
+            obj_type = self._object_type(self.latest_objects, best_idx)
             obj_height = self._get_object_height(obj_type)
             zone = self._get_zone(obj_type)
             zone_material = 'hard' if 'hard' in obj_type else 'soft'
@@ -1147,15 +1164,21 @@ class PalletizingExecutor:
 
             # ── Navigate to source table, Y-compensated ──
             det_rx, det_ry, det_yaw = self._get_robot_position()
-            # base_footprint → map coordinate transform (works for any yaw)
-            cos_t = math.cos(det_yaw)
-            sin_t = math.sin(det_yaw)
+            # Use the calibrated source approach yaw for the object-centered
+            # alignment.  Using the current yaw after recovery can send the
+            # robot toward an unreachable pose.
+            align_yaw = self.source_approach_yaw
+            cos_t = math.cos(align_yaw)
+            sin_t = math.sin(align_yaw)
             obj_map_y = det_ry + obj_bf_x * sin_t + obj_bf_y * cos_t
-            rospy.loginfo("Nav to source (det X=%.3f, comp Y=%.3f, yaw=%.1f°)",
-                          det_rx, obj_map_y, math.degrees(det_yaw))
-            if not self.navigate_to_pose(det_rx, obj_map_y, det_yaw):
-                rospy.logerr("Nav to source failed for %s. Skipping.", obj_name)
+            rospy.loginfo("Nav to source (det X=%.3f, comp Y=%.3f, yaw=%.1f°, current yaw=%.1f°)",
+                          det_rx, obj_map_y, math.degrees(align_yaw), math.degrees(det_yaw))
+            if not self.navigate_to_pose(det_rx, obj_map_y, align_yaw):
+                rospy.logerr("Nav to source failed for %s. Returning to source approach.", obj_name)
                 self.objects_failed += 1
+                if not self.navigate_to_table(self.source_table_x, self.source_table_y):
+                    rospy.logerr("Failed to recover to source table. Aborting.")
+                    break
                 continue
 
             # ── Re-detect AFTER Y-compensated nav (fresh coords!) ──
@@ -1228,6 +1251,7 @@ class PalletizingExecutor:
                 release_cmd = JointState()
                 release_cmd.name = ['lift', 'gripper']
                 release_cmd.position = [0.8, 0.15]  # safe height, open gripper
+                release_cmd.velocity = [0.0, 0.0]
                 for _ in range(10):
                     mani_ctrl_pub.publish(release_cmd)
                     rospy.sleep(0.2)
@@ -1252,6 +1276,7 @@ class PalletizingExecutor:
                 release_cmd = JointState()
                 release_cmd.name = ['lift', 'gripper']
                 release_cmd.position = [0.8, 0.15]
+                release_cmd.velocity = [0.0, 0.0]
                 for _ in range(10):
                     mani_ctrl_pub.publish(release_cmd)
                     rospy.sleep(0.2)

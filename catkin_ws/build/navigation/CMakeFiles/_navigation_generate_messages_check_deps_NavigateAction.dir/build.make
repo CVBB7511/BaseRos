@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/yubowen/BaseRos/catkin_ws/build
 include navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateAction.dir/progress.make
 
 navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateAction:
-	cd /home/yubowen/BaseRos/catkin_ws/build/navigation && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py navigation /home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg navigation/NavigateActionGoal:geometry_msgs/Pose:actionlib_msgs/GoalID:std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Point:navigation/NavigateActionFeedback:navigation/NavigateActionResult:actionlib_msgs/GoalStatus:navigation/NavigateResult:navigation/NavigateFeedback:navigation/NavigateGoal
+	cd /home/yubowen/BaseRos/catkin_ws/build/navigation && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py navigation /home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateAction.msg navigation/NavigateResult:navigation/NavigateActionGoal:navigation/NavigateFeedback:navigation/NavigateActionFeedback:std_msgs/Header:navigation/NavigateActionResult:geometry_msgs/Pose:actionlib_msgs/GoalID:geometry_msgs/Quaternion:geometry_msgs/Point:actionlib_msgs/GoalStatus:navigation/NavigateGoal
 
 _navigation_generate_messages_check_deps_NavigateAction: navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateAction
 _navigation_generate_messages_check_deps_NavigateAction: navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateAction.dir/build.make

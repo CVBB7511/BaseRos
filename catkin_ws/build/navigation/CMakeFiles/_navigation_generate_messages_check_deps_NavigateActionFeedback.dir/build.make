@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/yubowen/BaseRos/catkin_ws/build
 include navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateActionFeedback.dir/progress.make
 
 navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateActionFeedback:
-	cd /home/yubowen/BaseRos/catkin_ws/build/navigation && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py navigation /home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg actionlib_msgs/GoalID:actionlib_msgs/GoalStatus:std_msgs/Header:navigation/NavigateFeedback
+	cd /home/yubowen/BaseRos/catkin_ws/build/navigation && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py navigation /home/yubowen/BaseRos/catkin_ws/devel/share/navigation/msg/NavigateActionFeedback.msg actionlib_msgs/GoalStatus:std_msgs/Header:actionlib_msgs/GoalID:navigation/NavigateFeedback
 
 _navigation_generate_messages_check_deps_NavigateActionFeedback: navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateActionFeedback
 _navigation_generate_messages_check_deps_NavigateActionFeedback: navigation/CMakeFiles/_navigation_generate_messages_check_deps_NavigateActionFeedback.dir/build.make

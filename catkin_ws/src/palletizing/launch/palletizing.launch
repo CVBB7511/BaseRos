@@ -44,9 +44,13 @@
     <param name="horizontal_gap" type="double" value="0.02"/>     <!-- 候选点法: 水平间隙 -->
     <param name="vertical_gap" type="double" value="0.01"/>       <!-- 候选点法: 垂直间隙 -->
     <param name="gripper_hard_cube" type="double" value="0.052"/>
-    <param name="gripper_soft_cube" type="double" value="0.078"/>
+    <param name="gripper_soft_cube" type="double" value="0.115"/>
+    <param name="gripper_open_hard_cube" type="double" value="0.16"/>
+    <param name="gripper_open_soft_cube" type="double" value="0.20"/>
     <param name="gripper_hard_sphere" type="double" value="0.028"/>
     <param name="gripper_soft_sphere" type="double" value="0.040"/>
+    <param name="gripper_open_hard_sphere" type="double" value="0.16"/>
+    <param name="gripper_open_soft_sphere" type="double" value="0.20"/>
   </node>
 
 </launch>

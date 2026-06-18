@@ -93,11 +93,11 @@
         <param name="yaw_goal_tolerance" value="0.05" type="double" />
         <param name="planner_frequency" value="0.5" type="double" />
         <param name="planner_patience" value="10.0" type="double" />
-        <!-- WpbhLocalPlanner velocity limits (+30%) -->
+        <!-- Conservative velocity limits to reduce simulated side slip and AMCL drift -->
         <param name="WpbhLocalPlanner/max_vel_trans" value="0.4" type="double" />
-        <param name="WpbhLocalPlanner/max_vel_rot" value="1.2" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_rot" value="0.55" type="double" />
         <param name="WpbhLocalPlanner/acc_scale_trans" value="2.0" type="double" />
-        <param name="WpbhLocalPlanner/acc_scale_rot" value="0.65" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_rot" value="0.30" type="double" />
         <param name="WpbhLocalPlanner/goal_dist_tolerance" value="0.05" type="double" />
         <param name="WpbhLocalPlanner/goal_yaw_tolerance" value="0.05" type="double" />
     </node>
@@ -134,7 +134,9 @@
         <param name="place_approach_offset" type="double" value="0.30"/>
         <param name="table_half_depth" type="double" value="0.25"/>
         <param name="gripper_hard_cube" type="double" value="0.052"/>
-        <param name="gripper_soft_cube" type="double" value="0.078"/>
+        <param name="gripper_soft_cube" type="double" value="0.115"/>
+        <param name="gripper_open_hard_cube" type="double" value="0.16"/>
+        <param name="gripper_open_soft_cube" type="double" value="0.20"/>
     </node>
 
     <!-- ===== RViz (navigation view) ===== -->

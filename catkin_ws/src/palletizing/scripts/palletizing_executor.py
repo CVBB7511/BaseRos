@@ -418,9 +418,15 @@ class PalletizingExecutor:
         # Per-type gripper values (力反馈自适应夹爪)
         self.gripper_values = {
             'hard_cube': rospy.get_param('~gripper_hard_cube', 0.032),
-            'soft_cube': rospy.get_param('~gripper_soft_cube', 0.046),
+            'soft_cube': rospy.get_param('~gripper_soft_cube', 0.115),
             'hard_sphere': rospy.get_param('~gripper_hard_sphere', 0.028),
             'soft_sphere': rospy.get_param('~gripper_soft_sphere', 0.040),
+        }
+        self.gripper_open_values = {
+            'hard_cube': rospy.get_param('~gripper_open_hard_cube', 0.16),
+            'soft_cube': rospy.get_param('~gripper_open_soft_cube', 0.20),
+            'hard_sphere': rospy.get_param('~gripper_open_hard_sphere', 0.16),
+            'soft_sphere': rospy.get_param('~gripper_open_soft_sphere', 0.20),
         }
 
         # Publishers
@@ -948,6 +954,10 @@ class PalletizingExecutor:
         """Get adaptive gripper value based on object type."""
         return self.gripper_values.get(obj_type, 0.035)
 
+    def _get_gripper_open_value(self, obj_type):
+        """Get pre-grab gripper opening based on object type."""
+        return self.gripper_open_values.get(obj_type, 0.18)
+
     def _get_place_z_offset(self, obj_type):
         """Extra Z offset for soft objects to avoid crushing."""
         if 'soft' in obj_type:
@@ -999,6 +1009,12 @@ class PalletizingExecutor:
         self.grab_done = False
 
         # Publish the target position to grab_action
+        gripper_value = self._get_gripper_value(obj_type)
+        gripper_open_value = self._get_gripper_open_value(obj_type)
+        rospy.set_param('/wpb_home_grab_action/grab/grab_open_value', gripper_open_value)
+        rospy.set_param('/wpb_home_grab_action/grab/grab_gripper_value', gripper_value)
+        rospy.loginfo("Grab gripper for %s: open=%.3f close=%.3f",
+                      obj_type, gripper_open_value, gripper_value)
         pose = Pose()
         pose.position.x = target_x
         pose.position.y = target_y

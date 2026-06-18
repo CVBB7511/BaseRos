@@ -163,28 +163,43 @@ class CandidatePointStacking(StackingState):
 
 
 class AlignedStacking(StackingState):
-    """Grid stacking: each layer aligned with the one below."""
+    """Grid stacking in the table frame, filled far-to-near.
+
+    The approach yaw points from the robot toward the table center.  Rows are
+    laid out along that depth axis, so row 0 is the far side of the table and
+    later rows move toward the robot.  Columns are laid out on the table side
+    axis, which keeps the grid valid even when the table is rotated in /map.
+    """
 
     def __init__(self, table_x, table_y, table_z, grid_cols=2, grid_rows=3,
-                 spacing_x=0.15, spacing_y=0.15):
+                 spacing_x=0.15, spacing_y=0.15, approach_yaw=0.0):
         super().__init__(table_x, table_y, table_z)
         self.grid_cols = grid_cols
         self.grid_rows = grid_rows
         self.spacing_x = spacing_x
         self.spacing_y = spacing_y
+        self.approach_yaw = approach_yaw
+        self.depth_x = math.cos(approach_yaw)
+        self.depth_y = math.sin(approach_yaw)
+        self.side_x = -math.sin(approach_yaw)
+        self.side_y = math.cos(approach_yaw)
         self.current_layer = 0
         self.current_index = 0
         self.layer_heights = []
 
     @property
     def description(self):
-        return "aligned {}x{}".format(self.grid_cols, self.grid_rows)
+        return "aligned far-to-near {}x{} yaw={:.1f}deg".format(
+            self.grid_cols, self.grid_rows, math.degrees(self.approach_yaw))
 
     def get_place_pose(self, object_height=0.06):
         col = self.current_index % self.grid_cols
         row = self.current_index // self.grid_cols
-        x = self.table_x - (self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x
-        y = self.table_y - (self.grid_rows - 1) * self.spacing_y / 2.0 + row * self.spacing_y
+        side_offset = -(self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x
+        # Positive depth is farther from the robot; fill far rows first.
+        depth_offset = (self.grid_rows - 1) * self.spacing_y / 2.0 - row * self.spacing_y
+        x = self.table_x + self.side_x * side_offset + self.depth_x * depth_offset
+        y = self.table_y + self.side_y * side_offset + self.depth_y * depth_offset
         cell_idx = self.current_index
         if cell_idx >= len(self.layer_heights):
             self.layer_heights.append(self.table_z)
@@ -297,7 +312,8 @@ class PyramidStacking(StackingState):
 def create_stacking(pattern, table_x, table_y, table_z, grid_cols, grid_rows,
                     spacing_x=0.15, spacing_y=0.15,
                     zone_half_x=0.50, zone_half_y=0.25, max_height=0.80,
-                    horizontal_gap=0.02, vertical_gap=0.01):
+                    horizontal_gap=0.02, vertical_gap=0.01,
+                    approach_yaw=0.0):
     """Factory function for stacking strategies."""
     if pattern == 'candidate':
         return CandidatePointStacking(table_x, table_y, table_z, grid_cols, grid_rows,
@@ -312,7 +328,7 @@ def create_stacking(pattern, table_x, table_y, table_z, grid_cols, grid_rows,
         return PyramidStacking(table_x, table_y, table_z, base, spacing_x, spacing_y)
     else:  # default: aligned
         return AlignedStacking(table_x, table_y, table_z, grid_cols, grid_rows,
-                               spacing_x, spacing_y)
+                               spacing_x, spacing_y, approach_yaw)
 
 
 class PalletizingExecutor:
@@ -335,8 +351,9 @@ class PalletizingExecutor:
         self.dest_table_z = rospy.get_param('~dest_table_z', 0.78)
 
         # Table orientation and dimensions
-        # table_yaw: 桌面长边在 /map 坐标系中的方向 (radians).
-        #            table_yaw=0 表示桌面长边与 map X 轴平行，正面朝向 +y.
+        # table_yaw: table outward-facing direction in /map (radians), as saved
+        #            by mark_table_positions.py. The robot approach yaw is
+        #            table_yaw + pi, pointing from robot toward table center.
         #            若未指定 (None), 则沿用旧版 source_approach_yaw / dest_approach_yaw.
         self.source_table_yaw = rospy.get_param('~source_table_yaw', None)
         self.dest_table_yaw = rospy.get_param('~dest_table_yaw', None)
@@ -401,9 +418,15 @@ class PalletizingExecutor:
         # Per-type gripper values (力反馈自适应夹爪)
         self.gripper_values = {
             'hard_cube': rospy.get_param('~gripper_hard_cube', 0.032),
-            'soft_cube': rospy.get_param('~gripper_soft_cube', 0.046),
+            'soft_cube': rospy.get_param('~gripper_soft_cube', 0.115),
             'hard_sphere': rospy.get_param('~gripper_hard_sphere', 0.028),
             'soft_sphere': rospy.get_param('~gripper_soft_sphere', 0.040),
+        }
+        self.gripper_open_values = {
+            'hard_cube': rospy.get_param('~gripper_open_hard_cube', 0.16),
+            'soft_cube': rospy.get_param('~gripper_open_soft_cube', 0.20),
+            'hard_sphere': rospy.get_param('~gripper_open_hard_sphere', 0.16),
+            'soft_sphere': rospy.get_param('~gripper_open_soft_sphere', 0.20),
         }
 
         # Publishers
@@ -503,17 +526,22 @@ class PalletizingExecutor:
         self.zones = {}
         zone_offsets = {'hard': +self.zone_separation_y / 2.0,
                          'soft': -self.zone_separation_y / 2.0}
-        for material, y_offset in zone_offsets.items():
-            zone_y = self.dest_table_y + y_offset
+        dest_side_x = -math.sin(self.dest_approach_yaw)
+        dest_side_y = math.cos(self.dest_approach_yaw)
+        for material, side_offset in zone_offsets.items():
+            zone_x = self.dest_table_x + dest_side_x * side_offset
+            zone_y = self.dest_table_y + dest_side_y * side_offset
             self.zones[material] = create_stacking(
                 self.stacking_pattern,
-                self.dest_table_x, zone_y, self.dest_table_z,
+                zone_x, zone_y, self.dest_table_z,
                 self.grid_cols, self.grid_rows,
                 self.spacing_x, self.spacing_y,
                 self.zone_half_x, self.zone_half_y, self.max_height,
-                self.horizontal_gap, self.vertical_gap)
-            rospy.loginfo("Zone '%s': %s, y_offset=%.2f",
-                          material, self.zones[material].description, y_offset)
+                self.horizontal_gap, self.vertical_gap,
+                self.dest_approach_yaw)
+            rospy.loginfo("Zone '%s': %s, side_offset=%.2f center=(%.2f, %.2f)",
+                          material, self.zones[material].description,
+                          side_offset, zone_x, zone_y)
 
         # TF listener for robot position lookup
         self.tf_listener = tf.TransformListener()
@@ -665,6 +693,17 @@ class PalletizingExecutor:
         map_x = robot_x + point_x * cos_t - point_y * sin_t
         map_y = robot_y + point_x * sin_t + point_y * cos_t
         return map_x, map_y
+
+    @staticmethod
+    def _map_point_to_base(robot_x, robot_y, robot_yaw, map_x, map_y):
+        """Transform a map-frame point into the robot base frame."""
+        dx = map_x - robot_x
+        dy = map_y - robot_y
+        cos_t = math.cos(robot_yaw)
+        sin_t = math.sin(robot_yaw)
+        base_x = dx * cos_t + dy * sin_t
+        base_y = -dx * sin_t + dy * cos_t
+        return base_x, base_y
 
     def _near_nav_goal(self, nav_x, nav_y):
         """Return True when the robot is close enough to a navigation goal."""
@@ -915,6 +954,10 @@ class PalletizingExecutor:
         """Get adaptive gripper value based on object type."""
         return self.gripper_values.get(obj_type, 0.035)
 
+    def _get_gripper_open_value(self, obj_type):
+        """Get pre-grab gripper opening based on object type."""
+        return self.gripper_open_values.get(obj_type, 0.18)
+
     def _get_place_z_offset(self, obj_type):
         """Extra Z offset for soft objects to avoid crushing."""
         if 'soft' in obj_type:
@@ -966,6 +1009,12 @@ class PalletizingExecutor:
         self.grab_done = False
 
         # Publish the target position to grab_action
+        gripper_value = self._get_gripper_value(obj_type)
+        gripper_open_value = self._get_gripper_open_value(obj_type)
+        rospy.set_param('/wpb_home_grab_action/grab/grab_open_value', gripper_open_value)
+        rospy.set_param('/wpb_home_grab_action/grab/grab_gripper_value', gripper_value)
+        rospy.loginfo("Grab gripper for %s: open=%.3f close=%.3f",
+                      obj_type, gripper_open_value, gripper_value)
         pose = Pose()
         pose.position.x = target_x
         pose.position.y = target_y
@@ -1320,9 +1369,16 @@ class PalletizingExecutor:
             # place_action lifts arm to place_z + 0.03, then robot moves forward
             # toward the table.  The arm must clear objects already on the table,
             # so add the object height as clearance during approach.
-            place_x, place_y, place_z = zone.get_place_pose(obj_height)
+            place_map_x, place_map_y, place_z = zone.get_place_pose(obj_height)
             place_z += obj_height  # clearance above stack top
             place_z += self._get_place_z_offset(obj_type)
+            place_robot_x, place_robot_y, place_robot_yaw = self._get_robot_position()
+            place_x, place_y = self._map_point_to_base(
+                place_robot_x, place_robot_y, place_robot_yaw,
+                place_map_x, place_map_y)
+            rospy.loginfo("Place map(%.3f, %.3f) -> base(%.3f, %.3f), yaw=%.1f°",
+                          place_map_x, place_map_y, place_x, place_y,
+                          math.degrees(place_robot_yaw))
 
             # Step 4: Place
             if not self.place_object(place_x, place_y, place_z):

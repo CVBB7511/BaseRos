@@ -1,8 +1,0 @@
-prefix=/home/yubowen/BaseRos/catkin_ws/devel
-
-Name: kinect2_registration
-Description: Description of kinect2_registration
-Version: 0.0.1
-Cflags: -I/home/yubowen/BaseRos/catkin_ws/src/iai_kinect2/kinect2_registration/include
-Libs: -L${prefix}/lib -lkinect2_registration
-Requires: 

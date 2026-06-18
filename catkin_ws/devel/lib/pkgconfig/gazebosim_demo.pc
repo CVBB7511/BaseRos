@@ -1,8 +1,0 @@
-prefix=/home/yubowen/BaseRos/catkin_ws/devel
-
-Name: gazebosim_demo
-Description: Description of gazebosim_demo
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

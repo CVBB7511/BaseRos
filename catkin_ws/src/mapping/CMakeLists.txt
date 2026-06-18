@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   message_generation
   message_runtime
+  std_srvs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -60,6 +61,8 @@ add_service_files(
   FILES
   Start.srv
   Halt.srv
+  MapFile.srv
+  CalibrateTable.srv
 )
 
 ## Generate actions in the 'action' folder

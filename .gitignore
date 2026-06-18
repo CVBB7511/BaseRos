@@ -1,0 +1,53 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ROS/catkin generated files
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/install/
+catkin_ws/logs/
+catkin_ws/.catkin_tools/
+catkin_ws/src/**/__pycache__/
+
+# Runtime ROS state and logs
+.ros/
+*.bag
+*.bag.active
+
+# Frontend generated files
+frontend/node_modules/
+frontend/dist/
+frontend/.pnpm-store/
+
+# Temporary local data
+backup/
+test_map/
+catkin_ws.zip
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Locally saved maps. Existing tracked baseline maps are not affected.
+real_maps/map-*.pgm
+real_maps/map-*.yaml
+real_maps/auto_*.pgm
+real_maps/auto_*.yaml
+
+# Local environment files
+.env
+.env.*
+!.env.example

@@ -38,6 +38,7 @@
     <param name="spacing_x" type="double" value="0.18"/>
     <param name="spacing_y" type="double" value="0.17"/>
     <param name="zone_separation_y" type="double" value="0.35"/>   <!-- 两种物体的堆叠区间距 -->
+    <param name="place_depth_retreat" type="double" value="0.06"/> <!-- 放置点从桌子远端往机器人方向回收，避免过深掉落 -->
     <param name="zone_half_x" type="double" value="0.50"/>        <!-- 候选点法: 区半宽 -->
     <param name="zone_half_y" type="double" value="0.25"/>        <!-- 候选点法: 区半深 -->
     <param name="max_height" type="double" value="0.80"/>         <!-- 候选点法: 最大堆高 -->

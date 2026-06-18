@@ -11,22 +11,32 @@
     <!--     -f ~/baseRos/catkin_ws/src/gazebosim_demo/maps/palletizing_map -->
     <!-- ============================================ -->
 
+    <arg name="start_gazebo" default="true"/>
+    <arg name="start_robot" default="true"/>
+
     <env name="GAZEBO_MODEL_PATH" value="$(find gazebosim_demo)/models:$(optenv GAZEBO_MODEL_PATH)" />
     <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebosim_demo)/worlds:$(optenv GAZEBO_RESOURCE_PATH)" />
+    <env name="GAZEBO_MODEL_DATABASE_URI" value="" />
+    <env name="IGN_FUEL_CONFIG_PATH" value="$(find gazebosim_demo)/config/ign_fuel_offline.yaml" />
+    <env name="GZ_FUEL_CONFIG_PATH" value="$(find gazebosim_demo)/config/ign_fuel_offline.yaml" />
 
-    <!-- World -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find gazebosim_demo)/worlds/palletizing_test.world" />
-        <arg name="paused" value="false" />
-        <arg name="use_sim_time" value="true" />
-        <arg name="gui" value="true" />
-    </include>
+    <group if="$(arg start_gazebo)">
+        <!-- World -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(find gazebosim_demo)/worlds/palletizing_test.world" />
+            <arg name="paused" value="false" />
+            <arg name="use_sim_time" value="true" />
+            <arg name="gui" value="true" />
+        </include>
+    </group>
 
-    <!-- Robot -->
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-        args="-file $(find gazebosim_demo)/models/wpb_home_mani.model -urdf -model wpb_home_mani" />
+    <group if="$(arg start_robot)">
+        <!-- Robot -->
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+            args="-file $(find gazebosim_demo)/models/wpb_home_mani.model -urdf -model wpb_home_mani" />
 
-    <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+        <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+    </group>
 
     <!-- Gmapping -->
     <include file="$(find gazebosim_demo)/launch/gmapping.launch" />

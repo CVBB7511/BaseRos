@@ -10,19 +10,23 @@
     <!-- ============================================ -->
 
     <!-- ===== Table Configuration (可命令行传参) ===== -->
+    <arg name="map_file" default="$(find gazebosim_demo)/maps/palletizing_map.yaml"/>
+    <arg name="start_gazebo" default="true"/>
+    <arg name="start_robot" default="true"/>
+
     <!-- 取货桌（source table） -->
     <arg name="source_table_x" default="-1.5"/>
     <arg name="source_table_y" default="0.0"/>
     <arg name="source_table_z" default="0.765"/>
     <arg name="source_table_yaw" default="0.0"/>      <!-- 桌面长边朝向 (/map 坐标系, rad). 0=沿X轴. 不传则用默认 approach_yaw -->
-    <arg name="source_table_length" default="1.0"/>   <!-- 桌面长边 (m) -->
+    <arg name="source_table_length" default="1.2"/>   <!-- 桌面长边 (m) -->
     <arg name="source_table_width" default="0.5"/>    <!-- 桌面短边/深度 (m) -->
     <!-- 码垛桌（dest table） -->
     <arg name="dest_table_x" default="1.5"/>
     <arg name="dest_table_y" default="0.0"/>
     <arg name="dest_table_z" default="0.765"/>
     <arg name="dest_table_yaw" default="3.1416"/>     <!-- 桌面朝向, π=朝向-x (迎向机器人) -->
-    <arg name="dest_table_length" default="1.0"/>
+    <arg name="dest_table_length" default="1.2"/>
     <arg name="dest_table_width" default="0.5"/>
     <arg name="zones_file" default="$(find gazebosim_demo)/config/palletizing_zones_sim.yaml"/>
 
@@ -30,20 +34,26 @@
     <env name="GAZEBO_MODEL_PATH" value="$(find gazebosim_demo)/models:$(optenv GAZEBO_MODEL_PATH)" />
     <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebosim_demo)/worlds:$(optenv GAZEBO_RESOURCE_PATH)" />
     <env name="GAZEBO_MODEL_DATABASE_URI" value="" />
+    <env name="IGN_FUEL_CONFIG_PATH" value="$(find gazebosim_demo)/config/ign_fuel_offline.yaml" />
+    <env name="GZ_FUEL_CONFIG_PATH" value="$(find gazebosim_demo)/config/ign_fuel_offline.yaml" />
 
-    <!-- ===== World ===== -->
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find gazebosim_demo)/worlds/palletizing_test.world" />
-        <arg name="paused" value="false" />
-        <arg name="use_sim_time" value="true" />
-        <arg name="gui" value="true" />
-    </include>
+    <group if="$(arg start_gazebo)">
+        <!-- ===== World ===== -->
+        <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(find gazebosim_demo)/worlds/palletizing_test.world" />
+            <arg name="paused" value="false" />
+            <arg name="use_sim_time" value="true" />
+            <arg name="gui" value="true" />
+        </include>
+    </group>
 
-    <!-- ===== Robot + Controllers ===== -->
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-        args="-file $(find gazebosim_demo)/models/wpb_home_mani.model -urdf -model wpb_home_mani" />
+    <group if="$(arg start_robot)">
+        <!-- ===== Robot + Controllers ===== -->
+        <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+            args="-file $(find gazebosim_demo)/models/wpb_home_mani.model -urdf -model wpb_home_mani" />
 
-    <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+        <include file="$(find gazebosim_demo)/launch/wpb_home_controllers.launch" />
+    </group>
 
     <!-- ===== Behavior nodes (grab / place / object detect) ===== -->
     <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d" output="screen">
@@ -61,7 +71,7 @@
 
     <!-- ===== Map Server (use map built during 建图 phase) ===== -->
     <node name="map_server" pkg="map_server" type="map_server"
-        args="$(find gazebosim_demo)/maps/palletizing_map.yaml" />
+        args="$(arg map_file)" />
 
     <!-- ===== AMCL Localization ===== -->
     <include file="$(find wpb_home_tutorials)/nav_lidar/amcl_omni.launch" />
@@ -129,6 +139,7 @@
         <param name="spacing_x" type="double" value="0.18"/>
         <param name="spacing_y" type="double" value="0.17"/>
         <param name="zone_separation_y" type="double" value="0.35"/>
+        <param name="place_depth_retreat" type="double" value="0.06"/>
         <param name="nav_timeout" type="double" value="120.0"/>
         <param name="approach_offset" type="double" value="0.70"/>
         <param name="place_approach_offset" type="double" value="0.30"/>

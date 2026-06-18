@@ -1,8 +1,0 @@
-prefix=/home/yubowen/BaseRos/catkin_ws/install
-
-Name: vizanti
-Description: Description of vizanti
-Version: 0.1.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: dynamic_reconfigure rospy actionlib_msgs geometry_msgs move_base_msgs std_msgs message_runtime

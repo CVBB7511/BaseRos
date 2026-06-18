@@ -1,0 +1,7 @@
+string directory
+string name
+bool sim
+---
+bool success
+string path
+string message

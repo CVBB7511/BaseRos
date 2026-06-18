@@ -172,7 +172,8 @@ class AlignedStacking(StackingState):
     """
 
     def __init__(self, table_x, table_y, table_z, grid_cols=2, grid_rows=3,
-                 spacing_x=0.15, spacing_y=0.15, approach_yaw=0.0):
+                 spacing_x=0.15, spacing_y=0.15, approach_yaw=0.0,
+                 depth_retreat=0.0):
         super().__init__(table_x, table_y, table_z)
         self.grid_cols = grid_cols
         self.grid_rows = grid_rows
@@ -183,21 +184,25 @@ class AlignedStacking(StackingState):
         self.depth_y = math.sin(approach_yaw)
         self.side_x = -math.sin(approach_yaw)
         self.side_y = math.cos(approach_yaw)
+        self.depth_retreat = depth_retreat
         self.current_layer = 0
         self.current_index = 0
         self.layer_heights = []
 
     @property
     def description(self):
-        return "aligned far-to-near {}x{} yaw={:.1f}deg".format(
-            self.grid_cols, self.grid_rows, math.degrees(self.approach_yaw))
+        return "aligned far-to-near {}x{} yaw={:.1f}deg retreat={:.2f}m".format(
+            self.grid_cols, self.grid_rows, math.degrees(self.approach_yaw),
+            self.depth_retreat)
 
     def get_place_pose(self, object_height=0.06):
         col = self.current_index % self.grid_cols
         row = self.current_index // self.grid_cols
         side_offset = -(self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x
         # Positive depth is farther from the robot; fill far rows first.
-        depth_offset = (self.grid_rows - 1) * self.spacing_y / 2.0 - row * self.spacing_y
+        depth_offset = ((self.grid_rows - 1) * self.spacing_y / 2.0
+                        - row * self.spacing_y
+                        - self.depth_retreat)
         x = self.table_x + self.side_x * side_offset + self.depth_x * depth_offset
         y = self.table_y + self.side_y * side_offset + self.depth_y * depth_offset
         cell_idx = self.current_index
@@ -313,7 +318,7 @@ def create_stacking(pattern, table_x, table_y, table_z, grid_cols, grid_rows,
                     spacing_x=0.15, spacing_y=0.15,
                     zone_half_x=0.50, zone_half_y=0.25, max_height=0.80,
                     horizontal_gap=0.02, vertical_gap=0.01,
-                    approach_yaw=0.0):
+                    approach_yaw=0.0, depth_retreat=0.0):
     """Factory function for stacking strategies."""
     if pattern == 'candidate':
         return CandidatePointStacking(table_x, table_y, table_z, grid_cols, grid_rows,
@@ -328,7 +333,8 @@ def create_stacking(pattern, table_x, table_y, table_z, grid_cols, grid_rows,
         return PyramidStacking(table_x, table_y, table_z, base, spacing_x, spacing_y)
     else:  # default: aligned
         return AlignedStacking(table_x, table_y, table_z, grid_cols, grid_rows,
-                               spacing_x, spacing_y, approach_yaw)
+                               spacing_x, spacing_y, approach_yaw,
+                               depth_retreat)
 
 
 class PalletizingExecutor:
@@ -372,6 +378,7 @@ class PalletizingExecutor:
         self.spacing_x = rospy.get_param('~spacing_x', 0.15)
         self.spacing_y = rospy.get_param('~spacing_y', 0.15)
         self.zone_separation_y = rospy.get_param('~zone_separation_y', 0.35)
+        self.place_depth_retreat = rospy.get_param('~place_depth_retreat', 0.0)
 
         # Candidate-point stacking params
         self.zone_half_x = rospy.get_param('~zone_half_x', 0.50)
@@ -538,13 +545,14 @@ class PalletizingExecutor:
                 self.spacing_x, self.spacing_y,
                 self.zone_half_x, self.zone_half_y, self.max_height,
                 self.horizontal_gap, self.vertical_gap,
-                self.dest_approach_yaw)
+                self.dest_approach_yaw, self.place_depth_retreat)
             rospy.loginfo("Zone '%s': %s, side_offset=%.2f center=(%.2f, %.2f)",
                           material, self.zones[material].description,
                           side_offset, zone_x, zone_y)
 
         # TF listener for robot position lookup
         self.tf_listener = tf.TransformListener()
+        self.stats_timer = rospy.Timer(rospy.Duration(1.0), self._publish_stats_timer)
 
     def _default_zones_file(self):
         try:
@@ -949,6 +957,9 @@ class PalletizingExecutor:
             stats.avg_cycle_time = 0.0
 
         self.stats_pub.publish(stats)
+
+    def _publish_stats_timer(self, _event):
+        self._publish_stats()
 
     def _get_gripper_value(self, obj_type):
         """Get adaptive gripper value based on object type."""
@@ -1372,13 +1383,15 @@ class PalletizingExecutor:
             place_map_x, place_map_y, place_z = zone.get_place_pose(obj_height)
             place_z += obj_height  # clearance above stack top
             place_z += self._get_place_z_offset(obj_type)
+            map_depth = ((place_map_x - self.dest_table_x) * math.cos(self.dest_approach_yaw)
+                         + (place_map_y - self.dest_table_y) * math.sin(self.dest_approach_yaw))
             place_robot_x, place_robot_y, place_robot_yaw = self._get_robot_position()
             place_x, place_y = self._map_point_to_base(
                 place_robot_x, place_robot_y, place_robot_yaw,
                 place_map_x, place_map_y)
-            rospy.loginfo("Place map(%.3f, %.3f) -> base(%.3f, %.3f), yaw=%.1f°",
-                          place_map_x, place_map_y, place_x, place_y,
-                          math.degrees(place_robot_yaw))
+            rospy.loginfo("Place map(%.3f, %.3f, depth=%.3f) -> base(%.3f, %.3f), yaw=%.1f°",
+                          place_map_x, place_map_y, map_depth, place_x,
+                          place_y, math.degrees(place_robot_yaw))
 
             # Step 4: Place
             if not self.place_object(place_x, place_y, place_z):

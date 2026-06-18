@@ -3,18 +3,19 @@
 
 Press once to nudge speed, Space to stop.
 
-W  → forward  (+0.25 to linear.x)
-S  → backward (-0.25 to linear.x)
-A  → left     (+0.25 to linear.y)
-D  → right    (-0.25 to linear.y)
-Q  → CCW      (+0.25 to angular.z)
-E  → CW       (-0.25 to angular.z)
+W  → forward  (+step to linear.x)
+S  → backward (-step to linear.x)
+A  → left     (+step to linear.y)
+D  → right    (-step to linear.y)
+Q  → CCW      (+step to angular.z)
+E  → CW       (-step to angular.z)
 Space → emergency stop (all zero)
 """
 
 import rospy
 import sys
 import threading
+import time
 from geometry_msgs.msg import Twist
 
 
@@ -77,12 +78,13 @@ def clamp(val, limit):
 def main():
     rospy.init_node('vel_ctrl_node')
 
-    step = rospy.get_param('~step', 0.25)
-    max_linear = rospy.get_param('~max_linear', 2.0)
-    max_angular = rospy.get_param('~max_angular', 3.0)
+    step = rospy.get_param('~step', 0.05)
+    max_linear = rospy.get_param('~max_linear', 0.5)
+    max_angular = rospy.get_param('~max_angular', 1.0)
+    cmd_vel_topic = rospy.get_param('~cmd_vel_topic', '/cmd_vel')
 
-    pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
-    rate = rospy.Rate(10)
+    pub = rospy.Publisher(cmd_vel_topic, Twist, queue_size=10)
+    publish_period = 0.1
 
     lock = threading.Lock()
     exit_flag = False
@@ -92,8 +94,8 @@ def main():
     lin_y = 0.0
     ang_z = 0.0
 
-    # Detect terminal mode
-    have_raw = (_getch() is not None)
+    # Detect terminal mode without reading/consuming a real key.
+    have_raw = sys.stdin.isatty()
     sep = "=" * 60
     if have_raw:
         rospy.loginfo(sep)
@@ -110,6 +112,7 @@ def main():
     rospy.loginfo("  Q / E   : CCW + / CW +          (angular.z)")
     rospy.loginfo("  Space   : EMERGENCY STOP (all → 0)")
     rospy.loginfo("  Ctrl-C  : quit")
+    rospy.loginfo("Publishing Twist to %s", cmd_vel_topic)
     rospy.loginfo(sep)
 
     def key_reader():
@@ -154,7 +157,10 @@ def main():
     reader_thread = threading.Thread(target=key_reader, daemon=True)
     reader_thread.start()
 
-    # Main loop: publish current speed at steady 10 Hz
+    # Main loop: publish current speed at steady 10 Hz.
+    # Use wall-clock sleep instead of rospy.Rate so teleop keeps publishing
+    # when /use_sim_time is true but Gazebo /clock is paused or not ready.
+    last_conn_warn = 0.0
     while not rospy.is_shutdown() and not exit_flag:
         with lock:
             twist = Twist()
@@ -162,7 +168,11 @@ def main():
             twist.linear.y = lin_y
             twist.angular.z = ang_z
         pub.publish(twist)
-        rate.sleep()
+        if pub.get_num_connections() == 0 and time.time() - last_conn_warn > 2.0:
+            rospy.logwarn("No subscribers on %s. Is Gazebo robot spawned and wpb_home_mani plugin loaded?",
+                          cmd_vel_topic)
+            last_conn_warn = time.time()
+        time.sleep(publish_period)
 
     # Final stop
     pub.publish(Twist())

@@ -24,10 +24,12 @@
     <arg name="dest_table_yaw" default="3.1416"/>     <!-- 桌面朝向, π=朝向-x (迎向机器人) -->
     <arg name="dest_table_length" default="1.0"/>
     <arg name="dest_table_width" default="0.5"/>
+    <arg name="zones_file" default="$(find gazebosim_demo)/config/palletizing_zones_sim.yaml"/>
 
     <!-- Environment Variables -->
     <env name="GAZEBO_MODEL_PATH" value="$(find gazebosim_demo)/models:$(optenv GAZEBO_MODEL_PATH)" />
     <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebosim_demo)/worlds:$(optenv GAZEBO_RESOURCE_PATH)" />
+    <env name="GAZEBO_MODEL_DATABASE_URI" value="" />
 
     <!-- ===== World ===== -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -115,6 +117,7 @@
         <param name="dest_table_yaw" type="double" value="$(arg dest_table_yaw)"/>
         <param name="dest_table_length" type="double" value="$(arg dest_table_length)"/>
         <param name="dest_table_width" type="double" value="$(arg dest_table_width)"/>
+        <param name="zones_file" type="string" value="$(arg zones_file)"/>
         <!-- Stacking params -->
         <param name="grid_cols" type="int" value="2"/>
         <param name="grid_rows" type="int" value="3"/>

@@ -421,6 +421,7 @@ class PalletizingExecutor:
         self.place_done = False
         self.grab_feedback = ""
         self.place_feedback = ""
+        self.place_command_time = 0.0
         self.objects_processed = 0
         self.objects_total = 0
         self.current_object_type = ""
@@ -440,6 +441,18 @@ class PalletizingExecutor:
 
         # Navigation client (move_base)
         self.nav_timeout = rospy.get_param('~nav_timeout', 120.0)
+        self.nav_accept_xy_tolerance = rospy.get_param('~nav_accept_xy_tolerance', 0.05)
+        self.detect_poll_period = rospy.get_param('~detect_poll_period', 0.10)
+        self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
+        self.nav_release_delay = rospy.get_param('~nav_release_delay', 0.15)
+        self.nav_stop_publish_count = rospy.get_param('~nav_stop_publish_count', 3)
+        self.nav_stop_publish_period = rospy.get_param('~nav_stop_publish_period', 0.05)
+        self.arm_raise_publish_count = rospy.get_param('~arm_raise_publish_count', 3)
+        self.arm_raise_publish_period = rospy.get_param('~arm_raise_publish_period', 0.10)
+        self.startup_settle_time = rospy.get_param('~startup_settle_time', 0.30)
+        self.clear_table_back_speed = rospy.get_param('~clear_table_back_speed', -0.18)
+        self.clear_table_back_duration = rospy.get_param('~clear_table_back_duration', 1.20)
+        self.clear_table_back_period = rospy.get_param('~clear_table_back_period', 0.20)
         self.move_base_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         rospy.loginfo("Waiting for move_base action server...")
         if self.move_base_client.wait_for_server(rospy.Duration(10.0)):
@@ -615,7 +628,7 @@ class PalletizingExecutor:
     def _place_result_callback(self, msg):
         self.place_feedback = msg.data
         rospy.loginfo("[place_result] %s", msg.data)
-        if msg.data == 'done':
+        if msg.data == 'done' and time.time() - self.place_command_time > 0.5:
             self.place_done = True
 
     def _get_zone(self, obj_type):
@@ -644,6 +657,27 @@ class PalletizingExecutor:
             rospy.logwarn("TF lookup failed, using source table as reference")
             return self.source_table_x, self.source_table_y, math.pi
 
+    @staticmethod
+    def _base_point_to_map(robot_x, robot_y, robot_yaw, point_x, point_y):
+        """Transform a point from base frame into map frame using planar yaw."""
+        cos_t = math.cos(robot_yaw)
+        sin_t = math.sin(robot_yaw)
+        map_x = robot_x + point_x * cos_t - point_y * sin_t
+        map_y = robot_y + point_x * sin_t + point_y * cos_t
+        return map_x, map_y
+
+    def _near_nav_goal(self, nav_x, nav_y):
+        """Return True when the robot is close enough to a navigation goal."""
+        robot_x, robot_y, _ = self._get_robot_position()
+        dist = math.hypot(robot_x - nav_x, robot_y - nav_y)
+        if dist <= self.nav_accept_xy_tolerance:
+            rospy.loginfo("Navigation within tolerance: dist=%.3fm <= %.3fm",
+                          dist, self.nav_accept_xy_tolerance)
+            return True
+        rospy.logwarn("Navigation outside tolerance: dist=%.3fm > %.3fm",
+                      dist, self.nav_accept_xy_tolerance)
+        return False
+
     def _raise_arm(self):
         """Raise arm to a safe height above the table.
 
@@ -655,9 +689,9 @@ class PalletizingExecutor:
         cmd.name = ['lift', 'gripper']
         cmd.position = [0.8, 0.15]
         cmd.velocity = [0.0, 0.0]
-        for _ in range(5):
+        for _ in range(self.arm_raise_publish_count):
             mani_pub.publish(cmd)
-            rospy.sleep(0.2)
+            rospy.sleep(self.arm_raise_publish_period)
 
     def _estimate_half_size(self, obj_type):
         """Estimate object half-width/height from type (cubes: width≈height)."""
@@ -913,7 +947,7 @@ class PalletizingExecutor:
                 msg.data = 'object_detect stop'
                 self.behavior_pub.publish(msg)
                 return False
-            rospy.sleep(0.2)
+            rospy.sleep(self.detect_poll_period)
 
         msg.data = 'object_detect stop'
         self.behavior_pub.publish(msg)
@@ -948,7 +982,7 @@ class PalletizingExecutor:
                 msg.data = 'grab stop'
                 self.behavior_pub.publish(msg)
                 return False
-            rospy.sleep(0.5)
+            rospy.sleep(self.action_poll_period)
 
         rospy.loginfo("Grab completed")
         return True
@@ -957,6 +991,8 @@ class PalletizingExecutor:
         """Send place pose and wait for completion."""
         self.state = 'PLACING'
         self.place_done = False
+        self.place_feedback = ""
+        self.place_command_time = time.time()
 
         pose = Pose()
         pose.position.x = x
@@ -971,7 +1007,7 @@ class PalletizingExecutor:
             if time.time() - start > timeout:
                 rospy.logwarn("Place timed out (feedback: %s)", self.place_feedback)
                 return False
-            rospy.sleep(0.5)
+            rospy.sleep(self.action_poll_period)
 
         rospy.loginfo("Place completed")
         return True
@@ -1037,14 +1073,17 @@ class PalletizingExecutor:
             return False
         state = self.move_base_client.get_state()
         self.move_base_client.cancel_all_goals()
-        rospy.sleep(0.5)
+        rospy.sleep(self.nav_release_delay)
         stop = Twist()
         stop.linear.x = 0.0; stop.linear.y = 0.0; stop.angular.z = 0.0
-        for _ in range(5):
+        for _ in range(self.nav_stop_publish_count):
             self.cmd_vel_pub.publish(stop)
-            rospy.sleep(0.1)
+            rospy.sleep(self.nav_stop_publish_period)
         if state == actionlib.GoalStatus.SUCCEEDED:
             rospy.loginfo("Navigation succeeded")
+            return True
+        elif self._near_nav_goal(nav_x, nav_y):
+            rospy.logwarn("Navigation action state=%d, accepting near-goal pose", state)
             return True
         else:
             rospy.logwarn("Navigation failed (state: %d)", state)
@@ -1093,18 +1132,21 @@ class PalletizingExecutor:
         # Cancel all goals to stop move_base from publishing to /cmd_vel,
         # otherwise it would override grab/place alignment commands.
         self.move_base_client.cancel_all_goals()
-        rospy.sleep(0.5)  # let cancel propagate through the action pipeline
+        rospy.sleep(self.nav_release_delay)  # let cancel propagate through the action pipeline
         stop = Twist()
         stop.linear.x = 0.0
         stop.linear.y = 0.0
         stop.angular.z = 0.0
         # Publish several times to ensure move_base fully releases /cmd_vel
-        for _ in range(5):
+        for _ in range(self.nav_stop_publish_count):
             self.cmd_vel_pub.publish(stop)
-            rospy.sleep(0.1)
+            rospy.sleep(self.nav_stop_publish_period)
 
         if state == actionlib.GoalStatus.SUCCEEDED:
             rospy.loginfo("Navigation succeeded")
+            return True
+        elif self._near_nav_goal(nav_x, nav_y):
+            rospy.logwarn("Navigation action state=%d, accepting near-goal pose", state)
             return True
         else:
             rospy.logwarn("Navigation failed (state: %d)", state)
@@ -1113,7 +1155,7 @@ class PalletizingExecutor:
     def run(self):
         """Main execution loop — smart picking order + zone-based classification stacking."""
         rospy.loginfo("Palletizing executor starting...")
-        rospy.sleep(1.0)  # let subscribers and TF connect
+        rospy.sleep(self.startup_settle_time)  # let subscribers and TF connect
 
         # Initialize stats
         self.task_start_time = time.time()
@@ -1156,6 +1198,8 @@ class PalletizingExecutor:
             obj_bf_x = self.latest_objects.x[best_idx] if best_idx < len(self.latest_objects.x) else 0.0
             obj_bf_y = self.latest_objects.y[best_idx] if best_idx < len(self.latest_objects.y) else 0.0
             obj_bf_z = self.latest_objects.z[best_idx] if best_idx < len(self.latest_objects.z) else 0.0
+            obj_half = obj_height / 2.0
+            obj_center_x = obj_bf_x - obj_half
 
             rospy.loginfo("--- Picked %s (type: %s, zone: %s, h: %.2f, bf: %.3f,%.3f,%.3f) ---",
                           obj_name, obj_type, zone_material, obj_height,
@@ -1171,6 +1215,8 @@ class PalletizingExecutor:
             cos_t = math.cos(align_yaw)
             sin_t = math.sin(align_yaw)
             obj_map_y = det_ry + obj_bf_x * sin_t + obj_bf_y * cos_t
+            target_map_x, target_map_y = self._base_point_to_map(
+                det_rx, det_ry, det_yaw, obj_center_x, obj_bf_y)
             rospy.loginfo("Nav to source (det X=%.3f, comp Y=%.3f, yaw=%.1f°, current yaw=%.1f°)",
                           det_rx, obj_map_y, math.degrees(align_yaw), math.degrees(det_yaw))
             if not self.navigate_to_pose(det_rx, obj_map_y, align_yaw):
@@ -1185,28 +1231,36 @@ class PalletizingExecutor:
             if not self.detect_objects():
                 rospy.logwarn("Re-detect after nav failed. Trying grab anyway.")
                 # Fall back to pre-nav coords with Y=0
-                obj_half = obj_height / 2.0
                 grab_x = obj_bf_x - obj_half
                 grab_y = 0.0
                 grab_z = obj_bf_z - self.PRISM_Z_OFFSET + obj_half
             else:
-                # Find the object closest to Y≈0 (our target after Y-comp nav)
+                # Match the same physical object selected before navigation.
+                # Navigation can leave the target a few cm away from Y=0, so
+                # using only abs(Y) may switch to a neighboring object.
+                cur_rx, cur_ry, cur_yaw = self._get_robot_position()
                 best_dist = float('inf')
                 pick_idx = 0
                 for i in range(len(self.latest_objects.name)):
-                    y = self.latest_objects.y[i] if i < len(self.latest_objects.y) else 0.0
-                    dist = abs(y)  # after Y-comp nav, target is at Y≈0
+                    fresh_type = self._object_type(self.latest_objects, i, obj_type)
+                    fresh_half = self._estimate_half_size(fresh_type)
+                    x_edge = self.latest_objects.x[i] if i < len(self.latest_objects.x) else obj_bf_x
+                    x_center = x_edge - fresh_half
+                    y = self.latest_objects.y[i] if i < len(self.latest_objects.y) else obj_bf_y
+                    cand_map_x, cand_map_y = self._base_point_to_map(
+                        cur_rx, cur_ry, cur_yaw, x_center, y)
+                    dist = math.hypot(cand_map_x - target_map_x, cand_map_y - target_map_y)
                     if dist < best_dist:
                         best_dist = dist
                         pick_idx = i
                 fresh_x = self.latest_objects.x[pick_idx] if pick_idx < len(self.latest_objects.x) else obj_bf_x
                 fresh_y = self.latest_objects.y[pick_idx] if pick_idx < len(self.latest_objects.y) else 0.0
                 fresh_z = self.latest_objects.z[pick_idx] if pick_idx < len(self.latest_objects.z) else obj_bf_z
-                obj_half = obj_height / 2.0
                 grab_x = fresh_x - obj_half
                 grab_y = fresh_y
                 grab_z = fresh_z - self.PRISM_Z_OFFSET + obj_half
-                rospy.loginfo("Re-detect: fresh bf(%.3f, %.3f, %.3f) → grab(%.3f, %.3f, %.3f)",
+                rospy.loginfo("Re-detect matched idx=%d dist=%.3fm: fresh bf(%.3f, %.3f, %.3f) -> grab(%.3f, %.3f, %.3f)",
+                              pick_idx, best_dist,
                               fresh_x, fresh_y, fresh_z,
                               grab_x, grab_y, grab_z)
 
@@ -1228,13 +1282,14 @@ class PalletizingExecutor:
             rospy.loginfo("Backing up to clear table area...")
             stop = Twist()
             back = Twist()
-            back.linear.x = -0.15  # slow backward, ~0.3m total
-            for _ in range(4):  # 4 * 0.5s = 2s, approx 0.3m backward
+            back.linear.x = self.clear_table_back_speed
+            back_steps = max(1, int(math.ceil(self.clear_table_back_duration / self.clear_table_back_period)))
+            for _ in range(back_steps):
                 self.cmd_vel_pub.publish(back)
-                rospy.sleep(0.5)
-            for _ in range(3):  # ensure full stop
+                rospy.sleep(self.clear_table_back_period)
+            for _ in range(self.nav_stop_publish_count):  # ensure full stop
                 self.cmd_vel_pub.publish(stop)
-                rospy.sleep(0.1)
+                rospy.sleep(self.nav_stop_publish_period)
 
             # Step 2: Navigate to dest table. Use for_place=True which
             # compensates for place_action's 0.85m built-in forward movement.

@@ -1,2 +1,2 @@
 gazebosim_demo:iai_kinect2/iai_kinect2:iai_kinect2/kinect2_bridge:iai_kinect2/kinect2_calibration:iai_kinect2/kinect2_registration:iai_kinect2/kinect2_viewer:mapping:navigation:palletizing:rplidar_ros:vizanti:waterplus_map_tools:wpb_home/wpb_home_behaviors:wpb_home/wpb_home_bringup:wpb_home/wpb_home_python:wpb_home/wpb_home_python3:wpb_home/wpb_home_remote:wpb_home/wpb_home_tutorials:wpb_home/wpbh_local_planner:xfyun_waterplus
--DPYTHON_EXECUTABLE=/usr/bin/python3 -DCATKIN_DEVEL_PREFIX=/home/yubowen/BaseRos/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/yubowen/BaseRos/catkin_ws/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/yubowen/BaseRos/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/yubowen/BaseRos/catkin_ws/install -G Unix Makefiles

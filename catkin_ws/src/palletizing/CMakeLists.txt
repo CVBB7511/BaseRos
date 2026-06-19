@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   wpb_home_behaviors
 )
 
+catkin_python_setup()
+
 add_service_files(
   FILES
   MarkZone.srv

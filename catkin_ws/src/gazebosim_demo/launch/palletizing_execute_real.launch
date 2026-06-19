@@ -85,6 +85,10 @@
         <param name="cluster_tolerance" type="double" value="0.04" />
         <param name="cluster_min_size" type="int" value="500" />
         <param name="cluster_max_size" type="int" value="10000000" />
+        <param name="filter_object_outliers" type="bool" value="true" />
+        <param name="outlier_mean_k" type="int" value="20" />
+        <param name="outlier_stddev" type="double" value="1.0" />
+        <param name="bbox_trim_ratio" type="double" value="0.05" />
     </node>
     <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
         <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />

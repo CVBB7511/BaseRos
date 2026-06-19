@@ -27,6 +27,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from palletizing.msg import PalletizingStats
 from palletizing.srv import MarkZone, MarkZoneResponse
 from palletizing.srv import StartTask, StartTaskResponse
+from palletizing_detection import ObjectDetectionMixin
 from sensor_msgs.msg import JointState
 from sound_play.msg import SoundRequest
 from std_msgs.msg import String
@@ -81,7 +82,7 @@ class SimpleGridStacking:
             self.current_layer += 1
 
 
-class PalletizingExecutor:
+class PalletizingExecutor(ObjectDetectionMixin):
     """Simplified executor that follows scripts/简化流程.txt."""
 
     # PCL prism filter clips points below the table; objects.z is close to
@@ -141,14 +142,7 @@ class PalletizingExecutor:
         self.nav_accept_xy_tolerance = rospy.get_param('~nav_accept_xy_tolerance', 0.05)
         self.nav_accept_yaw_tolerance = rospy.get_param('~nav_accept_yaw_tolerance', 0.15)
         self.robot_settle_time = rospy.get_param('~robot_settle_time', 0.40)
-        self.detect_timeout = rospy.get_param('~detect_timeout', 2.0)
-        self.detect_poll_period = rospy.get_param('~detect_poll_period', 0.10)
-        self.detect_min_samples = rospy.get_param('~detect_min_samples', 2)
-        self.detect_fusion_samples = rospy.get_param('~detect_fusion_samples', 4)
-        self.detect_fusion_min_hits = rospy.get_param('~detect_fusion_min_hits', 2)
-        self.detect_fusion_merge_xy = rospy.get_param('~detect_fusion_merge_xy', 0.08)
-        self.detect_retry_count = rospy.get_param('~detect_retry_count', 1)
-        self.detect_retry_settle = rospy.get_param('~detect_retry_settle', 0.15)
+        self._init_object_detection()
         self.max_direct_grab_y = rospy.get_param('~max_direct_grab_y', 0.15)
         self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
         self.nav_release_delay = rospy.get_param('~nav_release_delay', 0.15)
@@ -184,8 +178,6 @@ class PalletizingExecutor:
         self.tts_pub = rospy.Publisher('/robotsound', SoundRequest, queue_size=5)
 
         self.state = 'IDLE'
-        self.latest_objects = None
-        self.detected_object_samples = []
         self.grab_done = False
         self.place_done = False
         self.grab_feedback = ''
@@ -331,12 +323,8 @@ class PalletizingExecutor:
                 self.place_depth_retreat)
         return zones
 
-    def _objects_callback(self, msg):
-        if self.state == 'DETECTING':
-            self.latest_objects = msg
-            self.objects_total = len(msg.name)
-            if len(msg.name) > 0:
-                self.detected_object_samples.append(msg)
+    def _on_detection_message(self, msg):
+        self.objects_total = len(msg.name)
 
     def _grab_result_callback(self, msg):
         self.grab_feedback = msg.data
@@ -368,16 +356,6 @@ class PalletizingExecutor:
             return self.sphere_height
         return self.cube_height
 
-    @staticmethod
-    def _median(values):
-        values = sorted(values)
-        if not values:
-            return 0.0
-        mid = len(values) // 2
-        if len(values) % 2:
-            return values[mid]
-        return 0.5 * (values[mid - 1] + values[mid])
-
     def _object_type(self, objects, idx, default='hard_cube'):
         types = getattr(objects, 'type', [])
         if idx < len(types) and types[idx]:
@@ -387,12 +365,6 @@ class PalletizingExecutor:
             if raw_type in ('15cm_cube', 'soft_cube'):
                 return 'soft_cube'
             return raw_type
-        return default
-
-    def _object_raw_type(self, objects, idx, default='hard_cube'):
-        types = getattr(objects, 'type', [])
-        if idx < len(types) and types[idx]:
-            return types[idx]
         return default
 
     def _zone_for_type(self, obj_type):
@@ -682,139 +654,6 @@ class PalletizingExecutor:
     def navigate_to_table(self, table_x, table_y, for_place=False):
         nav_x, nav_y, nav_yaw = self._get_approach_position(table_x, table_y, for_place)
         return self.navigate_to_pose(nav_x, nav_y, nav_yaw)
-
-    def _fuse_object_samples(self, samples, min_hits=None):
-        if min_hits is None:
-            min_hits = max(1, int(self.detect_fusion_min_hits))
-        tracks = []
-        merge_xy = max(0.01, float(self.detect_fusion_merge_xy))
-
-        for sample in samples:
-            for i in range(len(sample.name)):
-                if i >= len(sample.x) or i >= len(sample.y) or i >= len(sample.z):
-                    continue
-                x = sample.x[i]
-                y = sample.y[i]
-                z = sample.z[i]
-                best = None
-                best_dist = None
-                for track in tracks:
-                    tx = self._median(track['x'])
-                    ty = self._median(track['y'])
-                    dist = math.hypot(x - tx, y - ty)
-                    if dist <= merge_xy and (best_dist is None or dist < best_dist):
-                        best = track
-                        best_dist = dist
-                if best is None:
-                    best = {
-                        'name': [],
-                        'type': [],
-                        'x': [],
-                        'y': [],
-                        'z': [],
-                        'probability': [],
-                        'size_x': [],
-                        'size_y': [],
-                        'size_z': [],
-                    }
-                    tracks.append(best)
-                best['name'].append(sample.name[i] if i < len(sample.name) else '')
-                best['type'].append(self._object_raw_type(sample, i))
-                best['x'].append(x)
-                best['y'].append(y)
-                best['z'].append(z)
-                if i < len(sample.probability):
-                    best['probability'].append(sample.probability[i])
-                for field in ('size_x', 'size_y', 'size_z'):
-                    values = getattr(sample, field, [])
-                    if i < len(values):
-                        best[field].append(values[i])
-
-        stable_tracks = [track for track in tracks if len(track['x']) >= min_hits]
-        if not stable_tracks:
-            return None
-
-        stable_tracks.sort(key=lambda track: (
-            -len(track['x']),
-            abs(self._median(track['y'])),
-            self._median(track['x']),
-        ))
-
-        fused = Coord()
-        for idx, track in enumerate(stable_tracks):
-            type_votes = {}
-            for raw_type in track['type']:
-                norm_type = 'hard_cube'
-                if raw_type in ('15cm_cube', 'soft_cube'):
-                    norm_type = 'soft_cube'
-                elif raw_type not in ('10cm_cube', 'hard_cube'):
-                    norm_type = raw_type
-                type_votes[norm_type] = type_votes.get(norm_type, 0) + 1
-            obj_type = max(type_votes, key=type_votes.get) if type_votes else 'hard_cube'
-            fused.name.append('obj_%d' % idx)
-            fused.type.append(obj_type)
-            fused.x.append(self._median(track['x']))
-            fused.y.append(self._median(track['y']))
-            fused.z.append(self._median(track['z']))
-            fused.probability.append(
-                sum(track['probability']) / len(track['probability'])
-                if track['probability'] else float(len(track['x'])))
-            fused.size_x.append(self._median(track['size_x']) if track['size_x'] else 0.0)
-            fused.size_y.append(self._median(track['size_y']) if track['size_y'] else 0.0)
-            default_size_z = self._get_object_height(obj_type)
-            fused.size_z.append(self._median(track['size_z']) if track['size_z'] else default_size_z)
-
-        rospy.loginfo("Fused %d samples into %d stable objects",
-                      len(samples), len(fused.name))
-        return fused
-
-    def detect_objects(self, timeout=None):
-        if timeout is None:
-            timeout = self.detect_timeout
-        self.state = 'DETECTING'
-        self.latest_objects = None
-        self.detected_object_samples = []
-        msg = String()
-        msg.data = 'object_detect start'
-        self.behavior_pub.publish(msg)
-        start = time.time()
-        min_samples = max(1, int(self.detect_min_samples))
-        target_samples = max(min_samples, int(self.detect_fusion_samples))
-        while len(self.detected_object_samples) < target_samples:
-            if time.time() - start > timeout:
-                fused = self._fuse_object_samples(self.detected_object_samples)
-                if fused is not None and len(fused.name) > 0:
-                    msg.data = 'object_detect stop'
-                    self.behavior_pub.publish(msg)
-                    self.latest_objects = fused
-                    rospy.loginfo("Detected %d stable objects after timeout",
-                                  len(self.latest_objects.name))
-                    return True
-                msg.data = 'object_detect stop'
-                self.behavior_pub.publish(msg)
-                rospy.logwarn("Object detection timed out: got %d/%d non-empty samples",
-                              len(self.detected_object_samples), min_samples)
-                return False
-            rospy.sleep(self.detect_poll_period)
-        msg.data = 'object_detect stop'
-        self.behavior_pub.publish(msg)
-        fused = self._fuse_object_samples(self.detected_object_samples)
-        if fused is None or len(fused.name) == 0:
-            rospy.logwarn("Object detection rejected unstable samples: got %d samples",
-                          len(self.detected_object_samples))
-            return False
-        self.latest_objects = fused
-        rospy.loginfo("Detected %d stable objects", len(self.latest_objects.name))
-        return True
-
-    def detect_with_retry(self):
-        for attempt in range(max(1, self.detect_retry_count)):
-            self._wait_robot_settled(self.detect_retry_settle)
-            if self.detect_objects():
-                return True
-            rospy.logwarn("Detect attempt %d/%d failed",
-                          attempt + 1, max(1, self.detect_retry_count))
-        return False
 
     def _get_gripper_value(self, obj_type):
         return self.gripper_values.get(obj_type, 0.035)

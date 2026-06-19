@@ -113,8 +113,8 @@ def interactive_mode():
         length = float(length_str) if length_str else 1.0
         width_str = input("  桌面短边/深度 (m) [0.5]: ").strip()
         width = float(width_str) if width_str else 0.5
-        height_str = input("  桌面离地高度 (m) [0.765]: ").strip()
-        table_z = float(height_str) if height_str else 0.765
+        height_str = input("  桌面离地高度 (m) [0.75]: ").strip()
+        table_z = float(height_str) if height_str else 0.75
     except ValueError:
         print("ERROR: 输入格式错误")
         sys.exit(1)
@@ -181,7 +181,7 @@ def direct_mode(args):
         table_y = args.y
         table_yaw = args.yaw if args.yaw is not None else 0.0
 
-    table_z = args.z if args.z is not None else 0.765
+    table_z = args.z if args.z is not None else 0.75
     length = args.length if args.length is not None else 1.0
     width = args.width if args.width is not None else 0.5
 
@@ -209,7 +209,7 @@ def main():
     parser.add_argument('--y', type=float, default=None,
                         help='桌面中心 Y (map 坐标)')
     parser.add_argument('--z', type=float, default=None,
-                        help='桌面表面高度 (m), 默认 0.765')
+                        help='桌面表面高度 (m), 默认 0.75')
     parser.add_argument('--yaw', type=float, default=None,
                         help='桌面朝向 (rad). 默认: 机器人朝向 + pi')
     parser.add_argument('--length', type=float, default=None,

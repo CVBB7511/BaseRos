@@ -296,7 +296,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.0199999996
       Style: Flat Squares
-      Topic: /kinect2/qhd/points
+      Topic: /kinect2/sd/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true

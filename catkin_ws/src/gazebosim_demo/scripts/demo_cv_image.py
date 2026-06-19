@@ -23,5 +23,5 @@ def Cam_RGB_Callback(msg):
 if __name__ == "__main__":
     rospy.init_node("demo_cv_image")
     # 订阅机器人视觉传感器Kinect2的图像话题
-    rgb_sub = rospy.Subscriber("/kinect2/qhd/image_color_rect",Image,Cam_RGB_Callback,queue_size=10)
+    rgb_sub = rospy.Subscriber("/kinect2/hd/image_color_rect",Image,Cam_RGB_Callback,queue_size=10)
     rospy.spin()

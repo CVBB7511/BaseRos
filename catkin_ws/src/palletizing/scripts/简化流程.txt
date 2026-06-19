@@ -1,0 +1,128 @@
+1. # Navigate to source table first
+2. 执行图像识别，并根据安全算法（我已实现的版本）计算并排序，选择要抓取的目标
+3. 计算选定的物体的绝对坐标，并交给/home/yubowen/BaseRos/catkin_ws/src/wpb_home/wpb_home_behaviors/launch中的脚本执行抓取，注意，这个时候才伸出机械臂
+4. 抓取后抬高机械臂到80cm
+5. 机器人后退0.5m
+6. 机器人导航至目标桌子的导航点
+7. 下降机械臂，机器人将物体放在DEST DESK的规定区域、然后机械臂提升至80cm
+8. 机器人后退0.5m
+9. 机器人收回机械臂
+10. 循环过程，完成物体搬运。
+ 注意： 全部流程，机械臂的默认高度是0.8m,这是不会碰到桌面的安全高度
+
+ 完整流程：
+ 下面是当前机器人运行的完整动作和状态流程，按 [palletizing_executor.py](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:870) 的实际代码走。
+
+**状态总览**
+`IDLE`：节点已启动，等待 `/palletizing/start` 服务调用。  
+`STARTING`：收到启动请求，开新线程执行主流程。  
+`NAVIGATING`：通过 `move_base` 去取货桌/放货桌。  
+`DETECTING`：打开点云识别，收集 `/wpb_home/objects_3d`。  
+`GRABBING`：向 `/wpb_home/grab_action` 发布抓取位姿，等待 `/wpb_home/grab_result`。  
+`PLACING`：向 `/wpb_home/place_action` 发布放置位姿，等待 `/wpb_home/place_result`。  
+`DONE`：任务结束或异常中止。
+
+**运行全流程**
+1. **等待启动**
+   
+   节点启动后停在 `IDLE`。调用 `/palletizing/start` 后，状态变为 `STARTING`，进入主循环线程：  
+   [palletizing_executor.py:350](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:350)
+
+2. **初始化统计和机械臂**
+   
+   清零成功/失败数量、循环时间等统计。机械臂进入检测姿态：升降到 `detect_lift_height`，夹爪打开到 `detect_gripper_open`。  
+   [palletizing_executor.py:870](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:870)
+
+3. **导航到取货桌**
+   
+   根据取货桌位置和 `approach_offset` 计算机器人停靠点，然后通过 `move_base` 导航。状态为 `NAVIGATING`。  
+   [palletizing_executor.py:593](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:593)  
+   [palletizing_executor.py:617](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:617)
+
+4. **开始循环取物**
+   
+   每轮开始先重新调整机械臂到检测姿态，然后执行点云检测。检测失败或没有稳定物体时，认为取货桌已空，跳出循环。  
+   [palletizing_executor.py:885](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:885)
+
+5. **点云识别与多帧融合**
+   
+   状态变为 `DETECTING`，向 `/wpb_home/behaviors` 发布：
+
+   ```text
+   object_detect start
+   ```
+
+   然后收集多帧 `/wpb_home/objects_3d`，按物体位置融合，取中位数坐标和类型投票。完成后发布：
+
+   ```text
+   object_detect stop
+   ```
+
+   相关逻辑在：  
+   [palletizing_executor.py:733](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:733)  
+   [palletizing_executor.py:648](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:648)
+
+6. **选择最适合抓取的物体**
+   
+   executor 会计算碰撞风险、Y 方向偏移、是否被前方物体挡住、机械臂路径是否被挡住，然后排序，选择第一个物体抓取。  
+   [palletizing_executor.py:508](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:508)
+
+7. **计算抓取点**
+   
+   检测节点给的是物体前缘 `xMax`、中心 `y`、底部 `zMin`。executor 根据方块类型估计半边长，换算成抓取中心：
+
+   ```text
+   grab_x = edge_x - half_size
+   grab_y = object_y
+   grab_z = z_min - PRISM_Z_OFFSET + half_size
+   ```
+
+   位置计算在：  
+   [palletizing_executor.py:862](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:862)
+
+8. **坐标变换**
+   
+   先把抓取点从 `/base_footprint` 转到 `/map`，记录绝对位置；再从 `/map` 转回动作使用的 `action_frame`，避免机器人微小位姿变化导致抓错。  
+   [palletizing_executor.py:516](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:516)
+
+9. **执行抓取**
+   
+   状态变为 `GRABBING`。根据物体类型设置夹爪开合参数，然后向 `/wpb_home/grab_action` 发布 `Pose`。等待 `/wpb_home/grab_result` 返回 `done` 或 `failed`。  
+   [palletizing_executor.py:787](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:787)
+
+10. **抓取后抬臂并后退**
+   
+   抓取成功后，机械臂抬到安全高度，同时保持当前物体的夹爪闭合值。然后机器人后退 `back_distance`，离开桌边。  
+   [palletizing_executor.py:564](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:564)  
+   [palletizing_executor.py:579](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:579)
+
+11. **导航到码垛桌**
+   
+   机器人根据放货桌位置和 `place_approach_offset` 导航到放置位。状态再次为 `NAVIGATING`。
+
+12. **计算放置位置**
+   
+   根据物体类型选择区域：`hard_cube` 去 hard 区，`soft_cube` 去 soft 区。  
+   然后 `SimpleGridStacking` 计算当前格子的 map 坐标和堆叠高度。放置高度会加上半个物体高度、堆叠余量、软物体偏移。  
+   放置网格逻辑在 [palletizing_executor.py:44](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:44)。
+
+13. **执行放置**
+   
+   状态变为 `PLACING`。executor 设置 `/wpb_home_place_action/place_hold_gripper_value`，向 `/wpb_home/place_action` 发布 `Pose`，等待 `/wpb_home/place_result` 返回 `done`。  
+   [palletizing_executor.py:812](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:812)
+
+14. **更新码垛状态和统计**
+   
+   放置成功后，该格子的高度增加一个物体高度，成功数加一，发布 `/palletizing/stats`。  
+   统计发布在 [palletizing_executor.py:835](/home/yubowen/BaseRos/catkin_ws/src/palletizing/scripts/palletizing_executor.py:835)。
+
+15. **抬臂、后退、收臂，返回取货桌**
+   
+   放置后机械臂抬高，机器人后退离开码垛桌，再收臂，然后导航回取货桌，进入下一轮检测和抓取。
+
+16. **结束**
+   
+   如果检测不到稳定物体，或者关键导航失败，跳出循环。状态置为 `DONE`，发布最终统计，并语音播报成功/失败数量。
+
+一句话版：机器人是“去取货桌 -> 点云多帧识别 -> 风险排序选物体 -> 坐标变换 -> 抓取 -> 抬臂后退 -> 去码垛桌 -> 计算格子 -> 放置 -> 更新统计 -> 返回取货桌”的循环状态机。
+

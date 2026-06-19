@@ -2,13 +2,13 @@
   <!-- ===== Table Configuration (可命令行传参) ===== -->
   <arg name="source_table_x" default="-1.5"/>
   <arg name="source_table_y" default="0.0"/>
-  <arg name="source_table_z" default="0.78"/>
+  <arg name="source_table_z" default="0.75"/>
   <arg name="source_table_yaw" default="0.0"/>
   <arg name="source_table_length" default="1.0"/>
   <arg name="source_table_width" default="0.5"/>
   <arg name="dest_table_x" default="1.5"/>
   <arg name="dest_table_y" default="0.0"/>
-  <arg name="dest_table_z" default="0.78"/>
+  <arg name="dest_table_z" default="0.75"/>
   <arg name="dest_table_yaw" default="3.1416"/>
   <arg name="dest_table_length" default="1.0"/>
   <arg name="dest_table_width" default="0.5"/>
@@ -44,7 +44,7 @@
     <param name="max_height" type="double" value="0.80"/>         <!-- 候选点法: 最大堆高 -->
     <param name="horizontal_gap" type="double" value="0.02"/>     <!-- 候选点法: 水平间隙 -->
     <param name="vertical_gap" type="double" value="0.01"/>       <!-- 候选点法: 垂直间隙 -->
-    <param name="gripper_hard_cube" type="double" value="0.052"/>
+    <param name="gripper_hard_cube" type="double" value="0.032"/>
     <param name="gripper_soft_cube" type="double" value="0.115"/>
     <param name="gripper_open_hard_cube" type="double" value="0.16"/>
     <param name="gripper_open_soft_cube" type="double" value="0.20"/>

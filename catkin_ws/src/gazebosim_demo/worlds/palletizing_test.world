@@ -62,36 +62,36 @@
         </include>
 
         <!-- ===== Test objects on source table (桌面上 10cm/15cm 立方体) ===== -->
-        <!-- Tabletop at z=0.765, cubes sit on top -->
-        <!-- hard_cube: 10cm side, placed at z = 0.765 + 0.05 = 0.815 -->
+        <!-- Tabletop at z=0.75, cubes sit on top -->
+        <!-- hard_cube: 10cm side, placed at z = 0.75 + 0.05 = 0.80 -->
         <!-- Front row (x=-1.45): hard cubes, 3 columns -->
         <include>
             <name>hard_cube_1</name>
             <uri>model://hard_cube</uri>
-            <pose>-1.45 -0.2 0.815 0 0 0</pose>
+            <pose>-1.45 -0.2 0.80 0 0 0</pose>
         </include>
         <include>
             <name>hard_cube_2</name>
             <uri>model://hard_cube</uri>
-            <pose>-1.45 0.0 0.815 0 0 0</pose>
+            <pose>-1.45 0.0 0.80 0 0 0</pose>
         </include>
         <include>
             <name>hard_cube_3</name>
             <uri>model://hard_cube</uri>
-            <pose>-1.45 0.2 0.815 0 0 0</pose>
+            <pose>-1.45 0.2 0.80 0 0 0</pose>
         </include>
 
-        <!-- soft_cube: 15cm side, placed at z = 0.765 + 0.075 = 0.84 -->
+        <!-- soft_cube: 15cm side, placed at z = 0.75 + 0.075 = 0.825 -->
         <!-- Back row (x=-1.65): soft cubes, 2 columns, offset from hard cubes -->
         <include>
             <name>soft_cube_1</name>
             <uri>model://soft_cube</uri>
-            <pose>-1.65 -0.1 0.84 0 0 0</pose>
+            <pose>-1.65 -0.1 0.825 0 0 0</pose>
         </include>
         <include>
             <name>soft_cube_2</name>
             <uri>model://soft_cube</uri>
-            <pose>-1.65 0.1 0.84 0 0 0</pose>
+            <pose>-1.65 0.1 0.825 0 0 0</pose>
         </include>
 
     </world>

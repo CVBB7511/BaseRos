@@ -1,20 +1,21 @@
 <sdf version='1.7'>
   <model name='table'>
+    <static>true</static>
     <link name='base_link'>
       <inertial>
-        <pose>0 0 0.765 0 -0 0</pose>
-        <mass>2</mass>
+        <pose>0 0 0.735 0 -0 0</pose>
+        <mass>50</mass>
         <inertia>
-          <ixx>1.00538</ixx>
+          <ixx>12.5</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.00538</iyy>
+          <iyy>12.5</iyy>
           <iyz>0</iyz>
-          <izz>0.11076</izz>
+          <izz>4.0</izz>
         </inertia>
       </inertial>
       <collision name='base_link_fixed_joint_lump__body_link_collision'>
-        <pose>0 0 0.765 0 -0 0</pose>
+        <pose>0 0 0.735 0 -0 0</pose>
         <geometry>
           <box>
             <size>0.5 1.2 0.03</size>
@@ -62,7 +63,7 @@
         </geometry>
       </visual>
       <visual name='base_link_fixed_joint_lump__body_link_visual_1'>
-        <pose>-0.25 -0.6 0 0 -0 0</pose>
+        <pose>-0.25 -0.6 -0.035 0 -0 0</pose>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
@@ -72,7 +73,7 @@
       </visual>
     </link>
     <frame name='base_to_body' attached_to='base_link'>
-      <pose>0 0 0.765 0 -0 0</pose>
+      <pose>0 0 0.735 0 -0 0</pose>
     </frame>
     <frame name='body_link' attached_to='base_to_body'/>
     <frame name='body_to_bf' attached_to='base_link'>

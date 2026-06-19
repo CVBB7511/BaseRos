@@ -1,428 +1,167 @@
 #!/usr/bin/env python3
-"""Palletizing Executor - orchestrates pick-transport-place loop for stacking objects."""
+"""Simplified palletizing executor.
 
-import rospy
-import os
-import time
+Flow:
+  1. Navigate to source table.
+  2. Detect objects and choose the safest target.
+  3. Transform the selected grasp point to /map for a stable absolute record,
+     then transform it back to the current base frame for grab_action.
+  4. Grab, raise arm to the safe height, back up only until the arm clears the table edge.
+  5. Navigate to destination table.
+  6. Place in the configured destination zone, raise arm, back up only until the arm clears the table edge.
+  7. Repeat until no objects remain.
+"""
+
 import math
-import tf
-import yaml
+import os
 import threading
+import time
+
 import actionlib
 import rospkg
-from std_msgs.msg import String, Float32
-from geometry_msgs.msg import Pose, Twist
-from sensor_msgs.msg import JointState
+import rospy
+import tf
+import yaml
+from geometry_msgs.msg import PointStamped, Pose, Twist
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from wpb_home_behaviors.msg import Coord
 from palletizing.msg import PalletizingStats
 from palletizing.srv import MarkZone, MarkZoneResponse
 from palletizing.srv import StartTask, StartTaskResponse
+from sensor_msgs.msg import JointState
 from sound_play.msg import SoundRequest
+from std_msgs.msg import String
+from wpb_home_behaviors.msg import Coord
 
 
-class StackingState:
-    """Base class for stacking strategies."""
+class SimpleGridStacking:
+    """Small destination-table grid, laid out in map coordinates."""
 
-    def __init__(self, table_x, table_y, table_z):
+    def __init__(self, table_x, table_y, table_z, approach_yaw,
+                 grid_cols=2, grid_rows=3, spacing_x=0.18,
+                 spacing_y=0.17, depth_retreat=0.06):
         self.table_x = table_x
         self.table_y = table_y
         self.table_z = table_z
-
-    def get_place_pose(self, object_height=0.06):
-        raise NotImplementedError
-
-    def mark_placed(self, object_height=0.06):
-        raise NotImplementedError
-
-    @property
-    def description(self):
-        raise NotImplementedError
-
-
-class CandidatePointStacking(StackingState):
-    """Dynamic candidate-point stacking for mixed-size objects (10cm/15cm).
-
-    Based on docs/候选点法.md. Generates placement candidates from placed-box
-    boundaries (right, forward, above), checks constraints, scores by height+distance.
-    """
-
-    def __init__(self, table_x, table_y, table_z, grid_cols=2, grid_rows=3,
-                 spacing_x=0.18, spacing_y=0.17,
-                 zone_half_x=0.50, zone_half_y=0.25, max_height=0.80,
-                 horizontal_gap=0.02, vertical_gap=0.01):
-        super().__init__(table_x, table_y, table_z)
-        self.zone_x_min = table_x - zone_half_x
-        self.zone_x_max = table_x + zone_half_x
-        self.zone_y_min = table_y - zone_half_y
-        self.zone_y_max = table_y + zone_half_y
-        self.max_height = max_height
-        self.delta = horizontal_gap
-        self.delta_z = vertical_gap
-        self.placed_boxes = []  # list of (x, y, z, l, w, h)
-        self._last_place = None  # (x, y, z) from most recent get_place_pose
-        self.current_layer = 0
-        self.current_index = 0
-
-    @property
-    def description(self):
-        return "candidate-point zone %.1fx%.1f" % (
-            self.zone_x_max - self.zone_x_min, self.zone_y_max - self.zone_y_min)
-
-    def _box_overlaps(self, x, y, z, l, w, h):
-        """Check if box at (x,y,z) with dims (l,w,h) overlaps any placed box."""
-        for (bx, by, bz, bl, bw, bh) in self.placed_boxes:
-            ox = abs(x - bx) < (l + bl) / 2.0
-            oy = abs(y - by) < (w + bw) / 2.0
-            oz = abs(z - bz) < (h + bh) / 2.0
-            if ox and oy and oz:
-                return True
-        return False
-
-    def _in_zone(self, x, y, z, l, w, h):
-        """Check if box is fully within zone boundaries."""
-        return (self.zone_x_min + l / 2.0 <= x <= self.zone_x_max - l / 2.0 and
-                self.zone_y_min + w / 2.0 <= y <= self.zone_y_max - w / 2.0 and
-                z - h / 2.0 >= self.table_z - 0.01 and
-                z + h / 2.0 <= self.max_height)
-
-    def _generate_candidates(self, l, w, h):
-        """Generate candidate points from zone origin and placed boxes."""
-        candidates = []
-
-        # Initial point: center of zone at table level
-        z_init = self.table_z + h / 2.0
-        candidates.append((self.table_x, self.table_y, z_init))
-
-        # From each placed box: right, forward, above
-        for (bx, by, bz, bl, bw, bh) in self.placed_boxes:
-            # Right side
-            candidates.append((bx + bl / 2.0 + l / 2.0 + self.delta, by, bz))
-            # Forward side
-            candidates.append((bx, by + bw / 2.0 + w / 2.0 + self.delta, bz))
-            # Above
-            candidates.append((bx, by, bz + bh / 2.0 + h / 2.0 + self.delta_z))
-
-        return candidates
-
-    def _score(self, x, y, z, l, w, h):
-        """Score a candidate: lower is better.
-
-        Score = distance from zone origin + height penalty.
-        Simplification of the full J(p) — sufficient for only 2 object sizes.
-        """
-        dist = math.hypot(x - self.table_x, y - self.table_y)
-        height_norm = (z - self.table_z) / max(self.max_height - self.table_z, 0.01)
-        return dist + 0.5 * height_norm
-
-    def get_place_pose(self, object_height=0.06):
-        l = w = h = object_height  # cubes
-
-        # Find placement from placed boxes — if stack is empty, use initial position
-        if not self.placed_boxes:
-            x, y, z = self.table_x, self.table_y, self.table_z + h / 2.0
-            self._last_place = (x, y, z)
-            self.current_index = 0
-            self.current_layer = 1
-            return x, y, z
-
-        candidates = self._generate_candidates(l, w, h)
-
-        # Filter: in zone, no overlap
-        valid = []
-        for (cx, cy, cz) in candidates:
-            if not self._in_zone(cx, cy, cz, l, w, h):
-                continue
-            if self._box_overlaps(cx, cy, cz, l, w, h):
-                continue
-            score = self._score(cx, cy, cz, l, w, h)
-            valid.append((score, cx, cy, cz))
-
-        if not valid:
-            # Fallback: place at zone origin, stacked on highest box
-            rospy.logwarn("[CandidatePoint] No valid candidates, using origin stack")
-            max_z = max(b[2] + b[5] / 2.0 for b in self.placed_boxes)
-            cx, cy, cz = self.table_x, self.table_y, max_z + h / 2.0 + self.delta_z
-        else:
-            valid.sort(key=lambda v: v[0])
-            _, cx, cy, cz = valid[0]
-
-        self._last_place = (cx, cy, cz)
-        self.current_index = len(self.placed_boxes) + 1
-        self.current_layer = int((cz - self.table_z) / max(h, 0.01)) + 1
-        return cx, cy, cz
-
-    def mark_placed(self, object_height=0.06):
-        l = w = h = object_height
-        if self._last_place:
-            x, y, z = self._last_place
-        else:
-            x, y, z = self.table_x, self.table_y, self.table_z + h / 2.0
-        self.placed_boxes.append((x, y, z, l, w, h))
-        self._last_place = None
-
-
-class AlignedStacking(StackingState):
-    """Grid stacking in the table frame, filled far-to-near.
-
-    The approach yaw points from the robot toward the table center.  Rows are
-    laid out along that depth axis, so row 0 is the far side of the table and
-    later rows move toward the robot.  Columns are laid out on the table side
-    axis, which keeps the grid valid even when the table is rotated in /map.
-    """
-
-    def __init__(self, table_x, table_y, table_z, grid_cols=2, grid_rows=3,
-                 spacing_x=0.15, spacing_y=0.15, approach_yaw=0.0,
-                 depth_retreat=0.0):
-        super().__init__(table_x, table_y, table_z)
         self.grid_cols = grid_cols
         self.grid_rows = grid_rows
         self.spacing_x = spacing_x
         self.spacing_y = spacing_y
-        self.approach_yaw = approach_yaw
+        self.depth_retreat = depth_retreat
         self.depth_x = math.cos(approach_yaw)
         self.depth_y = math.sin(approach_yaw)
         self.side_x = -math.sin(approach_yaw)
         self.side_y = math.cos(approach_yaw)
-        self.depth_retreat = depth_retreat
-        self.current_layer = 0
         self.current_index = 0
-        self.layer_heights = []
+        self.current_layer = 0
+        self.cell_heights = []
 
-    @property
-    def description(self):
-        return "aligned far-to-near {}x{} yaw={:.1f}deg retreat={:.2f}m".format(
-            self.grid_cols, self.grid_rows, math.degrees(self.approach_yaw),
-            self.depth_retreat)
-
-    def get_place_pose(self, object_height=0.06):
+    def get_place_pose(self, object_height):
         col = self.current_index % self.grid_cols
         row = self.current_index // self.grid_cols
         side_offset = -(self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x
-        # Positive depth is farther from the robot; fill far rows first.
         depth_offset = ((self.grid_rows - 1) * self.spacing_y / 2.0
                         - row * self.spacing_y
                         - self.depth_retreat)
         x = self.table_x + self.side_x * side_offset + self.depth_x * depth_offset
         y = self.table_y + self.side_y * side_offset + self.depth_y * depth_offset
         cell_idx = self.current_index
-        if cell_idx >= len(self.layer_heights):
-            self.layer_heights.append(self.table_z)
-        z = self.layer_heights[cell_idx]
+        if cell_idx >= len(self.cell_heights):
+            self.cell_heights.append(self.table_z)
+        z = self.cell_heights[cell_idx]
+        return x, y, z
+
+    def mark_placed(self, object_height):
+        cell_idx = self.current_index
+        if cell_idx >= len(self.cell_heights):
+            self.cell_heights.append(self.table_z)
+        self.cell_heights[cell_idx] += object_height
         self.current_index += 1
         if self.current_index >= self.grid_cols * self.grid_rows:
             self.current_index = 0
             self.current_layer += 1
-        return x, y, z
-
-    def mark_placed(self, object_height=0.06):
-        cell_idx = self.current_index - 1
-        if cell_idx < 0:
-            cell_idx = self.grid_cols * self.grid_rows - 1
-        if cell_idx < len(self.layer_heights):
-            self.layer_heights[cell_idx] += object_height
-
-
-class StaggeredStacking(StackingState):
-    """Brick-wall stacking: odd layers offset by half spacing."""
-
-    def __init__(self, table_x, table_y, table_z, grid_cols=2, grid_rows=3,
-                 spacing_x=0.15, spacing_y=0.15):
-        super().__init__(table_x, table_y, table_z)
-        self.grid_cols = grid_cols
-        self.grid_rows = grid_rows
-        self.spacing_x = spacing_x
-        self.spacing_y = spacing_y
-        self.current_layer = 0
-        self.current_index = 0
-        self.layer_heights = []
-
-    @property
-    def description(self):
-        return "staggered {}x{}".format(self.grid_cols, self.grid_rows)
-
-    def get_place_pose(self, object_height=0.06):
-        col = self.current_index % self.grid_cols
-        row = self.current_index // self.grid_cols
-        offset_x = (self.spacing_x / 2.0) if (self.current_layer % 2 == 1) else 0.0
-        x = self.table_x - (self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x + offset_x
-        y = self.table_y - (self.grid_rows - 1) * self.spacing_y / 2.0 + row * self.spacing_y
-        cell_idx = self.current_index
-        if cell_idx >= len(self.layer_heights):
-            self.layer_heights.append(self.table_z)
-        z = self.layer_heights[cell_idx]
-        self.current_index += 1
-        if self.current_index >= self.grid_cols * self.grid_rows:
-            self.current_index = 0
-            self.current_layer += 1
-        return x, y, z
-
-    def mark_placed(self, object_height=0.06):
-        cell_idx = self.current_index - 1
-        if cell_idx < 0:
-            cell_idx = self.grid_cols * self.grid_rows - 1
-        if cell_idx < len(self.layer_heights):
-            self.layer_heights[cell_idx] += object_height
-
-
-class PyramidStacking(StackingState):
-    """Pyramid stacking: base 3x3 -> middle 2x2 -> top 1x1."""
-
-    def __init__(self, table_x, table_y, table_z, base_size=3,
-                 spacing_x=0.15, spacing_y=0.15):
-        super().__init__(table_x, table_y, table_z)
-        self.base_size = base_size
-        self.spacing_x = spacing_x
-        self.spacing_y = spacing_y
-        self.current_layer = 0
-        self.current_index = 0
-        self.layer_heights = []
-
-    @property
-    def description(self):
-        return "pyramid base {}".format(self.base_size)
-
-    def _current_size(self):
-        return max(1, self.base_size - self.current_layer)
-
-    def get_place_pose(self, object_height=0.06):
-        size = self._current_size()
-        if size <= 0:
-            self.current_layer = 0  # wrap
-            size = self._current_size()
-        col = self.current_index % size
-        row = self.current_index // size
-        x = self.table_x - (size - 1) * self.spacing_x / 2.0 + col * self.spacing_x
-        y = self.table_y - (size - 1) * self.spacing_y / 2.0 + row * self.spacing_y
-        cell_idx = self.current_index
-        if cell_idx >= len(self.layer_heights):
-            self.layer_heights.append(self.table_z)
-        z = self.layer_heights[cell_idx]
-        self.current_index += 1
-        if self.current_index >= size * size:
-            self.current_index = 0
-            self.current_layer += 1
-        return x, y, z
-
-    def mark_placed(self, object_height=0.06):
-        cell_idx = self.current_index - 1
-        size = self._current_size()
-        total = size * size
-        if cell_idx < 0:
-            cell_idx = total - 1
-        if cell_idx < len(self.layer_heights):
-            self.layer_heights[cell_idx] += object_height
-
-
-def create_stacking(pattern, table_x, table_y, table_z, grid_cols, grid_rows,
-                    spacing_x=0.15, spacing_y=0.15,
-                    zone_half_x=0.50, zone_half_y=0.25, max_height=0.80,
-                    horizontal_gap=0.02, vertical_gap=0.01,
-                    approach_yaw=0.0, depth_retreat=0.0):
-    """Factory function for stacking strategies."""
-    if pattern == 'candidate':
-        return CandidatePointStacking(table_x, table_y, table_z, grid_cols, grid_rows,
-                                       spacing_x, spacing_y,
-                                       zone_half_x, zone_half_y, max_height,
-                                       horizontal_gap, vertical_gap)
-    elif pattern == 'staggered':
-        return StaggeredStacking(table_x, table_y, table_z, grid_cols, grid_rows,
-                                 spacing_x, spacing_y)
-    elif pattern == 'pyramid':
-        base = max(grid_cols, grid_rows)
-        return PyramidStacking(table_x, table_y, table_z, base, spacing_x, spacing_y)
-    else:  # default: aligned
-        return AlignedStacking(table_x, table_y, table_z, grid_cols, grid_rows,
-                               spacing_x, spacing_y, approach_yaw,
-                               depth_retreat)
 
 
 class PalletizingExecutor:
-    """Main executor for the palletizing task."""
+    """Simplified executor that follows scripts/简化流程.txt."""
 
-    # PCL prism filter clips points < 3 cm above the detected table plane
-    # (setHeightLimits(-0.20, -0.03) with inverted normal).
-    # Therefore objects.z (zMin from PCL) ≈ actual_bottom + 0.03.
+    # PCL prism filter clips points below the table; objects.z is close to
+    # actual_bottom + 0.03 in this project.
     PRISM_Z_OFFSET = 0.03
 
     def __init__(self):
         rospy.init_node('palletizing_executor')
 
-        # Parameters
         self.source_table_x = rospy.get_param('~source_table_x', -1.5)
         self.source_table_y = rospy.get_param('~source_table_y', 0.0)
-        self.source_table_z = rospy.get_param('~source_table_z', 0.78)
+        self.source_table_z = rospy.get_param('~source_table_z', 0.75)
         self.dest_table_x = rospy.get_param('~dest_table_x', 1.5)
         self.dest_table_y = rospy.get_param('~dest_table_y', 0.0)
-        self.dest_table_z = rospy.get_param('~dest_table_z', 0.78)
-
-        # Table orientation and dimensions
-        # table_yaw: table outward-facing direction in /map (radians), as saved
-        #            by mark_table_positions.py. The robot approach yaw is
-        #            table_yaw + pi, pointing from robot toward table center.
-        #            若未指定 (None), 则沿用旧版 source_approach_yaw / dest_approach_yaw.
-        self.source_table_yaw = rospy.get_param('~source_table_yaw', None)
-        self.dest_table_yaw = rospy.get_param('~dest_table_yaw', None)
-        self.source_table_length = rospy.get_param('~source_table_length', 1.0)   # 桌面长边 (m)
-        self.source_table_width = rospy.get_param('~source_table_width', 0.5)     # 桌面短边/深度 (m)
-        self.dest_table_length = rospy.get_param('~dest_table_length', 1.0)
+        self.dest_table_z = rospy.get_param('~dest_table_z', 0.75)
+        self.source_table_yaw = rospy.get_param('~source_table_yaw', 0.0)
+        self.dest_table_yaw = rospy.get_param('~dest_table_yaw', math.pi)
+        self.source_table_width = rospy.get_param('~source_table_width', 0.5)
         self.dest_table_width = rospy.get_param('~dest_table_width', 0.5)
+        self.source_table_length = rospy.get_param('~source_table_length', 1.0)
+        self.dest_table_length = rospy.get_param('~dest_table_length', 1.0)
+
+        self.source_approach_yaw = self._derive_approach_yaw(self.source_table_yaw)
+        self.dest_approach_yaw = self._derive_approach_yaw(self.dest_table_yaw)
 
         self.grid_cols = rospy.get_param('~grid_cols', 2)
         self.grid_rows = rospy.get_param('~grid_rows', 3)
-        self.cube_height = rospy.get_param('~cube_height', 0.06)  # fallback for unknown types
+        self.spacing_x = rospy.get_param('~spacing_x', 0.18)
+        self.spacing_y = rospy.get_param('~spacing_y', 0.17)
+        self.zone_separation_y = rospy.get_param('~zone_separation_y', 0.35)
+        self.place_depth_retreat = rospy.get_param('~place_depth_retreat', 0.06)
+
+        self.cube_height = rospy.get_param('~cube_height', 0.06)
         self.hard_cube_height = rospy.get_param('~hard_cube_height', 0.10)
         self.soft_cube_height = rospy.get_param('~soft_cube_height', 0.15)
-        self.sphere_height = rospy.get_param('~sphere_height', 0.15)  # 备用
-        self.stacking_pattern = rospy.get_param('~stacking_pattern', 'aligned')
-        self.spacing_x = rospy.get_param('~spacing_x', 0.15)
-        self.spacing_y = rospy.get_param('~spacing_y', 0.15)
-        self.zone_separation_y = rospy.get_param('~zone_separation_y', 0.35)
-        self.place_depth_retreat = rospy.get_param('~place_depth_retreat', 0.0)
+        self.sphere_height = rospy.get_param('~sphere_height', 0.15)
+        self.soft_place_offset = rospy.get_param('~soft_place_offset', 0.005)
+        self.place_stack_clearance = rospy.get_param('~place_stack_clearance', 0.0)
 
-        # Candidate-point stacking params
-        self.zone_half_x = rospy.get_param('~zone_half_x', 0.50)
-        self.zone_half_y = rospy.get_param('~zone_half_y', 0.25)
-        self.max_height = rospy.get_param('~max_height', 0.80)
-        self.horizontal_gap = rospy.get_param('~horizontal_gap', 0.02)
-        self.vertical_gap = rospy.get_param('~vertical_gap', 0.01)
+        self.safe_lift_height = rospy.get_param('~safe_lift_height', 0.80)
+        self.safe_gripper_open = rospy.get_param('~safe_gripper_open', 0.15)
+        self.detect_lift_height = rospy.get_param('~detect_lift_height', 0.0)
+        self.detect_gripper_open = rospy.get_param('~detect_gripper_open', self.safe_gripper_open)
+        self.retract_lift_height = rospy.get_param('~retract_lift_height', 0.80)
+        self.back_distance = rospy.get_param('~back_distance', 0.50)
+        self.arm_reach_distance = rospy.get_param('~arm_reach_distance', 0.50)
+        self.arm_exit_margin = rospy.get_param('~arm_exit_margin', 0.10)
+        self.min_table_exit_back_distance = rospy.get_param('~min_table_exit_back_distance', 0.02)
+        self.back_speed = rospy.get_param('~back_speed', -0.18)
+        self.back_period = rospy.get_param('~back_period', 0.10)
 
-        # Approach offset for grab (source table): robot stops this far from the edge
         self.approach_offset = rospy.get_param('~approach_offset', 0.70)
-        # Approach offset for place (dest table): place_action has built-in forward
-        # movement of (table_x - 0.65) m, so the robot must start further back.
-        self.place_approach_offset = rospy.get_param('~place_approach_offset', 0.30)
-        # Table half-depth (palletizing_test.world uses the standard table: 0.5m deep)
+        self.place_approach_offset = rospy.get_param('~place_approach_offset', 0.70)
         self.table_half_depth = rospy.get_param('~table_half_depth', 0.25)
 
-        # Approach yaw for each table (radians). Defaults match the legacy
-        # layout: source at -x, dest at +x.  Set these in the launch file when
-        # tables are placed at arbitrary positions and orientations.
-        self.source_approach_yaw = rospy.get_param('~source_approach_yaw', math.pi)
-        self.dest_approach_yaw = rospy.get_param('~dest_approach_yaw', 0.0)
+        self.nav_timeout = rospy.get_param('~nav_timeout', 120.0)
+        self.nav_accept_xy_tolerance = rospy.get_param('~nav_accept_xy_tolerance', 0.05)
+        self.nav_accept_yaw_tolerance = rospy.get_param('~nav_accept_yaw_tolerance', 0.15)
+        self.robot_settle_time = rospy.get_param('~robot_settle_time', 0.40)
+        self.detect_timeout = rospy.get_param('~detect_timeout', 2.0)
+        self.detect_poll_period = rospy.get_param('~detect_poll_period', 0.10)
+        self.detect_min_samples = rospy.get_param('~detect_min_samples', 2)
+        self.detect_fusion_samples = rospy.get_param('~detect_fusion_samples', 4)
+        self.detect_fusion_min_hits = rospy.get_param('~detect_fusion_min_hits', 2)
+        self.detect_fusion_merge_xy = rospy.get_param('~detect_fusion_merge_xy', 0.08)
+        self.detect_retry_count = rospy.get_param('~detect_retry_count', 1)
+        self.detect_retry_settle = rospy.get_param('~detect_retry_settle', 0.15)
+        self.max_direct_grab_y = rospy.get_param('~max_direct_grab_y', 0.15)
+        self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
+        self.nav_release_delay = rospy.get_param('~nav_release_delay', 0.15)
+        self.nav_stop_publish_count = rospy.get_param('~nav_stop_publish_count', 3)
+        self.nav_stop_publish_period = rospy.get_param('~nav_stop_publish_period', 0.05)
+        self.arm_publish_count = rospy.get_param('~arm_publish_count', 3)
+        self.arm_publish_period = rospy.get_param('~arm_publish_period', 0.10)
 
-        # Auto-derive approach_yaw from table_yaw when table_yaw is specified.
-        # Robot should face the table → approach_yaw = table_yaw + π (normalized).
-        # If table_yaw is not set (None), keep the explicit source/dest_approach_yaw above.
-        if self.source_table_yaw is not None:
-            self.source_approach_yaw = self._derive_approach_yaw(self.source_table_yaw)
-            rospy.loginfo("source_approach_yaw auto-derived from source_table_yaw: %.2f°",
-                          math.degrees(self.source_approach_yaw))
-        if self.dest_table_yaw is not None:
-            self.dest_approach_yaw = self._derive_approach_yaw(self.dest_table_yaw)
-            rospy.loginfo("dest_approach_yaw auto-derived from dest_table_yaw: %.2f°",
-                          math.degrees(self.dest_approach_yaw))
-        # Extra backward compensation for place_action's built-in forward
-        # movement.  Legacy default matches dest_table_x - 0.65 for the
-        # standard +x-axis layout.  Set to 0 only for non-standard layouts
-        # where place_action's forward distance has been recalibrated.
-        self.place_forward_compensation = rospy.get_param(
-            '~place_forward_compensation', self.dest_table_x - 0.65)
+        self.object_frame = rospy.get_param('~object_frame', '/base_footprint')
+        self.action_frame = rospy.get_param('~action_frame', self.object_frame)
+        self.zones_file = rospy.get_param('~zones_file', self._default_zones_file())
+        self._load_saved_zones()
 
-        # Soft object handling: placement offset for gentle stacking
-        self.soft_place_offset = rospy.get_param('~soft_place_offset', 0.01)
-
-        # Per-type gripper values (力反馈自适应夹爪)
         self.gripper_values = {
             'hard_cube': rospy.get_param('~gripper_hard_cube', 0.032),
             'soft_cube': rospy.get_param('~gripper_soft_cube', 0.115),
@@ -436,229 +175,173 @@ class PalletizingExecutor:
             'soft_sphere': rospy.get_param('~gripper_open_soft_sphere', 0.20),
         }
 
-        # Publishers
         self.behavior_pub = rospy.Publisher('/wpb_home/behaviors', String, queue_size=10)
         self.grab_action_pub = rospy.Publisher('/wpb_home/grab_action', Pose, queue_size=10)
         self.place_pub = rospy.Publisher('/wpb_home/place_action', Pose, queue_size=10)
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.mani_ctrl_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=10)
         self.stats_pub = rospy.Publisher('/palletizing/stats', PalletizingStats, queue_size=10)
         self.tts_pub = rospy.Publisher('/robotsound', SoundRequest, queue_size=5)
-        # Persistent cmd_vel publisher for releasing move_base control after nav
-        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 
-        self.state = 'IDLE'  # IDLE, DETECTING, GRABBING, PLACING, DONE
+        self.state = 'IDLE'
         self.latest_objects = None
+        self.detected_object_samples = []
         self.grab_done = False
         self.place_done = False
-        self.grab_feedback = ""
-        self.place_feedback = ""
+        self.grab_feedback = ''
+        self.place_feedback = ''
         self.place_command_time = 0.0
         self.objects_processed = 0
-        self.objects_total = 0
-        self.current_object_type = ""
         self.objects_succeeded = 0
         self.objects_failed = 0
-        self.cycle_times = []
+        self.objects_total = 0
+        self.current_object_type = ''
         self.task_start_time = 0.0
         self.last_cycle_start = 0.0
+        self.cycle_times = []
 
-        # Subscribers
-        self.objects_sub = rospy.Subscriber(
-            '/wpb_home/objects_3d', Coord, self._objects_callback)
-        self.grab_result_sub = rospy.Subscriber(
-            '/wpb_home/grab_result', String, self._grab_result_callback)
-        self.place_result_sub = rospy.Subscriber(
-            '/wpb_home/place_result', String, self._place_result_callback)
+        rospy.Subscriber('/wpb_home/objects_3d', Coord, self._objects_callback)
+        rospy.Subscriber('/wpb_home/grab_result', String, self._grab_result_callback)
+        rospy.Subscriber('/wpb_home/place_result', String, self._place_result_callback)
 
-        # Navigation client (move_base)
-        self.nav_timeout = rospy.get_param('~nav_timeout', 120.0)
-        self.nav_accept_xy_tolerance = rospy.get_param('~nav_accept_xy_tolerance', 0.05)
-        self.detect_poll_period = rospy.get_param('~detect_poll_period', 0.10)
-        self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
-        self.nav_release_delay = rospy.get_param('~nav_release_delay', 0.15)
-        self.nav_stop_publish_count = rospy.get_param('~nav_stop_publish_count', 3)
-        self.nav_stop_publish_period = rospy.get_param('~nav_stop_publish_period', 0.05)
-        self.arm_raise_publish_count = rospy.get_param('~arm_raise_publish_count', 3)
-        self.arm_raise_publish_period = rospy.get_param('~arm_raise_publish_period', 0.10)
-        self.startup_settle_time = rospy.get_param('~startup_settle_time', 0.30)
-        self.clear_table_back_speed = rospy.get_param('~clear_table_back_speed', -0.18)
-        self.clear_table_back_duration = rospy.get_param('~clear_table_back_duration', 1.20)
-        self.clear_table_back_period = rospy.get_param('~clear_table_back_period', 0.20)
         self.move_base_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         rospy.loginfo("Waiting for move_base action server...")
         if self.move_base_client.wait_for_server(rospy.Duration(10.0)):
             rospy.loginfo("move_base action server connected")
         else:
-            rospy.logwarn("move_base action server not available, navigation disabled")
+            rospy.logwarn("move_base action server not available yet")
 
-        # Load saved zone positions from YAML (persisted by mark_zone service)
-        self.zones_file = rospy.get_param('~zones_file', self._default_zones_file())
-        saved = self._load_zones()
-        if saved:
-            self.source_table_x = saved.get('source_x', self.source_table_x)
-            self.source_table_y = saved.get('source_y', self.source_table_y)
-            self.source_table_z = saved.get('source_z', self.source_table_z)
-            self.dest_table_x = saved.get('dest_x', self.dest_table_x)
-            self.dest_table_y = saved.get('dest_y', self.dest_table_y)
-            self.dest_table_z = saved.get('dest_z', self.dest_table_z)
-            # Load table orientation and dimensions from saved zones
-            src_yaw = saved.get('source_yaw')
-            if src_yaw is not None:
-                self.source_table_yaw = src_yaw
-                self.source_approach_yaw = self._derive_approach_yaw(src_yaw)
-            dst_yaw = saved.get('dest_yaw')
-            if dst_yaw is not None:
-                self.dest_table_yaw = dst_yaw
-                self.dest_approach_yaw = self._derive_approach_yaw(dst_yaw)
-            self.source_table_length = saved.get('source_length', self.source_table_length)
-            self.source_table_width = saved.get('source_width', self.source_table_width)
-            self.dest_table_length = saved.get('dest_length', self.dest_table_length)
-            self.dest_table_width = saved.get('dest_width', self.dest_table_width)
-            rospy.loginfo("Loaded saved zones from %s", self.zones_file)
-
-        # Derive per-table half-depth from table_width when dimensions are available.
-        # Falls back to the global table_half_depth param if table_width is unset.
-        self.source_table_half_depth = self.source_table_width / 2.0 if self.source_table_width > 0.01 else self.table_half_depth
-        self.dest_table_half_depth = self.dest_table_width / 2.0 if self.dest_table_width > 0.01 else self.table_half_depth
-
-        # Zone marking service — save current robot pose as source/dest table
-        rospy.Service('/palletizing/mark_zone', MarkZone, self._mark_zone)
-        rospy.loginfo("Zone marking service ready: /palletizing/mark_zone")
-
-        # Start task service — trigger palletizing loop
-        rospy.Service('/palletizing/start', StartTask, self._start_callback)
-        rospy.loginfo("Palletizing start service ready: /palletizing/start")
-
-        # Zone-based stacking: each material type gets its own zone on the dest table
-        # hard objects → upper zone (+y), soft objects → lower zone (-y)
-        self.zones = {}
-        zone_offsets = {'hard': +self.zone_separation_y / 2.0,
-                         'soft': -self.zone_separation_y / 2.0}
-        dest_side_x = -math.sin(self.dest_approach_yaw)
-        dest_side_y = math.cos(self.dest_approach_yaw)
-        for material, side_offset in zone_offsets.items():
-            zone_x = self.dest_table_x + dest_side_x * side_offset
-            zone_y = self.dest_table_y + dest_side_y * side_offset
-            self.zones[material] = create_stacking(
-                self.stacking_pattern,
-                zone_x, zone_y, self.dest_table_z,
-                self.grid_cols, self.grid_rows,
-                self.spacing_x, self.spacing_y,
-                self.zone_half_x, self.zone_half_y, self.max_height,
-                self.horizontal_gap, self.vertical_gap,
-                self.dest_approach_yaw, self.place_depth_retreat)
-            rospy.loginfo("Zone '%s': %s, side_offset=%.2f center=(%.2f, %.2f)",
-                          material, self.zones[material].description,
-                          side_offset, zone_x, zone_y)
-
-        # TF listener for robot position lookup
         self.tf_listener = tf.TransformListener()
+        self.zones = self._create_zones()
+
+        rospy.Service('/palletizing/mark_zone', MarkZone, self._mark_zone)
+        rospy.Service('/palletizing/start', StartTask, self._start_callback)
         self.stats_timer = rospy.Timer(rospy.Duration(1.0), self._publish_stats_timer)
+        rospy.loginfo("Simplified palletizing executor ready")
+
+    @staticmethod
+    def _derive_approach_yaw(table_yaw):
+        yaw = table_yaw + math.pi
+        return math.atan2(math.sin(yaw), math.cos(yaw))
+
+    @staticmethod
+    def _angle_diff(a, b):
+        return math.atan2(math.sin(a - b), math.cos(a - b))
 
     def _default_zones_file(self):
         try:
             pkg_path = rospkg.RosPack().get_path('palletizing')
             project_root = os.path.abspath(os.path.join(pkg_path, '..', '..', '..'))
             return os.path.join(project_root, 'zones.yaml')
-        except Exception as e:
-            rospy.logwarn("Failed to locate project zones file, falling back to ~/waterjet/zones.yaml: %s", e)
+        except Exception:
             return os.path.join(os.path.expanduser('~'), 'waterjet', 'zones.yaml')
 
-    def _load_zones(self):
+    def _load_zones_file(self):
         try:
             if os.path.exists(self.zones_file):
                 with open(self.zones_file, 'r') as f:
                     return yaml.safe_load(f) or {}
         except Exception as e:
-            rospy.logwarn("Failed to load zones: %s", e)
+            rospy.logwarn("Failed to load zones file %s: %s", self.zones_file, e)
         return {}
 
-    def _save_zones(self, data):
-        os.makedirs(os.path.dirname(self.zones_file), exist_ok=True)
+    def _save_zones_file(self, data):
         try:
+            os.makedirs(os.path.dirname(self.zones_file), exist_ok=True)
             with open(self.zones_file, 'w') as f:
-                yaml.dump(data, f)
-            rospy.loginfo("Zones saved to %s", self.zones_file)
+                yaml.safe_dump(data, f)
             return True
         except Exception as e:
-            rospy.logerr("Failed to save zones: %s", e)
+            rospy.logerr("Failed to save zones file %s: %s", self.zones_file, e)
             return False
 
-    def _mark_zone(self, req):
-        """Mark a source or dest zone position. Saves to YAML for persistence.
+    def _load_saved_zones(self):
+        saved = self._load_zones_file()
+        if not saved:
+            return
+        self.source_table_x = saved.get('source_x', self.source_table_x)
+        self.source_table_y = saved.get('source_y', self.source_table_y)
+        self.source_table_z = saved.get('source_z', self.source_table_z)
+        self.dest_table_x = saved.get('dest_x', self.dest_table_x)
+        self.dest_table_y = saved.get('dest_y', self.dest_table_y)
+        self.dest_table_z = saved.get('dest_z', self.dest_table_z)
+        self.source_table_yaw = saved.get('source_yaw', self.source_table_yaw)
+        self.dest_table_yaw = saved.get('dest_yaw', self.dest_table_yaw)
+        self.source_table_width = saved.get('source_width', self.source_table_width)
+        self.dest_table_width = saved.get('dest_width', self.dest_table_width)
+        self.source_table_length = saved.get('source_length', self.source_table_length)
+        self.dest_table_length = saved.get('dest_length', self.dest_table_length)
+        self.source_approach_yaw = self._derive_approach_yaw(self.source_table_yaw)
+        self.dest_approach_yaw = self._derive_approach_yaw(self.dest_table_yaw)
+        rospy.loginfo("Loaded saved table zones from %s", self.zones_file)
 
-        yaw, length, width are always saved.  Use 0.0 for yaw if unknown
-        (but note: yaw=0 means table long axis aligned with map X-axis).
-        """
-        saved = self._load_zones()
-        yaw = req.yaw
+    def _mark_zone(self, req):
+        saved = self._load_zones_file()
         length = req.length if req.length > 0.01 else 1.0
         width = req.width if req.width > 0.01 else 0.5
-
         if req.zone_name == 'source':
-            saved['source_x'] = req.x
-            saved['source_y'] = req.y
-            saved['source_z'] = req.z
-            saved['source_yaw'] = yaw
-            saved['source_length'] = length
-            saved['source_width'] = width
+            prefix = 'source'
             self.source_table_x = req.x
             self.source_table_y = req.y
             self.source_table_z = req.z
-            self.source_table_yaw = yaw
-            self.source_approach_yaw = self._derive_approach_yaw(yaw)
+            self.source_table_yaw = req.yaw
             self.source_table_length = length
             self.source_table_width = width
+            self.source_approach_yaw = self._derive_approach_yaw(req.yaw)
         elif req.zone_name == 'dest':
-            saved['dest_x'] = req.x
-            saved['dest_y'] = req.y
-            saved['dest_z'] = req.z
-            saved['dest_yaw'] = yaw
-            saved['dest_length'] = length
-            saved['dest_width'] = width
+            prefix = 'dest'
             self.dest_table_x = req.x
             self.dest_table_y = req.y
             self.dest_table_z = req.z
-            self.dest_table_yaw = yaw
-            self.dest_approach_yaw = self._derive_approach_yaw(yaw)
+            self.dest_table_yaw = req.yaw
             self.dest_table_length = length
             self.dest_table_width = width
+            self.dest_approach_yaw = self._derive_approach_yaw(req.yaw)
         else:
             return MarkZoneResponse(success=False)
-        ok = self._save_zones(saved)
-        rospy.loginfo("Zone '%s' marked: (%.2f, %.2f, %.2f, yaw=%.2f°, L=%.2f, W=%.2f)",
-                      req.zone_name, req.x, req.y, req.z,
-                      math.degrees(yaw), length, width)
+
+        saved[prefix + '_x'] = req.x
+        saved[prefix + '_y'] = req.y
+        saved[prefix + '_z'] = req.z
+        saved[prefix + '_yaw'] = req.yaw
+        saved[prefix + '_length'] = length
+        saved[prefix + '_width'] = width
+        ok = self._save_zones_file(saved)
+        self.zones = self._create_zones()
+        rospy.loginfo("Marked %s table: %.3f %.3f %.3f yaw=%.1f",
+                      req.zone_name, req.x, req.y, req.z, math.degrees(req.yaw))
         return MarkZoneResponse(success=ok)
 
-    @staticmethod
-    def _derive_approach_yaw(table_yaw):
-        """Derive approach yaw from table yaw.
-
-        The robot should face the table, so approach_yaw = table_yaw + π.
-        Returns the yaw normalized to [-π, π].
-        """
-        if table_yaw is None:
-            return None
-        yaw = table_yaw + math.pi
-        return math.atan2(math.sin(yaw), math.cos(yaw))
+    def _create_zones(self):
+        zones = {}
+        side_x = -math.sin(self.dest_approach_yaw)
+        side_y = math.cos(self.dest_approach_yaw)
+        offsets = {'hard': self.zone_separation_y / 2.0,
+                   'soft': -self.zone_separation_y / 2.0}
+        for name, side_offset in offsets.items():
+            zones[name] = SimpleGridStacking(
+                self.dest_table_x + side_x * side_offset,
+                self.dest_table_y + side_y * side_offset,
+                self.dest_table_z,
+                self.dest_approach_yaw,
+                self.grid_cols,
+                self.grid_rows,
+                self.spacing_x,
+                self.spacing_y,
+                self.place_depth_retreat)
+        return zones
 
     def _objects_callback(self, msg):
-        """Store latest classified objects."""
         if self.state == 'DETECTING':
             self.latest_objects = msg
             self.objects_total = len(msg.name)
-
-    def _object_type(self, objects, idx, default='hard_cube'):
-        """Return object type when available; legacy Coord messages have none."""
-        types = getattr(objects, 'type', [])
-        if idx < len(types) and types[idx]:
-            return types[idx]
-        return default
+            if len(msg.name) > 0:
+                self.detected_object_samples.append(msg)
 
     def _grab_result_callback(self, msg):
         self.grab_feedback = msg.data
         rospy.loginfo("[grab_result] %s", msg.data)
-        if msg.data == 'done':
+        if msg.data in ('done', 'failed'):
             self.grab_done = True
 
     def _place_result_callback(self, msg):
@@ -667,273 +350,527 @@ class PalletizingExecutor:
         if msg.data == 'done' and time.time() - self.place_command_time > 0.5:
             self.place_done = True
 
-    def _get_zone(self, obj_type):
-        """Route object type to the correct stacking zone."""
-        if 'hard' in obj_type:
-            return self.zones['hard']
-        elif 'soft' in obj_type:
-            return self.zones['soft']
-        return self.zones['hard']  # default fallback
+    def _start_callback(self, _req):
+        if self.state not in ('IDLE', 'DONE'):
+            return StartTaskResponse(
+                success=False,
+                message="Task already running (state: %s)" % self.state)
+        self.state = 'STARTING'
+        threading.Thread(target=self.run, daemon=True).start()
+        return StartTaskResponse(success=True, message="Simplified palletizing started")
 
-    def _get_robot_position(self):
-        """Get current robot base_link pose in /map frame.
-
-        Returns (x, y, yaw) where yaw is extracted from the orientation
-        quaternion.  Falls back to (source_table_x, source_table_y, π) when
-        TF is unavailable.
-        """
-        try:
-            (trans, rot) = self.tf_listener.lookupTransform(
-                '/map', '/base_link', rospy.Time(0))
-            # quaternion (x,y,z,w) → yaw (ZYX Euler)
-            yaw = math.atan2(2.0 * (rot[3] * rot[2] + rot[0] * rot[1]),
-                             1.0 - 2.0 * (rot[1]**2 + rot[2]**2))
-            return trans[0], trans[1], yaw
-        except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-            rospy.logwarn("TF lookup failed, using source table as reference")
-            return self.source_table_x, self.source_table_y, math.pi
+    def _get_object_height(self, obj_type):
+        if obj_type == 'hard_cube':
+            return self.hard_cube_height
+        if obj_type == 'soft_cube':
+            return self.soft_cube_height
+        if 'sphere' in obj_type:
+            return self.sphere_height
+        return self.cube_height
 
     @staticmethod
-    def _base_point_to_map(robot_x, robot_y, robot_yaw, point_x, point_y):
-        """Transform a point from base frame into map frame using planar yaw."""
-        cos_t = math.cos(robot_yaw)
-        sin_t = math.sin(robot_yaw)
-        map_x = robot_x + point_x * cos_t - point_y * sin_t
-        map_y = robot_y + point_x * sin_t + point_y * cos_t
-        return map_x, map_y
+    def _median(values):
+        values = sorted(values)
+        if not values:
+            return 0.0
+        mid = len(values) // 2
+        if len(values) % 2:
+            return values[mid]
+        return 0.5 * (values[mid - 1] + values[mid])
 
-    @staticmethod
-    def _map_point_to_base(robot_x, robot_y, robot_yaw, map_x, map_y):
-        """Transform a map-frame point into the robot base frame."""
-        dx = map_x - robot_x
-        dy = map_y - robot_y
-        cos_t = math.cos(robot_yaw)
-        sin_t = math.sin(robot_yaw)
-        base_x = dx * cos_t + dy * sin_t
-        base_y = -dx * sin_t + dy * cos_t
-        return base_x, base_y
+    def _object_type(self, objects, idx, default='hard_cube'):
+        types = getattr(objects, 'type', [])
+        if idx < len(types) and types[idx]:
+            raw_type = types[idx]
+            if raw_type in ('10cm_cube', 'hard_cube'):
+                return 'hard_cube'
+            if raw_type in ('15cm_cube', 'soft_cube'):
+                return 'soft_cube'
+            return raw_type
+        return default
 
-    def _near_nav_goal(self, nav_x, nav_y):
-        """Return True when the robot is close enough to a navigation goal."""
-        robot_x, robot_y, _ = self._get_robot_position()
-        dist = math.hypot(robot_x - nav_x, robot_y - nav_y)
-        if dist <= self.nav_accept_xy_tolerance:
-            rospy.loginfo("Navigation within tolerance: dist=%.3fm <= %.3fm",
-                          dist, self.nav_accept_xy_tolerance)
-            return True
-        rospy.logwarn("Navigation outside tolerance: dist=%.3fm > %.3fm",
-                      dist, self.nav_accept_xy_tolerance)
-        return False
+    def _object_raw_type(self, objects, idx, default='hard_cube'):
+        types = getattr(objects, 'type', [])
+        if idx < len(types) and types[idx]:
+            return types[idx]
+        return default
 
-    def _raise_arm(self):
-        """Raise arm to a safe height above the table.
+    def _zone_for_type(self, obj_type):
+        return self.zones['soft'] if 'soft' in obj_type else self.zones['hard']
 
-        object_detect and place_action can leave the arm low.  Call this
-        after detection and before grab to avoid hitting the table edge.
-        """
-        mani_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=1)
-        cmd = JointState()
-        cmd.name = ['lift', 'gripper']
-        cmd.position = [0.8, 0.15]
-        cmd.velocity = [0.0, 0.0]
-        for _ in range(self.arm_raise_publish_count):
-            mani_pub.publish(cmd)
-            rospy.sleep(self.arm_raise_publish_period)
+    def _material_name(self, obj_type):
+        return 'soft' if 'soft' in obj_type else 'hard'
 
     def _estimate_half_size(self, obj_type):
-        """Estimate object half-width/height from type (cubes: width≈height)."""
-        h = self._get_object_height(obj_type)
-        return h / 2.0
+        return self._get_object_height(obj_type) / 2.0
 
-    def _compute_collision_risk(self, objects, sorted_indices):
-        """Compute collision risk for each object considering 3D arm volume.
-
-        The arm body extends ≥5cm above the grasp center. When reaching for
-        a front object, the arm can collide with taller objects behind it.
-
-        Returns (risk, blocked, y_nbrs, arm_blocked, z_top, edge_x,
-                 arm_blockers, cx, cy, cz) per index.
-
-        PCL data convention (from wpb_home_objects_3d.cpp):
-          objects.x[i] = xMax  (farthest edge from robot in base_footprint)
-          objects.z[i] = zMin  (bottom of object bounding box)
-        """
+    def _compute_collision_risk(self, objects):
         n = len(objects.name)
-        # Gather object data
-        half = []     # half-size per object (half of cube side)
-        cx = []       # center X
-        cy = []       # center Y
-        cz = []       # center Z
-        edge_x = []   # farthest edge X (xMax, = objects.x[i])
-        z_top = []    # top Z
-        z_bot = []    # bottom Z
+        half = []
+        cx = []
+        cy = []
+        cz = []
+        edge_x = []
+        z_top = []
+        z_bot = []
         for i in range(n):
             obj_type = self._object_type(objects, i)
             hsize = self._estimate_half_size(obj_type)
             half.append(hsize)
             ex = objects.x[i] if i < len(objects.x) else 999.0
-            edge_x.append(ex)
-            # objects.x = xMax (farthest edge), so center = xMax - half
-            cx.append(ex - hsize)
-            cy.append(objects.y[i] if i < len(objects.y) else 0.0)
+            y = objects.y[i] if i < len(objects.y) else 0.0
             z_bottom = objects.z[i] if i < len(objects.z) else 0.0
-            # objects.z = zMin (PCL), but prism clips bottom 3cm.
-            # Actual bottom = zMin - PRISM_Z_OFFSET.
+            edge_x.append(ex)
+            cx.append(ex - hsize)
+            cy.append(y)
             z_bot.append(z_bottom - self.PRISM_Z_OFFSET)
             z_top.append(z_bottom - self.PRISM_Z_OFFSET + 2.0 * hsize)
             cz.append(z_bottom - self.PRISM_Z_OFFSET + hsize)
 
-        GRIPPER_HALF = 0.04     # gripper finger half-width in Y (meters)
-        ARM_BODY_H = 0.05       # arm/forearm body height above grasp center
-        ARM_BODY_W = 0.06       # arm body half-width in Y
-        LAYER_TOL = 0.03        # max Z gap to be considered same layer
-        BLOCKED_PENALTY = 100.0
-
+        gripper_half = 0.04
+        arm_body_h = 0.05
+        arm_body_w = 0.06
+        layer_tol = 0.03
+        blocked_penalty = 100.0
         risk = [0.0] * n
-        blocked = [False] * n    # X-direction blocked by front object
-        arm_blocked = [False] * n  # arm body would hit another object
-        arm_blockers = [set() for _ in range(n)]  # which front objects block each rear object
+        blocked = [False] * n
+        arm_blocked = [False] * n
+        arm_blockers = [set() for _ in range(n)]
         y_nbrs = [0] * n
 
         for i in range(n):
             for j in range(n):
                 if i == j:
                     continue
-                # Different layers (j far above i or far below): skip
-                dz_center = abs(cz[i] - cz[j])
-                if dz_center > (half[i] + half[j] + LAYER_TOL):
+                if abs(cz[i] - cz[j]) > (half[i] + half[j] + layer_tol):
                     continue
-
                 dx = abs(cx[i] - cx[j])
                 dy = abs(cy[i] - cy[j])
+                if dx < (half[i] + half[j]) and edge_x[j] < edge_x[i]:
+                    blocked[i] = True
 
-                # --- X blocking: front object j blocks approach to rear i ---
-                if dx < (half[i] + half[j]):
-                    if edge_x[j] < edge_x[i]:  # j is closer to robot
-                        blocked[i] = True
-
-                # --- Y clearance: gripper side collision ---
                 y_clear = dy - (half[i] + half[j])
-                if y_clear < GRIPPER_HALF:
+                if y_clear < gripper_half:
                     y_nbrs[i] += 1
-                    risk[i] += 1.0 + max(0.0, GRIPPER_HALF - y_clear) * 20.0
+                    risk[i] += 1.0 + max(0.0, gripper_half - y_clear) * 20.0
 
-                # --- Arm body vertical collision ---
-                # The arm body occupies Z from cz[i] to cz[i]+ARM_BODY_H above
-                # the grasp center. Check both directions: front→rear and rear→front.
-                arm_top_i = cz[i] + ARM_BODY_H
-                arm_top_j = cz[j] + ARM_BODY_H
-
-                # Check Z overlap: does object j intersect the arm body for i?
-                z_overlap_ij = (z_bot[j] < arm_top_i and z_top[j] > cz[i])
-                # Check Z overlap: does object i intersect the arm body for j?
-                z_overlap_ji = (z_bot[i] < arm_top_j and z_top[i] > cz[j])
-
-                y_overlap = dy < (ARM_BODY_W + max(half[i], half[j]))
-
-                if edge_x[j] > edge_x[i]:  # j is behind i
+                arm_top_i = cz[i] + arm_body_h
+                arm_top_j = cz[j] + arm_body_h
+                y_overlap = dy < (arm_body_w + max(half[i], half[j]))
+                z_overlap_ij = z_bot[j] < arm_top_i and z_top[j] > cz[i]
+                z_overlap_ji = z_bot[i] < arm_top_j and z_top[i] > cz[j]
+                if edge_x[j] > edge_x[i]:
                     if z_overlap_ij and y_overlap:
-                        # Grasping front i: arm body would brush rear j.
-                        # Soft risk only — do NOT add hard dependency (would create
-                        # a cycle: front needs rear gone, rear needs front gone).
                         arm_blocked[i] = True
-                        intrusion = (z_top[j] - cz[i]) / max(ARM_BODY_H, 0.01)
-                        risk[i] += 5.0 + intrusion * 15.0
+                        risk[i] += 5.0
                     if z_overlap_ji and y_overlap:
-                        # Grasping rear j: arm passes THROUGH front i — HARD constraint.
-                        # Front i MUST be removed before reaching for rear j.
                         arm_blocked[j] = True
-                        arm_blockers[j].add(i)  # i (front) blocks j (rear)
-                        intrusion = (z_top[i] - cz[j]) / max(ARM_BODY_H, 0.01)
-                        risk[j] += 8.0 + intrusion * 20.0  # higher penalty
+                        arm_blockers[j].add(i)
+                        risk[j] += 8.0
 
-        # Apply blocking penalty AFTER base risk
         for i in range(n):
             if blocked[i]:
-                risk[i] += BLOCKED_PENALTY
+                risk[i] += blocked_penalty
             if arm_blocked[i]:
-                risk[i] += BLOCKED_PENALTY * 0.5  # severe but less than full block
-
+                risk[i] += blocked_penalty * 0.5
         return risk, blocked, y_nbrs, arm_blocked, z_top, edge_x, arm_blockers, cx, cy, cz
 
     def _sort_objects(self, objects):
-        """Collision-aware picking order with hard dependency constraints.
-
-        Two-phase strategy:
-        1. Hard constraint — if reaching for rear object A would cause the arm
-           body to hit front object B, then B MUST be picked before A (arm_blockers
-           form a dependency graph; iterative safe-set selection = topological sort).
-        2. Within the safe set, sort by: top-first (Z), lowest-risk, closest-X.
-
-        This prevents the arm from knocking over nearby front objects when
-        reaching past them to grab a slightly-taller rear object.
-        """
         n = len(objects.name)
         if n == 0:
             return []
         if n == 1:
-            rospy.loginfo("Picking order (collision-aware): only 1 object")
             return [0]
-
-        # Run risk analysis
         risk, blocked, y_nbrs, arm_blocked, z_arr, x_arr, arm_blockers, cx, cy, cz = \
-            self._compute_collision_risk(objects, range(n))
+            self._compute_collision_risk(objects)
 
-        # --- Iterative safe-set selection ---
-        # An object is "safe" to pick only when ALL its arm-blockers
-        # (front objects that the arm would hit) have already been removed.
         remaining = set(range(n))
         sorted_indices = []
-
         while remaining:
-            # Find objects whose arm-blockers are all gone
-            safe = [i for i in remaining
-                    if not (arm_blockers[i] & remaining)]
-
+            safe = [i for i in remaining if not (arm_blockers[i] & remaining)]
             if not safe:
-                # Fallback: all remaining objects are mutually blocking
-                # (should not happen with tabletop objects, but handle gracefully)
-                rospy.logwarn("Circular arm-block dependency detected among %d objects; "
-                              "falling back to risk-based sort", len(remaining))
+                rospy.logwarn("Circular arm dependency, falling back to risk sort")
                 safe = list(remaining)
-
-            # Within safe set, sort by: Z (highest first), risk (lowest first),
-            # X edge (closest first = smallest xMax)
-            safe.sort(key=lambda i: (-z_arr[i], risk[i], x_arr[i]))
+            # Prefer the object that requires the least correction from the
+            # current base pose.  Risk/blocked status must dominate height;
+            # otherwise a slightly higher edge object can be picked before a
+            # centered, unblocked object and force a large Y correction.
+            safe.sort(key=lambda i: (
+                abs(cy[i]) > self.max_direct_grab_y,
+                risk[i],
+                blocked[i],
+                arm_blocked[i],
+                abs(cy[i]),
+                x_arr[i],
+                -z_arr[i],
+            ))
             best = safe[0]
             sorted_indices.append(best)
             remaining.remove(best)
 
-        # Log rationale
-        n_types = len(getattr(objects, 'type', []))
-        dep_counts = [len(arm_blockers[i]) for i in range(n)]
-        rospy.loginfo("Picking order (collision-aware, hard-deps, arm_body>=5cm):")
-        rospy.loginfo("  %4s %-8s %6s %6s %6s %6s %6s %6s %6s %6s %6s %6s %s",
-                      "Rank", "Name", "cX", "cY", "cZ", "Risk", "XBlk",
-                      "ArmBlk", "Deps", "YNbrs", "Xedge", "Ztop", "Type")
+        rospy.loginfo("Simplified picking order:")
         for rank, idx in enumerate(sorted_indices):
-            obj_type = self._object_type(objects, idx, "??")
-            rospy.loginfo("  %4d %-8s %6.3f %6.3f %6.3f %6.1f %6s %6s %6d %6d %6.3f %6.3f %s",
-                          rank + 1, objects.name[idx],
-                          cx[idx], cy[idx], cz[idx], risk[idx],
-                          "YES" if blocked[idx] else "no",
-                          "YES" if arm_blocked[idx] else "no",
-                          dep_counts[idx], y_nbrs[idx],
-                          x_arr[idx], z_arr[idx], obj_type)
-
+            rospy.loginfo("  %d idx=%d name=%s type=%s cx=%.3f cy=%.3f risk=%.1f blocked=%s arm=%s",
+                          rank + 1, idx, objects.name[idx],
+                          self._object_type(objects, idx), cx[idx], cy[idx],
+                          risk[idx], blocked[idx], arm_blocked[idx])
         return sorted_indices
 
-    def _get_object_height(self, obj_type):
-        if obj_type == 'hard_cube':
-            return self.hard_cube_height
-        elif obj_type == 'soft_cube':
-            return self.soft_cube_height
-        elif 'sphere' in obj_type:
-            return self.sphere_height
-        return self.cube_height
+    def _transform_point(self, x, y, z, from_frame, to_frame):
+        point = PointStamped()
+        point.header.frame_id = from_frame
+        point.header.stamp = rospy.Time(0)
+        point.point.x = x
+        point.point.y = y
+        point.point.z = z
+        try:
+            self.tf_listener.waitForTransform(
+                to_frame, from_frame, rospy.Time(0), rospy.Duration(0.5))
+            out = self.tf_listener.transformPoint(to_frame, point)
+            return out.point.x, out.point.y, out.point.z
+        except (tf.LookupException, tf.ConnectivityException,
+                tf.ExtrapolationException, tf.Exception) as e:
+            raise RuntimeError("TF transform %s -> %s failed: %s" %
+                               (from_frame, to_frame, e))
+
+    def _get_robot_position(self):
+        try:
+            self.tf_listener.waitForTransform(
+                '/map', '/base_link', rospy.Time(0), rospy.Duration(0.5))
+            trans, rot = self.tf_listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+            yaw = math.atan2(2.0 * (rot[3] * rot[2] + rot[0] * rot[1]),
+                             1.0 - 2.0 * (rot[1]**2 + rot[2]**2))
+            return trans[0], trans[1], yaw
+        except (tf.LookupException, tf.ConnectivityException,
+                tf.ExtrapolationException, tf.Exception) as e:
+            raise RuntimeError("TF lookup /map -> /base_link failed: %s" % e)
+
+    def _wait_robot_settled(self, duration=None):
+        if duration is None:
+            duration = self.robot_settle_time
+        self._publish_stop()
+        if duration > 0.0:
+            rospy.sleep(duration)
+
+    def _publish_stop(self):
+        stop = Twist()
+        for _ in range(self.nav_stop_publish_count):
+            self.cmd_vel_pub.publish(stop)
+            rospy.sleep(self.nav_stop_publish_period)
+
+    def _raise_arm(self):
+        self._set_arm(self.safe_lift_height, self.safe_gripper_open)
+
+    def _prepare_arm_for_detection(self):
+        self._set_arm(self.detect_lift_height, self.detect_gripper_open)
+
+    def _raise_arm_keep_grip(self, obj_type):
+        self._set_arm(self.safe_lift_height, self._get_gripper_value(obj_type))
+
+    def _retract_arm(self):
+        self._set_arm(self.retract_lift_height, self.safe_gripper_open)
+
+    def _set_arm(self, lift, gripper):
+        cmd = JointState()
+        cmd.name = ['lift', 'gripper']
+        cmd.position = [lift, gripper]
+        cmd.velocity = [0.0, 0.0]
+        for _ in range(self.arm_publish_count):
+            self.mani_ctrl_pub.publish(cmd)
+            rospy.sleep(self.arm_publish_period)
+
+    def _back_up(self, distance=None):
+        if distance is None:
+            distance = self.back_distance
+        if distance <= 0.0:
+            self._publish_stop()
+            return
+        speed = self.back_speed if self.back_speed < 0.0 else -abs(self.back_speed)
+        duration = distance / max(abs(speed), 0.01)
+        steps = max(1, int(math.ceil(duration / self.back_period)))
+        cmd = Twist()
+        cmd.linear.x = speed
+        rospy.loginfo("Backing up %.2fm at %.2fm/s", distance, speed)
+        for _ in range(steps):
+            self.cmd_vel_pub.publish(cmd)
+            rospy.sleep(self.back_period)
+        self._publish_stop()
+
+    def _table_edge_clearance(self, table_x, table_y, table_width, approach_yaw):
+        robot_x, robot_y, _ = self._get_robot_position()
+        depth_x = math.cos(approach_yaw)
+        depth_y = math.sin(approach_yaw)
+        center_distance = ((table_x - robot_x) * depth_x +
+                           (table_y - robot_y) * depth_y)
+        half_depth = table_width / 2.0 if table_width > 0.01 else self.table_half_depth
+        return center_distance - half_depth
+
+    def _back_up_until_arm_exits_table(self, table_x, table_y, table_width,
+                                       approach_yaw, label):
+        required_clearance = self.arm_reach_distance + self.arm_exit_margin
+        try:
+            current_clearance = self._table_edge_clearance(
+                table_x, table_y, table_width, approach_yaw)
+        except RuntimeError as e:
+            rospy.logwarn("Cannot compute %s table clearance: %s; using fallback back distance %.2fm",
+                          label, e, self.back_distance)
+            self._back_up(self.back_distance)
+            return
+
+        back_distance = required_clearance - current_clearance
+        if back_distance <= self.min_table_exit_back_distance:
+            rospy.loginfo("%s table cleared: edge clearance %.2fm >= required %.2fm",
+                          label, current_clearance, required_clearance)
+            self._publish_stop()
+            return
+
+        rospy.loginfo("Backing out of %s table: edge clearance %.2fm -> %.2fm, back %.2fm",
+                      label, current_clearance, required_clearance, back_distance)
+        self._back_up(back_distance)
+
+    def _get_approach_position(self, table_x, table_y, for_place=False):
+        if for_place:
+            yaw = self.dest_approach_yaw
+            half_depth = self.dest_table_width / 2.0 if self.dest_table_width > 0.01 else self.table_half_depth
+            distance = half_depth + self.place_approach_offset
+        else:
+            yaw = self.source_approach_yaw
+            half_depth = self.source_table_width / 2.0 if self.source_table_width > 0.01 else self.table_half_depth
+            distance = half_depth + self.approach_offset
+        return table_x - distance * math.cos(yaw), table_y - distance * math.sin(yaw), yaw
+
+    def _near_nav_goal(self, nav_x, nav_y, nav_yaw):
+        try:
+            robot_x, robot_y, robot_yaw = self._get_robot_position()
+        except RuntimeError as e:
+            rospy.logwarn("Cannot verify navigation goal: %s", e)
+            return False
+        dist = math.hypot(robot_x - nav_x, robot_y - nav_y)
+        yaw_err = abs(self._angle_diff(robot_yaw, nav_yaw))
+        ok = dist <= self.nav_accept_xy_tolerance and yaw_err <= self.nav_accept_yaw_tolerance
+        rospy.loginfo("Nav final error: dist=%.3f yaw=%.1fdeg ok=%s",
+                      dist, math.degrees(yaw_err), ok)
+        return ok
+
+    def navigate_to_pose(self, nav_x, nav_y, nav_yaw, timeout=None):
+        if timeout is None:
+            timeout = self.nav_timeout
+        self.state = 'NAVIGATING'
+        goal = MoveBaseGoal()
+        goal.target_pose.header.frame_id = 'map'
+        goal.target_pose.header.stamp = rospy.Time.now()
+        goal.target_pose.pose.position.x = nav_x
+        goal.target_pose.pose.position.y = nav_y
+        goal.target_pose.pose.orientation.z = math.sin(nav_yaw / 2.0)
+        goal.target_pose.pose.orientation.w = math.cos(nav_yaw / 2.0)
+        rospy.loginfo("Navigate to %.3f %.3f yaw=%.1f", nav_x, nav_y, math.degrees(nav_yaw))
+        self.move_base_client.send_goal(goal)
+        finished = self.move_base_client.wait_for_result(rospy.Duration(timeout))
+        if not finished:
+            self.move_base_client.cancel_goal()
+            rospy.logwarn("Navigation timeout")
+            self._publish_stop()
+            return False
+        state = self.move_base_client.get_state()
+        self.move_base_client.cancel_all_goals()
+        rospy.sleep(self.nav_release_delay)
+        self._publish_stop()
+        if state == actionlib.GoalStatus.SUCCEEDED:
+            return True
+        return self._near_nav_goal(nav_x, nav_y, nav_yaw)
+
+    def navigate_to_table(self, table_x, table_y, for_place=False):
+        nav_x, nav_y, nav_yaw = self._get_approach_position(table_x, table_y, for_place)
+        return self.navigate_to_pose(nav_x, nav_y, nav_yaw)
+
+    def _fuse_object_samples(self, samples, min_hits=None):
+        if min_hits is None:
+            min_hits = max(1, int(self.detect_fusion_min_hits))
+        tracks = []
+        merge_xy = max(0.01, float(self.detect_fusion_merge_xy))
+
+        for sample in samples:
+            for i in range(len(sample.name)):
+                if i >= len(sample.x) or i >= len(sample.y) or i >= len(sample.z):
+                    continue
+                x = sample.x[i]
+                y = sample.y[i]
+                z = sample.z[i]
+                best = None
+                best_dist = None
+                for track in tracks:
+                    tx = self._median(track['x'])
+                    ty = self._median(track['y'])
+                    dist = math.hypot(x - tx, y - ty)
+                    if dist <= merge_xy and (best_dist is None or dist < best_dist):
+                        best = track
+                        best_dist = dist
+                if best is None:
+                    best = {
+                        'name': [],
+                        'type': [],
+                        'x': [],
+                        'y': [],
+                        'z': [],
+                        'probability': [],
+                        'size_x': [],
+                        'size_y': [],
+                        'size_z': [],
+                    }
+                    tracks.append(best)
+                best['name'].append(sample.name[i] if i < len(sample.name) else '')
+                best['type'].append(self._object_raw_type(sample, i))
+                best['x'].append(x)
+                best['y'].append(y)
+                best['z'].append(z)
+                if i < len(sample.probability):
+                    best['probability'].append(sample.probability[i])
+                for field in ('size_x', 'size_y', 'size_z'):
+                    values = getattr(sample, field, [])
+                    if i < len(values):
+                        best[field].append(values[i])
+
+        stable_tracks = [track for track in tracks if len(track['x']) >= min_hits]
+        if not stable_tracks:
+            return None
+
+        stable_tracks.sort(key=lambda track: (
+            -len(track['x']),
+            abs(self._median(track['y'])),
+            self._median(track['x']),
+        ))
+
+        fused = Coord()
+        for idx, track in enumerate(stable_tracks):
+            type_votes = {}
+            for raw_type in track['type']:
+                norm_type = 'hard_cube'
+                if raw_type in ('15cm_cube', 'soft_cube'):
+                    norm_type = 'soft_cube'
+                elif raw_type not in ('10cm_cube', 'hard_cube'):
+                    norm_type = raw_type
+                type_votes[norm_type] = type_votes.get(norm_type, 0) + 1
+            obj_type = max(type_votes, key=type_votes.get) if type_votes else 'hard_cube'
+            fused.name.append('obj_%d' % idx)
+            fused.type.append(obj_type)
+            fused.x.append(self._median(track['x']))
+            fused.y.append(self._median(track['y']))
+            fused.z.append(self._median(track['z']))
+            fused.probability.append(
+                sum(track['probability']) / len(track['probability'])
+                if track['probability'] else float(len(track['x'])))
+            fused.size_x.append(self._median(track['size_x']) if track['size_x'] else 0.0)
+            fused.size_y.append(self._median(track['size_y']) if track['size_y'] else 0.0)
+            default_size_z = self._get_object_height(obj_type)
+            fused.size_z.append(self._median(track['size_z']) if track['size_z'] else default_size_z)
+
+        rospy.loginfo("Fused %d samples into %d stable objects",
+                      len(samples), len(fused.name))
+        return fused
+
+    def detect_objects(self, timeout=None):
+        if timeout is None:
+            timeout = self.detect_timeout
+        self.state = 'DETECTING'
+        self.latest_objects = None
+        self.detected_object_samples = []
+        msg = String()
+        msg.data = 'object_detect start'
+        self.behavior_pub.publish(msg)
+        start = time.time()
+        min_samples = max(1, int(self.detect_min_samples))
+        target_samples = max(min_samples, int(self.detect_fusion_samples))
+        while len(self.detected_object_samples) < target_samples:
+            if time.time() - start > timeout:
+                fused = self._fuse_object_samples(self.detected_object_samples)
+                if fused is not None and len(fused.name) > 0:
+                    msg.data = 'object_detect stop'
+                    self.behavior_pub.publish(msg)
+                    self.latest_objects = fused
+                    rospy.loginfo("Detected %d stable objects after timeout",
+                                  len(self.latest_objects.name))
+                    return True
+                msg.data = 'object_detect stop'
+                self.behavior_pub.publish(msg)
+                rospy.logwarn("Object detection timed out: got %d/%d non-empty samples",
+                              len(self.detected_object_samples), min_samples)
+                return False
+            rospy.sleep(self.detect_poll_period)
+        msg.data = 'object_detect stop'
+        self.behavior_pub.publish(msg)
+        fused = self._fuse_object_samples(self.detected_object_samples)
+        if fused is None or len(fused.name) == 0:
+            rospy.logwarn("Object detection rejected unstable samples: got %d samples",
+                          len(self.detected_object_samples))
+            return False
+        self.latest_objects = fused
+        rospy.loginfo("Detected %d stable objects", len(self.latest_objects.name))
+        return True
+
+    def detect_with_retry(self):
+        for attempt in range(max(1, self.detect_retry_count)):
+            self._wait_robot_settled(self.detect_retry_settle)
+            if self.detect_objects():
+                return True
+            rospy.logwarn("Detect attempt %d/%d failed",
+                          attempt + 1, max(1, self.detect_retry_count))
+        return False
+
+    def _get_gripper_value(self, obj_type):
+        return self.gripper_values.get(obj_type, 0.035)
+
+    def _get_gripper_open_value(self, obj_type):
+        return self.gripper_open_values.get(obj_type, 0.18)
+
+    def grab_object(self, obj_type, x, y, z, timeout=90.0):
+        self.state = 'GRABBING'
+        self.grab_done = False
+        self.grab_feedback = ''
+        rospy.set_param('/wpb_home_grab_action/grab/grab_open_value',
+                        self._get_gripper_open_value(obj_type))
+        rospy.set_param('/wpb_home_grab_action/grab/grab_gripper_value',
+                        self._get_gripper_value(obj_type))
+        pose = Pose()
+        pose.position.x = x
+        pose.position.y = y
+        pose.position.z = z
+        self.grab_action_pub.publish(pose)
+        rospy.loginfo("Grab action target base(%.3f, %.3f, %.3f) type=%s", x, y, z, obj_type)
+        start = time.time()
+        while not self.grab_done:
+            if time.time() - start > timeout:
+                stop = String()
+                stop.data = 'grab stop'
+                self.behavior_pub.publish(stop)
+                rospy.logwarn("Grab timeout: %s", self.grab_feedback)
+                return False
+            rospy.sleep(self.action_poll_period)
+        return self.grab_feedback != 'failed'
+
+    def place_object(self, x, y, z, obj_type=None, timeout=90.0):
+        self.state = 'PLACING'
+        self.place_done = False
+        self.place_feedback = ''
+        self.place_command_time = time.time()
+        if obj_type:
+            rospy.set_param('/wpb_home_place_action/place_hold_gripper_value',
+                            self._get_gripper_value(obj_type))
+        pose = Pose()
+        pose.position.x = x
+        pose.position.y = y
+        pose.position.z = z
+        pose.orientation.w = 1.0
+        self.place_pub.publish(pose)
+        rospy.loginfo("Place action target base_xy(%.3f, %.3f), z=%.3f", x, y, z)
+        start = time.time()
+        while not self.place_done:
+            if time.time() - start > timeout:
+                rospy.logwarn("Place timeout: %s", self.place_feedback)
+                return False
+            rospy.sleep(self.action_poll_period)
+        return True
 
     def _publish_stats(self):
-        """Publish production statistics."""
         stats = PalletizingStats()
         stats.total_objects = self.objects_processed + 1
         stats.success_count = self.objects_succeeded
@@ -943,511 +880,160 @@ class PalletizingExecutor:
         stats.hard_zone_layers = self.zones['hard'].current_layer
         stats.soft_zone_layers = self.zones['soft'].current_layer
         stats.current_state = self.state
-        stats.elapsed_time = time.time() - self.task_start_time if self.task_start_time > 0 else 0.0
-
+        stats.elapsed_time = time.time() - self.task_start_time if self.task_start_time else 0.0
         total_done = self.objects_succeeded + self.objects_failed
-        if total_done > 0:
-            stats.success_rate = float(self.objects_succeeded) / float(total_done) * 100.0
-        else:
-            stats.success_rate = 0.0
-
-        if len(self.cycle_times) > 0:
-            stats.avg_cycle_time = sum(self.cycle_times) / len(self.cycle_times)
-        else:
-            stats.avg_cycle_time = 0.0
-
+        stats.success_rate = (100.0 * self.objects_succeeded / total_done) if total_done else 0.0
+        stats.avg_cycle_time = sum(self.cycle_times) / len(self.cycle_times) if self.cycle_times else 0.0
         self.stats_pub.publish(stats)
 
     def _publish_stats_timer(self, _event):
         self._publish_stats()
 
-    def _get_gripper_value(self, obj_type):
-        """Get adaptive gripper value based on object type."""
-        return self.gripper_values.get(obj_type, 0.035)
-
-    def _get_gripper_open_value(self, obj_type):
-        """Get pre-grab gripper opening based on object type."""
-        return self.gripper_open_values.get(obj_type, 0.18)
-
-    def _get_place_z_offset(self, obj_type):
-        """Extra Z offset for soft objects to avoid crushing."""
-        if 'soft' in obj_type:
-            return self.soft_place_offset
-        return 0.0
-
     def _speak(self, text):
-        """Publish TTS voice announcement."""
         msg = SoundRequest()
         msg.sound = SoundRequest.SAY
         msg.command = SoundRequest.PLAY_ONCE
         msg.volume = 1.0
         msg.arg = text
         self.tts_pub.publish(msg)
-        rospy.loginfo("TTS: %s", text)
 
-    def detect_objects(self, timeout=5.0):
-        """Activate object detection and wait for results."""
-        self.state = 'DETECTING'
-        self.latest_objects = None
-
-        msg = String()
-        msg.data = 'object_detect start'
-        self.behavior_pub.publish(msg)
-
-        start = time.time()
-        while self.latest_objects is None or len(self.latest_objects.name) == 0:
-            if time.time() - start > timeout:
-                rospy.logwarn("Object detection timed out")
-                msg.data = 'object_detect stop'
-                self.behavior_pub.publish(msg)
-                return False
-            rospy.sleep(self.detect_poll_period)
-
-        msg.data = 'object_detect stop'
-        self.behavior_pub.publish(msg)
-        rospy.loginfo("Detected %d objects", len(self.latest_objects.name))
-        return True
-
-    def grab_object(self, obj_type="", target_x=0.0, target_y=0.0, target_z=0.0,
-                    timeout=60.0):
-        """Send target object Pose to grab_action and wait for completion.
-
-        Unlike grab_server (which does its own PCL detection), grab_action
-        grabs exactly at the specified coordinates — no mismatch between
-        which object was selected and which one gets grabbed.
-        """
-        self.state = 'GRABBING'
-        self.grab_done = False
-
-        # Publish the target position to grab_action
-        gripper_value = self._get_gripper_value(obj_type)
-        gripper_open_value = self._get_gripper_open_value(obj_type)
-        rospy.set_param('/wpb_home_grab_action/grab/grab_open_value', gripper_open_value)
-        rospy.set_param('/wpb_home_grab_action/grab/grab_gripper_value', gripper_value)
-        rospy.loginfo("Grab gripper for %s: open=%.3f close=%.3f",
-                      obj_type, gripper_open_value, gripper_value)
-        pose = Pose()
-        pose.position.x = target_x
-        pose.position.y = target_y
-        pose.position.z = target_z
-        self.grab_action_pub.publish(pose)
-        rospy.loginfo("Grab target sent: (%.2f, %.2f, %.2f) type='%s'",
-                      target_x, target_y, target_z, obj_type)
-
-        start = time.time()
-        while not self.grab_done:
-            if time.time() - start > timeout:
-                rospy.logwarn("Grab timed out (feedback: %s)", self.grab_feedback)
-                msg = String()
-                msg.data = 'grab stop'
-                self.behavior_pub.publish(msg)
-                return False
-            rospy.sleep(self.action_poll_period)
-
-        rospy.loginfo("Grab completed")
-        return True
-
-    def place_object(self, x, y, z, timeout=60.0):
-        """Send place pose and wait for completion."""
-        self.state = 'PLACING'
-        self.place_done = False
-        self.place_feedback = ""
-        self.place_command_time = time.time()
-
-        pose = Pose()
-        pose.position.x = x
-        pose.position.y = y
-        pose.position.z = z
-        pose.orientation.w = 1.0
-        self.place_pub.publish(pose)
-        rospy.loginfo("Place pose sent: (%.2f, %.2f, %.2f)", x, y, z)
-
-        start = time.time()
-        while not self.place_done:
-            if time.time() - start > timeout:
-                rospy.logwarn("Place timed out (feedback: %s)", self.place_feedback)
-                return False
-            rospy.sleep(self.action_poll_period)
-
-        rospy.loginfo("Place completed")
-        return True
-
-    def _start_callback(self, req):
-        """Service callback: trigger the palletizing task in a background thread."""
-        if self.state not in ('IDLE', 'DONE'):
-            return StartTaskResponse(success=False, message="Task already running (state: %s)" % self.state)
-        self.state = 'STARTING'
-        threading.Thread(target=self.run, daemon=True).start()
-        return StartTaskResponse(success=True, message="Palletizing task started")
-
-    def _get_approach_position(self, table_x, table_y, for_place=False):
-        """Compute a safe approach position offset from the table center.
-
-        Uses parameterized approach yaw (source_approach_yaw / dest_approach_yaw)
-        so tables can be placed at arbitrary positions and orientations.
-
-        When for_place is True, accounts for place_action's built-in forward
-        movement via place_forward_compensation so the robot ends up at a safe
-        distance from the table instead of crashing into it.
-
-        The half-depth defaults to table_half_depth but can be overridden
-        per-table via source_table_width/2 or dest_table_width/2 when table
-        dimensions are configured.
-        """
-        if for_place:
-            yaw = self.dest_approach_yaw
-            half_depth = getattr(self, 'dest_table_half_depth', self.table_half_depth)
-            distance = half_depth + self.place_approach_offset + self.place_forward_compensation
-        else:
-            yaw = self.source_approach_yaw
-            half_depth = getattr(self, 'source_table_half_depth', self.table_half_depth)
-            distance = half_depth + self.approach_offset
-
-        # Robot faces 'yaw' (toward the table).  The table is in front of the
-        # robot, so the approach point is offset backward from the table center
-        # along the facing direction.
-        approach_x = table_x - distance * math.cos(yaw)
-        approach_y = table_y - distance * math.sin(yaw)
-        return approach_x, approach_y, yaw
-
-    def navigate_to_pose(self, nav_x, nav_y, nav_yaw, timeout=None):
-        """Navigate to an explicit (x, y, yaw) in map frame."""
-        if timeout is None:
-            timeout = self.nav_timeout
-        self.state = 'NAVIGATING'
-        goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = "map"
-        goal.target_pose.header.stamp = rospy.Time.now()
-        goal.target_pose.pose.position.x = nav_x
-        goal.target_pose.pose.position.y = nav_y
-        goal.target_pose.pose.position.z = 0.0
-        goal.target_pose.pose.orientation.z = math.sin(nav_yaw / 2.0)
-        goal.target_pose.pose.orientation.w = math.cos(nav_yaw / 2.0)
-        rospy.loginfo("Navigating to pose (%.2f, %.2f, yaw=%.1f°)...",
-                      nav_x, nav_y, math.degrees(nav_yaw))
-        self.move_base_client.send_goal(goal)
-        finished = self.move_base_client.wait_for_result(rospy.Duration(timeout))
-        if not finished:
-            self.move_base_client.cancel_goal()
-            rospy.logwarn("Navigation timed out after %.1fs", timeout)
-            return False
-        state = self.move_base_client.get_state()
-        self.move_base_client.cancel_all_goals()
-        rospy.sleep(self.nav_release_delay)
-        stop = Twist()
-        stop.linear.x = 0.0; stop.linear.y = 0.0; stop.angular.z = 0.0
-        for _ in range(self.nav_stop_publish_count):
-            self.cmd_vel_pub.publish(stop)
-            rospy.sleep(self.nav_stop_publish_period)
-        if state == actionlib.GoalStatus.SUCCEEDED:
-            rospy.loginfo("Navigation succeeded")
-            return True
-        elif self._near_nav_goal(nav_x, nav_y):
-            rospy.logwarn("Navigation action state=%d, accepting near-goal pose", state)
-            return True
-        else:
-            rospy.logwarn("Navigation failed (state: %d)", state)
-            return False
-
-    def navigate_to_table(self, target_x, target_y, timeout=None, use_approach=True, for_place=False):
-        """Navigate to target table position using move_base.
-
-        If use_approach is True, stops at approach distance from table edge
-        and faces the table, instead of driving to the table center.
-        Set for_place=True when navigating to the destination table before
-        executing place_action (which moves the robot forward internally).
-        """
-        if timeout is None:
-            timeout = self.nav_timeout
-
-        if use_approach:
-            nav_x, nav_y, yaw = self._get_approach_position(target_x, target_y, for_place)
-        else:
-            nav_x, nav_y = target_x, target_y
-            yaw = 0.0
-
-        self.state = 'NAVIGATING'
-
-        goal = MoveBaseGoal()
-        goal.target_pose.header.frame_id = "map"
-        goal.target_pose.header.stamp = rospy.Time.now()
-        goal.target_pose.pose.position.x = nav_x
-        goal.target_pose.pose.position.y = nav_y
-        goal.target_pose.pose.position.z = 0.0
-        # Convert yaw to quaternion
-        goal.target_pose.pose.orientation.z = math.sin(yaw / 2.0)
-        goal.target_pose.pose.orientation.w = math.cos(yaw / 2.0)
-
-        rospy.loginfo("Navigating to (%.2f, %.2f, yaw=%.1f°) [table at (%.2f, %.2f)]...",
-                      nav_x, nav_y, math.degrees(yaw), target_x, target_y)
-        self.move_base_client.send_goal(goal)
-
-        finished = self.move_base_client.wait_for_result(rospy.Duration(timeout))
-        if not finished:
-            self.move_base_client.cancel_goal()
-            rospy.logwarn("Navigation timed out after %.1fs", timeout)
-            return False
-
-        state = self.move_base_client.get_state()
-        # Cancel all goals to stop move_base from publishing to /cmd_vel,
-        # otherwise it would override grab/place alignment commands.
-        self.move_base_client.cancel_all_goals()
-        rospy.sleep(self.nav_release_delay)  # let cancel propagate through the action pipeline
-        stop = Twist()
-        stop.linear.x = 0.0
-        stop.linear.y = 0.0
-        stop.angular.z = 0.0
-        # Publish several times to ensure move_base fully releases /cmd_vel
-        for _ in range(self.nav_stop_publish_count):
-            self.cmd_vel_pub.publish(stop)
-            rospy.sleep(self.nav_stop_publish_period)
-
-        if state == actionlib.GoalStatus.SUCCEEDED:
-            rospy.loginfo("Navigation succeeded")
-            return True
-        elif self._near_nav_goal(nav_x, nav_y):
-            rospy.logwarn("Navigation action state=%d, accepting near-goal pose", state)
-            return True
-        else:
-            rospy.logwarn("Navigation failed (state: %d)", state)
-            return False
+    def _selected_grasp_points(self, objects, idx):
+        obj_type = self._object_type(objects, idx)
+        half = self._estimate_half_size(obj_type)
+        edge_x = objects.x[idx] if idx < len(objects.x) else 0.0
+        y = objects.y[idx] if idx < len(objects.y) else 0.0
+        z_min = objects.z[idx] if idx < len(objects.z) else 0.0
+        return obj_type, edge_x - half, y, z_min - self.PRISM_Z_OFFSET + half
 
     def run(self):
-        """Main execution loop — smart picking order + zone-based classification stacking."""
-        rospy.loginfo("Palletizing executor starting...")
-        rospy.sleep(self.startup_settle_time)  # let subscribers and TF connect
-
-        # Initialize stats
+        rospy.loginfo("Simplified palletizing flow starting")
+        rospy.sleep(0.5)
         self.task_start_time = time.time()
+        self.objects_processed = 0
         self.objects_succeeded = 0
         self.objects_failed = 0
         self.cycle_times = []
 
-        # Navigate to source table first
-        rospy.loginfo("Navigating to source table...")
-        if not self.navigate_to_table(self.source_table_x, self.source_table_y):
-            rospy.logerr("Failed to reach source table. Aborting.")
+        self._prepare_arm_for_detection()
+        if not self.navigate_to_table(self.source_table_x, self.source_table_y, for_place=False):
+            rospy.logerr("Failed to reach source table")
             self.state = 'DONE'
-            self._publish_stats()
             return
 
-        # ── Re-detect loop: pick one object per iteration ──
-        # Each iteration re-detects after navigation, so grab coordinates
-        # are always fresh.  No coordinate-aging problems.
-        while True:
-            # ── Re-detect objects on source table ──
-            if not self.detect_objects():
-                rospy.loginfo("No objects remaining on source table.")
+        while not rospy.is_shutdown():
+            self.last_cycle_start = time.time()
+            self._prepare_arm_for_detection()
+
+            if not self.detect_with_retry():
+                rospy.loginfo("No objects detected on source table; task complete")
                 break
 
-            # Keep the arm unchanged here.  Raise it only after the
-            # object-centered source alignment succeeds.
-
-            # Fresh sort on fresh detection
             sorted_indices = self._sort_objects(self.latest_objects)
-            best_idx = sorted_indices[0]  # pick the safest object
+            if not sorted_indices:
+                rospy.loginfo("No sortable objects; task complete")
+                break
 
-            self.last_cycle_start = time.time()
-            obj_name = self.latest_objects.name[best_idx]
-            obj_type = self._object_type(self.latest_objects, best_idx)
+            pick_idx = sorted_indices[0]
+            obj_name = self.latest_objects.name[pick_idx]
+            obj_type, grab_x, grab_y, grab_z = self._selected_grasp_points(
+                self.latest_objects, pick_idx)
             obj_height = self._get_object_height(obj_type)
-            zone = self._get_zone(obj_type)
-            zone_material = 'hard' if 'hard' in obj_type else 'soft'
+            material = self._material_name(obj_type)
+            zone = self._zone_for_type(obj_type)
+            self.current_object_type = obj_type
+            rospy.loginfo("Selected %s idx=%d type=%s local_grab=(%.3f, %.3f, %.3f)",
+                          obj_name, pick_idx, obj_type, grab_x, grab_y, grab_z)
 
-            # Fresh PCL coordinates (base_footprint at current robot pose)
-            obj_bf_x = self.latest_objects.x[best_idx] if best_idx < len(self.latest_objects.x) else 0.0
-            obj_bf_y = self.latest_objects.y[best_idx] if best_idx < len(self.latest_objects.y) else 0.0
-            obj_bf_z = self.latest_objects.z[best_idx] if best_idx < len(self.latest_objects.z) else 0.0
-            obj_half = obj_height / 2.0
-            obj_center_x = obj_bf_x - obj_half
-
-            rospy.loginfo("--- Picked %s (type: %s, zone: %s, h: %.2f, bf: %.3f,%.3f,%.3f) ---",
-                          obj_name, obj_type, zone_material, obj_height,
-                          obj_bf_x, obj_bf_y, obj_bf_z)
-            self._speak("zhua {} qu".format(zone_material))
-
-            # ── Navigate to source table, Y-compensated ──
-            det_rx, det_ry, det_yaw = self._get_robot_position()
-            # Use the calibrated source approach yaw for the object-centered
-            # alignment.  Using the current yaw after recovery can send the
-            # robot toward an unreachable pose.
-            align_yaw = self.source_approach_yaw
-            cos_t = math.cos(align_yaw)
-            sin_t = math.sin(align_yaw)
-            obj_map_y = det_ry + obj_bf_x * sin_t + obj_bf_y * cos_t
-            target_map_x, target_map_y = self._base_point_to_map(
-                det_rx, det_ry, det_yaw, obj_center_x, obj_bf_y)
-            rospy.loginfo("Nav to source (det X=%.3f, comp Y=%.3f, yaw=%.1f°, current yaw=%.1f°)",
-                          det_rx, obj_map_y, math.degrees(align_yaw), math.degrees(det_yaw))
-            if not self.navigate_to_pose(det_rx, obj_map_y, align_yaw):
-                rospy.logerr("Nav to source failed for %s. Returning to source approach.", obj_name)
+            try:
+                map_x, map_y, map_z = self._transform_point(
+                    grab_x, grab_y, grab_z, self.object_frame, '/map')
+                action_x, action_y, action_z = self._transform_point(
+                    map_x, map_y, map_z, '/map', self.action_frame)
+            except RuntimeError as e:
+                rospy.logerr("Cannot transform selected object pose: %s", e)
                 self.objects_failed += 1
-                if not self.navigate_to_table(self.source_table_x, self.source_table_y):
-                    rospy.logerr("Failed to recover to source table. Aborting.")
-                    break
+                self.objects_processed += 1
+                self._publish_stats()
                 continue
 
-            # ── Re-detect AFTER Y-compensated nav (fresh coords!) ──
-            if not self.detect_objects():
-                rospy.logwarn("Re-detect after nav failed. Trying grab anyway.")
-                # Fall back to pre-nav coords with Y=0
-                grab_x = obj_bf_x - obj_half
-                grab_y = 0.0
-                grab_z = obj_bf_z - self.PRISM_Z_OFFSET + obj_half
-            else:
-                # Match the same physical object selected before navigation.
-                # Navigation can leave the target a few cm away from Y=0, so
-                # using only abs(Y) may switch to a neighboring object.
-                cur_rx, cur_ry, cur_yaw = self._get_robot_position()
-                best_dist = float('inf')
-                pick_idx = 0
-                for i in range(len(self.latest_objects.name)):
-                    fresh_type = self._object_type(self.latest_objects, i, obj_type)
-                    fresh_half = self._estimate_half_size(fresh_type)
-                    x_edge = self.latest_objects.x[i] if i < len(self.latest_objects.x) else obj_bf_x
-                    x_center = x_edge - fresh_half
-                    y = self.latest_objects.y[i] if i < len(self.latest_objects.y) else obj_bf_y
-                    cand_map_x, cand_map_y = self._base_point_to_map(
-                        cur_rx, cur_ry, cur_yaw, x_center, y)
-                    dist = math.hypot(cand_map_x - target_map_x, cand_map_y - target_map_y)
-                    if dist < best_dist:
-                        best_dist = dist
-                        pick_idx = i
-                fresh_x = self.latest_objects.x[pick_idx] if pick_idx < len(self.latest_objects.x) else obj_bf_x
-                fresh_y = self.latest_objects.y[pick_idx] if pick_idx < len(self.latest_objects.y) else 0.0
-                fresh_z = self.latest_objects.z[pick_idx] if pick_idx < len(self.latest_objects.z) else obj_bf_z
-                grab_x = fresh_x - obj_half
-                grab_y = fresh_y
-                grab_z = fresh_z - self.PRISM_Z_OFFSET + obj_half
-                rospy.loginfo("Re-detect matched idx=%d dist=%.3fm: fresh bf(%.3f, %.3f, %.3f) -> grab(%.3f, %.3f, %.3f)",
-                              pick_idx, best_dist,
-                              fresh_x, fresh_y, fresh_z,
-                              grab_x, grab_y, grab_z)
-
-            # Raise arm before grab — re-detect may have lowered it.
-            self._raise_arm()
-
-            rospy.loginfo("Grab target: (%.3f, %.3f, %.3f) type='%s'",
-                          grab_x, grab_y, grab_z, obj_type)
-            if not self.grab_object(obj_type, grab_x, grab_y, grab_z, timeout=90.0):
-                rospy.logerr("Grab failed for %s. Skipping.", obj_name)
-                self._speak("zhua qu shi bai, tiao guo")
+            rospy.loginfo("Selected object absolute map=(%.3f, %.3f, %.3f)", map_x, map_y, map_z)
+            self._speak("zhua {} qu".format(material))
+            if not self.grab_object(obj_type, action_x, action_y, action_z):
+                rospy.logerr("Grab failed for %s", obj_name)
                 self.objects_failed += 1
                 self.objects_processed += 1
                 self.cycle_times.append(time.time() - self.last_cycle_start)
                 self._publish_stats()
                 continue
 
-            # Step 1.5: Back up slightly to clear table area before turning
-            rospy.loginfo("Backing up to clear table area...")
-            stop = Twist()
-            back = Twist()
-            back.linear.x = self.clear_table_back_speed
-            back_steps = max(1, int(math.ceil(self.clear_table_back_duration / self.clear_table_back_period)))
-            for _ in range(back_steps):
-                self.cmd_vel_pub.publish(back)
-                rospy.sleep(self.clear_table_back_period)
-            for _ in range(self.nav_stop_publish_count):  # ensure full stop
-                self.cmd_vel_pub.publish(stop)
-                rospy.sleep(self.nav_stop_publish_period)
+            self._raise_arm_keep_grip(obj_type)
+            self._back_up_until_arm_exits_table(
+                self.source_table_x, self.source_table_y,
+                self.source_table_width, self.source_approach_yaw, 'source')
 
-            # Step 2: Navigate to dest table. Use for_place=True which
-            # compensates for place_action's 0.85m built-in forward movement.
-            rospy.loginfo("Navigating to dest table...")
             if not self.navigate_to_table(self.dest_table_x, self.dest_table_y, for_place=True):
-                rospy.logerr("Navigation to dest table failed for %s. Skipping.", obj_name)
-                self._speak("dao hang shi bai, tiao guo")
+                rospy.logerr("Failed to reach destination table")
                 self.objects_failed += 1
                 self.objects_processed += 1
                 self.cycle_times.append(time.time() - self.last_cycle_start)
                 self._publish_stats()
-                # Release gripper on failure to avoid carrying object back
-                mani_ctrl_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=1)
-                release_cmd = JointState()
-                release_cmd.name = ['lift', 'gripper']
-                release_cmd.position = [0.8, 0.15]  # safe height, open gripper
-                release_cmd.velocity = [0.0, 0.0]
-                for _ in range(10):
-                    mani_ctrl_pub.publish(release_cmd)
-                    rospy.sleep(0.2)
-                continue
-                self.cycle_times.append(time.time() - self.last_cycle_start)
-                self._publish_stats()
-                continue
+                self._raise_arm_keep_grip(obj_type)
+                break
 
-            # Step 3: Calculate place position from the correct zone.
-            # get_place_pose returns stack top (= bottom of next object).
-            # place_action lifts arm to place_z + 0.03, then robot moves forward
-            # toward the table.  The arm must clear objects already on the table,
-            # so add the object height as clearance during approach.
-            place_map_x, place_map_y, place_z = zone.get_place_pose(obj_height)
-            place_z += obj_height  # clearance above stack top
-            place_z += self._get_place_z_offset(obj_type)
-            map_depth = ((place_map_x - self.dest_table_x) * math.cos(self.dest_approach_yaw)
-                         + (place_map_y - self.dest_table_y) * math.sin(self.dest_approach_yaw))
-            place_robot_x, place_robot_y, place_robot_yaw = self._get_robot_position()
-            place_x, place_y = self._map_point_to_base(
-                place_robot_x, place_robot_y, place_robot_yaw,
-                place_map_x, place_map_y)
-            rospy.loginfo("Place map(%.3f, %.3f, depth=%.3f) -> base(%.3f, %.3f), yaw=%.1f°",
-                          place_map_x, place_map_y, map_depth, place_x,
-                          place_y, math.degrees(place_robot_yaw))
-
-            # Step 4: Place
-            if not self.place_object(place_x, place_y, place_z):
-                rospy.logerr("Place failed for %s. Releasing gripper.", obj_name)
-                mani_ctrl_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=1)
-                release_cmd = JointState()
-                release_cmd.name = ['lift', 'gripper']
-                release_cmd.position = [0.8, 0.15]
-                release_cmd.velocity = [0.0, 0.0]
-                for _ in range(10):
-                    mani_ctrl_pub.publish(release_cmd)
-                    rospy.sleep(0.2)
+            place_map_x, place_map_y, stack_top_z = zone.get_place_pose(obj_height)
+            place_z = (stack_top_z + obj_height / 2.0 + self.place_stack_clearance +
+                       (self.soft_place_offset if 'soft' in obj_type else 0.0))
+            self._wait_robot_settled()
+            try:
+                place_x, place_y, _ = self._transform_point(
+                    place_map_x, place_map_y, place_z, '/map', self.action_frame)
+            except RuntimeError as e:
+                rospy.logerr("Cannot transform place pose: %s", e)
                 self.objects_failed += 1
                 self.objects_processed += 1
                 self.cycle_times.append(time.time() - self.last_cycle_start)
                 self._publish_stats()
-                continue
+                self._raise_arm_keep_grip(obj_type)
+                break
 
-            # Step 5: Update zone stacking state
+            if not self.place_object(place_x, place_y, place_z, obj_type):
+                rospy.logerr("Place failed for %s", obj_name)
+                self.objects_failed += 1
+                self.objects_processed += 1
+                self.cycle_times.append(time.time() - self.last_cycle_start)
+                self._publish_stats()
+                self._raise_arm_keep_grip(obj_type)
+                break
+
             zone.mark_placed(obj_height)
-            self.objects_processed += 1
             self.objects_succeeded += 1
+            self.objects_processed += 1
             self.cycle_times.append(time.time() - self.last_cycle_start)
             self._publish_stats()
+            rospy.loginfo("Placed %s into %s zone layer=%d cell=%d",
+                          obj_name, material, zone.current_layer, zone.current_index)
 
-            rospy.loginfo("%s → zone '%s' layer %d, cell %d",
-                          obj_name, zone_material, zone.current_layer, zone.current_index)
-
-            # Raise arm after place — place_action leaves it low.
             self._raise_arm()
+            self._back_up_until_arm_exits_table(
+                self.dest_table_x, self.dest_table_y,
+                self.dest_table_width, self.dest_approach_yaw, 'destination')
+            self._retract_arm()
 
-            # Step 6: Navigate back to source table for next object
-            rospy.loginfo("Navigating back to source table...")
-            if not self.navigate_to_table(self.source_table_x, self.source_table_y):
-                rospy.logerr("Failed to return to source table. Aborting.")
+            if not self.navigate_to_table(self.source_table_x, self.source_table_y, for_place=False):
+                rospy.logerr("Failed to return to source table; stopping")
                 break
 
         self.state = 'DONE'
         self._publish_stats()
         self._speak("ma duo wan cheng, cheng gong {} ge, shi bai {} ge".format(
             self.objects_succeeded, self.objects_failed))
-
-        # Zone summary
-        for material, z in self.zones.items():
-            rospy.loginfo("Zone '%s': %d layers, %d cells/layer",
-                          material, z.current_layer, z.grid_cols * z.grid_rows)
-        total = self.objects_succeeded + self.objects_failed
-        rospy.loginfo("Palletizing complete! %d succeeded, %d failed (%.1f%%).",
-                      self.objects_succeeded, self.objects_failed,
-                      100.0 * self.objects_succeeded / max(total, 1))
+        rospy.loginfo("Simplified palletizing done: success=%d failed=%d",
+                      self.objects_succeeded, self.objects_failed)
 
 
 if __name__ == '__main__':
     try:
         executor = PalletizingExecutor()
-        rospy.loginfo("Palletizing executor ready. Call /palletizing/start to begin.")
         rospy.spin()
     except rospy.ROSInterruptException:
         pass

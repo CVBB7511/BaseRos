@@ -32,13 +32,13 @@
     <!-- ===== Table Configuration (可命令行传参) ===== -->
     <arg name="source_table_x" default="-1.5"/>
     <arg name="source_table_y" default="0.0"/>
-    <arg name="source_table_z" default="0.765"/>
+    <arg name="source_table_z" default="0.75"/>
     <arg name="source_table_yaw" default="0.0"/>
     <arg name="source_table_length" default="1.0"/>
     <arg name="source_table_width" default="0.5"/>
     <arg name="dest_table_x" default="1.5"/>
     <arg name="dest_table_y" default="0.0"/>
-    <arg name="dest_table_z" default="0.765"/>
+    <arg name="dest_table_z" default="0.75"/>
     <arg name="dest_table_yaw" default="3.1416"/>
     <arg name="dest_table_length" default="1.0"/>
     <arg name="dest_table_width" default="0.5"/>
@@ -74,13 +74,31 @@
     <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d" output="screen">
         <param name="topic" type="string" value="/kinect2/sd/points" />
         <param name="start" type="bool" value="false" />
+        <param name="filter_cube_size" type="bool" value="true" />
+        <param name="cube_size_small" type="double" value="0.10" />
+        <param name="cube_size_large" type="double" value="0.15" />
+        <param name="cube_size_tolerance" type="double" value="0.07" />
+        <param name="cube_min_x_size" type="double" value="0.03" />
+        <param name="cube_max_x_size" type="double" value="0.35" />
+        <param name="cube_shape_ratio" type="double" value="2.3" />
+        <param name="cube_prism_bottom_cut" type="double" value="0.03" />
+        <param name="cluster_tolerance" type="double" value="0.04" />
+        <param name="cluster_min_size" type="int" value="500" />
+        <param name="cluster_max_size" type="int" value="10000000" />
     </node>
     <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
         <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
-        <param name="grab/grab_lift_offset" type="double" value="0.0" />
+        <param name="grab/grab_y_offset" type="double" value="-0.07" />
+        <param name="grab/grab_lift_offset" type="double" value="0.03" />
         <param name="grab/grab_forward_offset" type="double" value="0.0" />
+        <param name="grab/grab_align_timeout" type="double" value="15.0" />
+        <param name="grab/grab_hand_up_wait" type="double" value="15.0" />
     </node>
-    <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action" />
+    <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action">
+        <param name="place_lift_clearance" type="double" value="0.01" />
+        <param name="place_hand_up_wait" type="double" value="15.0" />
+        <param name="place_release_wait" type="double" value="1.0" />
+    </node>
 
     <!-- ===== Map Server ===== -->
     <node name="map_server" pkg="map_server" type="map_server"
@@ -113,8 +131,8 @@
         <param name="yaw_goal_tolerance" value="0.05" type="double" />
         <param name="planner_frequency" value="0.5" type="double" />
         <param name="planner_patience" value="10.0" type="double" />
-        <param name="WpbhLocalPlanner/max_vel_trans" value="0.4" type="double" />
-        <param name="WpbhLocalPlanner/max_vel_rot" value="1.2" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_trans" value="0.24" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_rot" value="0.4" type="double" />
         <param name="WpbhLocalPlanner/acc_scale_trans" value="2.0" type="double" />
         <param name="WpbhLocalPlanner/acc_scale_rot" value="0.65" type="double" />
         <param name="WpbhLocalPlanner/goal_dist_tolerance" value="0.05" type="double" />
@@ -141,15 +159,28 @@
         <param name="hard_cube_height" type="double" value="0.10"/>
         <param name="soft_cube_height" type="double" value="0.15"/>
         <param name="soft_place_offset" type="double" value="0.005"/>
+        <param name="place_stack_clearance" type="double" value="0.0"/>
         <param name="stacking_pattern" type="string" value="aligned"/>
         <param name="spacing_x" type="double" value="0.18"/>
         <param name="spacing_y" type="double" value="0.17"/>
         <param name="zone_separation_y" type="double" value="0.35"/>
         <param name="nav_timeout" type="double" value="120.0"/>
-        <param name="approach_offset" type="double" value="0.70"/>
-        <param name="place_approach_offset" type="double" value="0.30"/>
+        <param name="detect_timeout" type="double" value="5.0"/>
+        <param name="detect_min_samples" type="int" value="3"/>
+        <param name="detect_fusion_samples" type="int" value="5"/>
+        <param name="detect_fusion_min_hits" type="int" value="2"/>
+        <param name="detect_fusion_merge_xy" type="double" value="0.08"/>
+        <param name="detect_retry_count" type="int" value="2"/>
+        <param name="detect_retry_settle" type="double" value="0.50"/>
+        <param name="detect_lift_height" type="double" value="0.0"/>
+        <param name="detect_gripper_open" type="double" value="0.15"/>
+        <param name="arm_reach_distance" type="double" value="0.50"/>
+        <param name="arm_exit_margin" type="double" value="0.10"/>
+        <param name="min_table_exit_back_distance" type="double" value="0.02"/>
+        <param name="approach_offset" type="double" value="0.90"/>
+        <param name="place_approach_offset" type="double" value="0.90"/>
         <param name="table_half_depth" type="double" value="0.25"/>
-        <param name="gripper_hard_cube" type="double" value="0.052"/>
+        <param name="gripper_hard_cube" type="double" value="0.032"/>
         <param name="gripper_soft_cube" type="double" value="0.078"/>
     </node>
 

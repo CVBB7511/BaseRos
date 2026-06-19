@@ -6,6 +6,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  visualization_msgs
   sensor_msgs
   sound_play
   move_base_msgs
@@ -30,12 +31,13 @@ generate_messages(
 )
 
 catkin_package(
-  CATKIN_DEPENDS message_runtime rospy std_msgs
+  CATKIN_DEPENDS message_runtime rospy std_msgs visualization_msgs
 )
 
 catkin_install_python(PROGRAMS
   scripts/palletizing_executor.py
   scripts/palletizing_executor_full.py
+  scripts/pointcloud_detection_test.py
   scripts/mark_table_positions.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

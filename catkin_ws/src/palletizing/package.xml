@@ -13,6 +13,7 @@
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>sound_play</depend>
   <depend>move_base_msgs</depend>

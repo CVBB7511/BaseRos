@@ -1,0 +1,125 @@
+<launch>
+    <!-- Point-cloud detection test on the real robot.
+         No palletizing executor, grab action, or place action is launched. -->
+
+    <arg name="map_file" default="$(find gazebosim_demo)/maps/palletizing_map.yaml"/>
+
+    <arg name="source_table_x" default="-1.5"/>
+    <arg name="source_table_y" default="0.0"/>
+    <arg name="source_table_yaw" default="0.0"/>
+    <arg name="source_table_width" default="0.5"/>
+
+    <arg name="start_test_node" default="true"/>
+    <arg name="start_rviz" default="true"/>
+    <arg name="start_base_driver" default="true"/>
+
+    <!-- Robot model and camera/base TF. -->
+    <arg name="model" default="$(find wpb_home_bringup)/urdf/wpb_home.urdf"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Chassis driver. Keep this enabled if /cmd_vel should move the real base. -->
+    <node if="$(arg start_base_driver)"
+          pkg="wpb_home_bringup"
+          type="wpb_home_core"
+          name="wpb_home_core"
+          output="screen">
+        <param name="serial_port" type="string" value="/dev/ftdi"/>
+        <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
+    </node>
+
+    <!-- RPLIDAR and filtered /scan for localization/navigation. -->
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+        <param name="serial_port" type="string" value="/dev/rplidar"/>
+        <param name="serial_baudrate" type="int" value="115200"/>
+        <param name="frame_id" type="string" value="laser"/>
+        <param name="inverted" type="bool" value="false"/>
+        <param name="angle_compensate" type="bool" value="true"/>
+        <remap from="scan" to="scan_raw"/>
+    </node>
+    <node pkg="wpb_home_bringup" type="wpb_home_lidar_filter" name="wpb_home_lidar_filter">
+        <param name="pub_topic" value="/scan"/>
+    </node>
+
+    <!-- Kinect2 point cloud source. -->
+    <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch" />
+
+    <!-- 3D object detector only. -->
+    <node pkg="wpb_home_behaviors" type="wpb_home_objects_3d" name="wpb_home_objects_3d" output="screen">
+        <param name="topic" type="string" value="/kinect2/sd/points" />
+        <param name="start" type="bool" value="false" />
+        <param name="filter_cube_size" type="bool" value="true" />
+        <param name="cube_size_small" type="double" value="0.10" />
+        <param name="cube_size_large" type="double" value="0.15" />
+        <param name="cube_size_tolerance" type="double" value="0.07" />
+        <param name="cube_min_x_size" type="double" value="0.03" />
+        <param name="cube_max_x_size" type="double" value="0.35" />
+        <param name="cube_shape_ratio" type="double" value="2.3" />
+        <param name="cube_prism_bottom_cut" type="double" value="0.03" />
+        <param name="cluster_tolerance" type="double" value="0.04" />
+        <param name="cluster_min_size" type="int" value="500" />
+        <param name="cluster_max_size" type="int" value="10000000" />
+    </node>
+
+    <!-- Map, localization, and navigation. -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+    <include file="$(find wpb_home_tutorials)/nav_lidar/amcl_omni.launch" />
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam ns="global_costmap">
+            robot_radius: 0.25
+            inflation_radius: 0.5
+            obstacle_range: 6.0
+            raytrace_range: 6.0
+            observation_sources: base_lidar
+            base_lidar: {data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+        </rosparam>
+        <rosparam file="$(find navigation)/launch/wj_costmap_common_params.yaml" command="load"
+            ns="local_costmap" />
+        <rosparam file="$(find wpb_home_tutorials)/nav_lidar/local_costmap_params.yaml"
+            command="load" />
+        <rosparam file="$(find wpb_home_tutorials)/nav_lidar/global_costmap_params.yaml"
+            command="load" />
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+        <param name="use_dijkstra" value="true" />
+        <param name="base_local_planner" value="wpbh_local_planner/WpbhLocalPlanner" />
+        <param name="controller_frequency" value="10" type="double" />
+        <param name="xy_goal_tolerance" value="0.05" type="double" />
+        <param name="yaw_goal_tolerance" value="0.05" type="double" />
+        <param name="planner_frequency" value="0.5" type="double" />
+        <param name="planner_patience" value="10.0" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_trans" value="0.24" type="double" />
+        <param name="WpbhLocalPlanner/max_vel_rot" value="0.4" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_trans" value="2.0" type="double" />
+        <param name="WpbhLocalPlanner/acc_scale_rot" value="0.65" type="double" />
+        <param name="WpbhLocalPlanner/goal_dist_tolerance" value="0.05" type="double" />
+        <param name="WpbhLocalPlanner/goal_yaw_tolerance" value="0.05" type="double" />
+    </node>
+
+    <node if="$(arg start_test_node)"
+          pkg="palletizing"
+          type="pointcloud_detection_test.py"
+          name="pointcloud_detection_test"
+          output="screen">
+        <param name="source_table_x" type="double" value="$(arg source_table_x)"/>
+        <param name="source_table_y" type="double" value="$(arg source_table_y)"/>
+        <param name="source_table_yaw" type="double" value="$(arg source_table_yaw)"/>
+        <param name="source_table_width" type="double" value="$(arg source_table_width)"/>
+        <param name="approach_offset" type="double" value="0.90"/>
+        <param name="detect_timeout" type="double" value="5.0"/>
+        <param name="detect_min_samples" type="int" value="3"/>
+        <param name="detect_fusion_samples" type="int" value="5"/>
+        <param name="detect_fusion_min_hits" type="int" value="2"/>
+        <param name="detect_fusion_merge_xy" type="double" value="0.08"/>
+        <param name="detect_retry_count" type="int" value="2"/>
+        <param name="detect_retry_settle" type="double" value="0.50"/>
+        <param name="continuous_detection" type="bool" value="true"/>
+        <param name="continuous_detection_interval" type="double" value="0.20"/>
+    </node>
+
+    <node if="$(arg start_rviz)"
+          pkg="rviz"
+          type="rviz"
+          name="rviz_pointcloud_test"
+          args="-d $(find gazebosim_demo)/rviz/pointcloud_detection_test.rviz" />
+</launch>

@@ -52,7 +52,7 @@ static float grab_gripper_value = 0.032;    //抓取物品时，手爪闭合后�
 static float grab_align_timeout = 15.0f;    //抓取前底盘对准超时时间，避免卡在 object x
 static float grab_hand_up_wait = 4.0f;      //手臂抬起后等待稳定的时间
 
-static float vel_max = 0.5;                     //移动限速
+static float vel_max = 0.4;                     //移动限速
 
 #define STEP_WAIT           0
 #define STEP_FIND_PLANE     1

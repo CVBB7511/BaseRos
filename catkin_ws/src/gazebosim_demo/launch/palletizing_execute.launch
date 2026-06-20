@@ -164,6 +164,7 @@
         <param name="zone_separation_y" type="double" value="0.45"/>
         <param name="place_depth_retreat" type="double" value="0.06"/>
         <param name="nav_timeout" type="double" value="120.0"/>
+        <param name="place_timeout" type="double" value="120.0"/>
         <param name="detect_timeout" type="double" value="5.0"/>
         <param name="detect_min_samples" type="int" value="3"/>
         <param name="detect_fusion_samples" type="int" value="5"/>

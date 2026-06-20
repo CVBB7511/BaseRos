@@ -257,12 +257,12 @@ void ProcCloudCB(const sensor_msgs::PointCloud2 &input)
 
     //to footprint
     sensor_msgs::PointCloud2 pc_footprint;
-    bool res = tf_listener->waitForTransform("/base_footprint", input.header.frame_id, input.header.stamp, ros::Duration(5.0)); 
+    bool res = tf_listener->waitForTransform("base_footprint", input.header.frame_id, input.header.stamp, ros::Duration(5.0));
     if(res == false)
     {
         return;
     }
-    pcl_ros::transformPointCloud("/base_footprint", input, pc_footprint, *tf_listener);
+    pcl_ros::transformPointCloud("base_footprint", input, pc_footprint, *tf_listener);
 
     //source cloud
     pcl::PointCloud<pcl::PointXYZRGB> cloud_src;

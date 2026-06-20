@@ -95,6 +95,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.source_table_x = rospy.get_param('~source_table_x', -1.5)
         self.source_table_y = rospy.get_param('~source_table_y', 0.0)
         self.source_table_z = rospy.get_param('~source_table_z', 0.75)
+        self.grab_table_height = rospy.get_param('~grab_table_height', 0.75)
         self.dest_table_x = rospy.get_param('~dest_table_x', 1.5)
         self.dest_table_y = rospy.get_param('~dest_table_y', 0.0)
         self.dest_table_z = rospy.get_param('~dest_table_z', 0.75)
@@ -126,7 +127,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.safe_gripper_open = rospy.get_param('~safe_gripper_open', 0.15)
         self.detect_lift_height = rospy.get_param('~detect_lift_height', 0.0)
         self.detect_gripper_open = rospy.get_param('~detect_gripper_open', self.safe_gripper_open)
-        self.retract_lift_height = rospy.get_param('~retract_lift_height', 0.80)
+        # Retract while navigating back so the arm is already in the
+        # detection pose when the robot reaches the source table.
+        self.retract_lift_height = rospy.get_param(
+            '~retract_lift_height', self.detect_lift_height)
         self.back_distance = rospy.get_param('~back_distance', 0.50)
         self.arm_reach_distance = rospy.get_param('~arm_reach_distance', 0.50)
         self.arm_exit_margin = rospy.get_param('~arm_exit_margin', 0.10)
@@ -145,6 +149,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self._init_object_detection()
         self.max_direct_grab_y = rospy.get_param('~max_direct_grab_y', 0.15)
         self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
+        self.place_timeout = rospy.get_param('~place_timeout', 120.0)
         self.nav_release_delay = rospy.get_param('~nav_release_delay', 0.15)
         self.nav_stop_publish_count = rospy.get_param('~nav_stop_publish_count', 3)
         self.nav_stop_publish_period = rospy.get_param('~nav_stop_publish_period', 0.05)
@@ -333,8 +338,9 @@ class PalletizingExecutor(ObjectDetectionMixin):
             self.grab_done = True
 
     def _place_result_callback(self, msg):
+        if msg.data != self.place_feedback:
+            rospy.loginfo("[place_result] %s", msg.data)
         self.place_feedback = msg.data
-        rospy.loginfo("[place_result] %s", msg.data)
         if msg.data == 'done' and time.time() - self.place_command_time > 0.5:
             self.place_done = True
 
@@ -391,13 +397,12 @@ class PalletizingExecutor(ObjectDetectionMixin):
             half.append(hsize)
             ex = objects.x[i] if i < len(objects.x) else 999.0
             y = objects.y[i] if i < len(objects.y) else 0.0
-            z_bottom = objects.z[i] if i < len(objects.z) else 0.0
             edge_x.append(ex)
             cx.append(ex - hsize)
             cy.append(y)
-            z_bot.append(z_bottom - self.PRISM_Z_OFFSET)
-            z_top.append(z_bottom - self.PRISM_Z_OFFSET + 2.0 * hsize)
-            cz.append(z_bottom - self.PRISM_Z_OFFSET + hsize)
+            z_bot.append(self.grab_table_height)
+            z_top.append(self.grab_table_height + 2.0 * hsize)
+            cz.append(self.grab_table_height + hsize)
 
         gripper_half = 0.04
         arm_body_h = 0.05
@@ -540,6 +545,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self._set_arm(self.safe_lift_height, self._get_gripper_value(obj_type))
 
     def _retract_arm(self):
+        rospy.loginfo("Retracting arm after table exit: lift=%.3f gripper=%.3f",
+                      self.retract_lift_height, self.safe_gripper_open)
         self._set_arm(self.retract_lift_height, self.safe_gripper_open)
 
     def _set_arm(self, lift, gripper):
@@ -686,7 +693,9 @@ class PalletizingExecutor(ObjectDetectionMixin):
             rospy.sleep(self.action_poll_period)
         return self.grab_feedback != 'failed'
 
-    def place_object(self, x, y, z, obj_type=None, timeout=90.0):
+    def place_object(self, x, y, z, obj_type=None, timeout=None):
+        if timeout is None:
+            timeout = self.place_timeout
         self.state = 'PLACING'
         self.place_done = False
         self.place_feedback = ''
@@ -709,6 +718,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         while not self.place_done:
             if time.time() - start > timeout:
                 rospy.logwarn("Place timeout: %s", self.place_feedback)
+                self.behavior_pub.publish(String(data='place stop'))
+                self._publish_stop()
                 return False
             rospy.sleep(self.action_poll_period)
         return True
@@ -745,8 +756,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         half = self._estimate_half_size(obj_type)
         edge_x = objects.x[idx] if idx < len(objects.x) else 0.0
         y = objects.y[idx] if idx < len(objects.y) else 0.0
-        z_min = objects.z[idx] if idx < len(objects.z) else 0.0
-        return obj_type, edge_x - half, y, z_min - self.PRISM_Z_OFFSET + half
+        return obj_type, edge_x - half, y, self.grab_table_height + half
 
     def run(self):
         rospy.loginfo("Simplified palletizing flow starting")

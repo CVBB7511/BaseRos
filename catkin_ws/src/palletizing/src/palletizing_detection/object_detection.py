@@ -24,6 +24,8 @@ class ObjectDetectionMixin:
         self.detect_fusion_samples = rospy.get_param('~detect_fusion_samples', 4)
         self.detect_fusion_min_hits = rospy.get_param(
             '~detect_fusion_min_hits', 2)
+        self.detect_early_finish = rospy.get_param(
+            '~detect_early_finish', True)
         self.detect_fusion_merge_xy = rospy.get_param(
             '~detect_fusion_merge_xy', 0.08)
         self.detect_retry_count = rospy.get_param('~detect_retry_count', 1)
@@ -93,7 +95,9 @@ class ObjectDetectionMixin:
 
     def _publish_fused_markers(self, objects):
         self._clear_fused_markers()
-        stamp = rospy.Time.now()
+        # These markers describe the latest robot-local detection.  A zero
+        # stamp asks RViz to use the newest TF instead of an expired history.
+        stamp = rospy.Time(0)
         prism_offset = getattr(self, 'PRISM_Z_OFFSET', 0.03)
         for idx, name in enumerate(objects.name):
             if idx >= len(objects.x) or idx >= len(objects.y) or idx >= len(objects.z):
@@ -249,8 +253,26 @@ class ObjectDetectionMixin:
         start = time.time()
         min_samples = max(1, int(self.detect_min_samples))
         target_samples = max(min_samples, int(self.detect_fusion_samples))
+        last_early_sample_count = 0
 
         while len(self.detected_object_samples) < target_samples:
+            sample_count = len(self.detected_object_samples)
+            if (self.detect_early_finish and sample_count >= min_samples and
+                    sample_count != last_early_sample_count):
+                last_early_sample_count = sample_count
+                fused = self._fuse_object_samples(
+                    self.detected_object_samples)
+                max_observed = max(
+                    len(sample.name) for sample in self.detected_object_samples)
+                if fused is not None and len(fused.name) >= max_observed:
+                    msg.data = 'object_detect stop'
+                    self.behavior_pub.publish(msg)
+                    self.latest_objects = fused
+                    rospy.loginfo(
+                        "Detected %d stable objects early from %d samples in %.2fs",
+                        len(fused.name), sample_count, time.time() - start)
+                    return True
+
             if time.time() - start > timeout:
                 fused = self._fuse_object_samples(
                     self.detected_object_samples)
@@ -258,8 +280,9 @@ class ObjectDetectionMixin:
                 self.behavior_pub.publish(msg)
                 if fused is not None and len(fused.name) > 0:
                     self.latest_objects = fused
-                    rospy.loginfo("Detected %d stable objects after timeout",
-                                  len(self.latest_objects.name))
+                    rospy.loginfo(
+                        "Detected %d stable objects after %.2fs timeout",
+                        len(self.latest_objects.name), time.time() - start)
                     return True
                 rospy.logwarn(
                     "Object detection timed out: got %d/%d non-empty samples",
@@ -276,7 +299,9 @@ class ObjectDetectionMixin:
                 len(self.detected_object_samples))
             return False
         self.latest_objects = fused
-        rospy.loginfo("Detected %d stable objects", len(self.latest_objects.name))
+        rospy.loginfo("Detected %d stable objects from %d samples in %.2fs",
+                      len(self.latest_objects.name),
+                      len(self.detected_object_samples), time.time() - start)
         return True
 
     def detect_with_retry(self):

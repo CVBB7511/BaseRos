@@ -38,7 +38,7 @@ class SimpleGridStacking:
     """Small destination-table grid, laid out in map coordinates."""
 
     def __init__(self, table_x, table_y, table_z, approach_yaw,
-                 grid_cols=2, grid_rows=3, spacing_x=0.18,
+                 grid_cols=2, grid_rows=2, spacing_x=0.20,
                  spacing_y=0.17, depth_retreat=0.06):
         self.table_x = table_x
         self.table_y = table_y
@@ -109,10 +109,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.dest_approach_yaw = self._derive_approach_yaw(self.dest_table_yaw)
 
         self.grid_cols = rospy.get_param('~grid_cols', 2)
-        self.grid_rows = rospy.get_param('~grid_rows', 3)
-        self.spacing_x = rospy.get_param('~spacing_x', 0.18)
+        self.grid_rows = rospy.get_param('~grid_rows', 2)
+        self.spacing_x = rospy.get_param('~spacing_x', 0.20)
         self.spacing_y = rospy.get_param('~spacing_y', 0.17)
-        self.zone_separation_y = rospy.get_param('~zone_separation_y', 0.35)
+        self.zone_separation_y = rospy.get_param('~zone_separation_y', 0.45)
         self.place_depth_retreat = rospy.get_param('~place_depth_retreat', 0.06)
 
         self.cube_height = rospy.get_param('~cube_height', 0.06)
@@ -164,7 +164,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         }
         self.gripper_open_values = {
             'hard_cube': rospy.get_param('~gripper_open_hard_cube', 0.16),
-            'soft_cube': rospy.get_param('~gripper_open_soft_cube', 0.20),
+            'soft_cube': rospy.get_param('~gripper_open_soft_cube', 0.22),
             'hard_sphere': rospy.get_param('~gripper_open_hard_sphere', 0.16),
             'soft_sphere': rospy.get_param('~gripper_open_soft_sphere', 0.20),
         }
@@ -694,13 +694,17 @@ class PalletizingExecutor(ObjectDetectionMixin):
         if obj_type:
             rospy.set_param('/wpb_home_place_action/place_hold_gripper_value',
                             self._get_gripper_value(obj_type))
+            rospy.set_param('/wpb_home_place_action/place_gripper_value',
+                            self._get_gripper_open_value(obj_type))
         pose = Pose()
         pose.position.x = x
         pose.position.y = y
         pose.position.z = z
         pose.orientation.w = 1.0
         self.place_pub.publish(pose)
-        rospy.loginfo("Place action target base_xy(%.3f, %.3f), z=%.3f", x, y, z)
+        rospy.loginfo("Place action target base_xy(%.3f, %.3f), z=%.3f type=%s release=%.3f",
+                      x, y, z, obj_type or 'default',
+                      self._get_gripper_open_value(obj_type) if obj_type else 0.18)
         start = time.time()
         while not self.place_done:
             if time.time() - start > timeout:

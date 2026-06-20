@@ -4,7 +4,9 @@ import math
 import time
 
 import rospy
+from geometry_msgs.msg import Point
 from std_msgs.msg import String
+from visualization_msgs.msg import Marker
 from wpb_home_behaviors.msg import Coord
 
 
@@ -27,6 +29,10 @@ class ObjectDetectionMixin:
         self.detect_retry_count = rospy.get_param('~detect_retry_count', 1)
         self.detect_retry_settle = rospy.get_param(
             '~detect_retry_settle', 0.15)
+        self.fused_marker_topic = rospy.get_param(
+            '~fused_marker_topic', '/palletizing/fused_marker')
+        self.fused_marker_pub = rospy.Publisher(
+            self.fused_marker_topic, Marker, queue_size=20)
         self.latest_objects = None
         self.detected_object_samples = []
 
@@ -60,6 +66,83 @@ class ObjectDetectionMixin:
 
     def _on_detection_success(self, _attempt, _attempts):
         """Optional host hook after a fused detection succeeds."""
+
+    def _clear_fused_markers(self):
+        marker = Marker()
+        marker.action = Marker.DELETEALL
+        self.fused_marker_pub.publish(marker)
+
+    @staticmethod
+    def _box_edge_points(x_min, x_max, y_min, y_max, z_min, z_max):
+        corners = [
+            (x_min, y_min, z_min), (x_min, y_max, z_min),
+            (x_max, y_max, z_min), (x_max, y_min, z_min),
+            (x_min, y_min, z_max), (x_min, y_max, z_max),
+            (x_max, y_max, z_max), (x_max, y_min, z_max),
+        ]
+        edges = [
+            (0, 1), (1, 2), (2, 3), (3, 0),
+            (4, 5), (5, 6), (6, 7), (7, 4),
+            (0, 4), (1, 5), (2, 6), (3, 7),
+        ]
+        points = []
+        for start, end in edges:
+            points.append(Point(*corners[start]))
+            points.append(Point(*corners[end]))
+        return points
+
+    def _publish_fused_markers(self, objects):
+        self._clear_fused_markers()
+        stamp = rospy.Time.now()
+        prism_offset = getattr(self, 'PRISM_Z_OFFSET', 0.03)
+        for idx, name in enumerate(objects.name):
+            if idx >= len(objects.x) or idx >= len(objects.y) or idx >= len(objects.z):
+                continue
+            obj_type = objects.type[idx] if idx < len(objects.type) else 'hard_cube'
+            default_size = self._get_object_height(obj_type)
+            size_x = objects.size_x[idx] if idx < len(objects.size_x) else default_size
+            size_y = objects.size_y[idx] if idx < len(objects.size_y) else default_size
+            size_z = objects.size_z[idx] if idx < len(objects.size_z) else default_size
+            x_max = objects.x[idx]
+            x_min = x_max - max(size_x, 0.01)
+            y_min = objects.y[idx] - max(size_y, 0.01) / 2.0
+            y_max = objects.y[idx] + max(size_y, 0.01) / 2.0
+            z_min = objects.z[idx] - prism_offset
+            z_max = z_min + max(size_z, 0.01)
+
+            box = Marker()
+            box.header.frame_id = 'base_footprint'
+            box.header.stamp = stamp
+            box.ns = 'fused_boxes'
+            box.id = idx
+            box.type = Marker.LINE_LIST
+            box.action = Marker.ADD
+            box.pose.orientation.w = 1.0
+            box.scale.x = 0.008
+            box.color.g = 0.9
+            box.color.b = 1.0
+            box.color.a = 1.0
+            box.points = self._box_edge_points(
+                x_min, x_max, y_min, y_max, z_min, z_max)
+            self.fused_marker_pub.publish(box)
+
+            label = Marker()
+            label.header.frame_id = 'base_footprint'
+            label.header.stamp = stamp
+            label.ns = 'fused_labels'
+            label.id = idx
+            label.type = Marker.TEXT_VIEW_FACING
+            label.action = Marker.ADD
+            label.pose.orientation.w = 1.0
+            label.pose.position.x = x_max
+            label.pose.position.y = objects.y[idx]
+            label.pose.position.z = z_max + 0.04
+            label.scale.z = 0.05
+            label.color.g = 0.9
+            label.color.b = 1.0
+            label.color.a = 1.0
+            label.text = '%s %s' % (name, obj_type)
+            self.fused_marker_pub.publish(label)
 
     def _fuse_object_samples(self, samples, min_hits=None):
         if min_hits is None:
@@ -201,6 +284,7 @@ class ObjectDetectionMixin:
         for attempt in range(attempts):
             self._wait_robot_settled(self.detect_retry_settle)
             if self.detect_objects():
+                self._publish_fused_markers(self.latest_objects)
                 self._on_detection_success(attempt + 1, attempts)
                 return True
             rospy.logwarn("Detect attempt %d/%d failed", attempt + 1, attempts)

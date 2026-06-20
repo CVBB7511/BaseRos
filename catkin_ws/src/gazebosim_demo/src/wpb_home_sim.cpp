@@ -44,6 +44,7 @@
 #include <sensor_msgs/JointState.h>
 #include <std_msgs/String.h>
 #include <std_msgs/Float64.h>
+#include <algorithm>
 #include <math.h>
 
 static ros::Publisher mani_base_pub;
@@ -59,7 +60,9 @@ static tf::TransformBroadcaster* tf_broadcast;
 
 void ManiGripper(float inGripperValue)
 {
-    float fGripperAngle = asin((inGripperValue - 0.025)*5);
+    // The linkage equation is only defined for openings up to 0.225 m.
+    const float safeGripperValue = std::max(0.025f, std::min(inGripperValue, 0.224f));
+    float fGripperAngle = asin((safeGripperValue - 0.025f)*5.0f);
     std_msgs::Float64 gripper_msg;
     gripper_msg.data = fGripperAngle;
     palm_left_finger_pub.publish(gripper_msg);

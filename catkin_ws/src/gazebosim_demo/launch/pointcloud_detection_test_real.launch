@@ -119,6 +119,7 @@
         <param name="detect_retry_settle" type="double" value="0.50"/>
         <param name="continuous_detection" type="bool" value="true"/>
         <param name="continuous_detection_interval" type="double" value="0.20"/>
+        <param name="fused_marker_topic" type="string" value="/pointcloud_test/fused_marker"/>
     </node>
 
     <node if="$(arg start_rviz)"

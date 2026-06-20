@@ -92,13 +92,16 @@ void PlaceActionCallback(const geometry_msgs::Pose::ConstPtr& msg)
 {
     ros::NodeHandle pnh("~");
     pnh.param("place_hold_gripper_value", place_hold_gripper_value, place_hold_gripper_value);
+    pnh.param("place_gripper_value", place_gripper_value, place_gripper_value);
     mani_ctrl_msg.position[1] = place_hold_gripper_value;
 
     // 放置物品的坐标
     fPlaceX = msg->position.x;
     fPlaceY = msg->position.y;
     fPlaceZ = msg->position.z;
-    ROS_WARN("[Place] x = %.2f y= %.2f ,z= %.2f " ,fPlaceX, fPlaceY, fPlaceZ);
+    ROS_WARN("[Place] x = %.2f y= %.2f ,z= %.2f hold=%.3f release=%.3f",
+             fPlaceX, fPlaceY, fPlaceZ,
+             place_hold_gripper_value, place_gripper_value);
     odom_ctrl_msg.data = "pose_diff reset";
     odom_ctrl_pub.publish(odom_ctrl_msg);
 

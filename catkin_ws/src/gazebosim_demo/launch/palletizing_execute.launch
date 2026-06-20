@@ -13,6 +13,7 @@
     <arg name="map_file" default="$(find gazebosim_demo)/maps/palletizing_map.yaml"/>
     <arg name="start_gazebo" default="true"/>
     <arg name="start_robot" default="true"/>
+    <arg name="start_detection_rviz" default="true"/>
 
     <!-- 取货桌（source table） -->
     <arg name="source_table_x" default="-1.5"/>
@@ -62,14 +63,18 @@
         <param name="filter_cube_size" type="bool" value="true" />
         <param name="cube_size_small" type="double" value="0.10" />
         <param name="cube_size_large" type="double" value="0.15" />
-        <param name="cube_size_tolerance" type="double" value="0.04" />
+        <param name="cube_size_tolerance" type="double" value="0.07" />
         <param name="cube_min_x_size" type="double" value="0.03" />
-        <param name="cube_max_x_size" type="double" value="0.25" />
-        <param name="cube_shape_ratio" type="double" value="1.8" />
+        <param name="cube_max_x_size" type="double" value="0.35" />
+        <param name="cube_shape_ratio" type="double" value="2.3" />
         <param name="cube_prism_bottom_cut" type="double" value="0.03" />
         <param name="cluster_tolerance" type="double" value="0.04" />
         <param name="cluster_min_size" type="int" value="500" />
         <param name="cluster_max_size" type="int" value="10000000" />
+        <param name="filter_object_outliers" type="bool" value="true" />
+        <param name="outlier_mean_k" type="int" value="20" />
+        <param name="outlier_stddev" type="double" value="1.0" />
+        <param name="bbox_trim_ratio" type="double" value="0.05" />
     </node>
     <!-- grab_action: coordinate-driven grab (palletizing_executor sends Pose of
          the specific object to grab, no autonomous detection mismatch) -->
@@ -147,25 +152,25 @@
         <param name="zones_file" type="string" value="$(arg zones_file)"/>
         <!-- Stacking params -->
         <param name="grid_cols" type="int" value="2"/>
-        <param name="grid_rows" type="int" value="3"/>
+        <param name="grid_rows" type="int" value="2"/>
         <param name="cube_height" type="double" value="0.06"/>
         <param name="hard_cube_height" type="double" value="0.10"/>
         <param name="soft_cube_height" type="double" value="0.15"/>
         <param name="soft_place_offset" type="double" value="0.005"/>
         <param name="place_stack_clearance" type="double" value="0.0"/>
         <param name="stacking_pattern" type="string" value="aligned"/>
-        <param name="spacing_x" type="double" value="0.18"/>
+        <param name="spacing_x" type="double" value="0.20"/>
         <param name="spacing_y" type="double" value="0.17"/>
-        <param name="zone_separation_y" type="double" value="0.35"/>
+        <param name="zone_separation_y" type="double" value="0.45"/>
         <param name="place_depth_retreat" type="double" value="0.06"/>
         <param name="nav_timeout" type="double" value="120.0"/>
-        <param name="detect_timeout" type="double" value="2.0"/>
-        <param name="detect_min_samples" type="int" value="2"/>
-        <param name="detect_fusion_samples" type="int" value="3"/>
+        <param name="detect_timeout" type="double" value="5.0"/>
+        <param name="detect_min_samples" type="int" value="3"/>
+        <param name="detect_fusion_samples" type="int" value="5"/>
         <param name="detect_fusion_min_hits" type="int" value="2"/>
         <param name="detect_fusion_merge_xy" type="double" value="0.08"/>
-        <param name="detect_retry_count" type="int" value="1"/>
-        <param name="detect_retry_settle" type="double" value="0.15"/>
+        <param name="detect_retry_count" type="int" value="2"/>
+        <param name="detect_retry_settle" type="double" value="0.50"/>
         <param name="detect_lift_height" type="double" value="0.0"/>
         <param name="detect_gripper_open" type="double" value="0.15"/>
         <param name="arm_reach_distance" type="double" value="0.50"/>
@@ -177,11 +182,16 @@
         <param name="gripper_hard_cube" type="double" value="0.032"/>
         <param name="gripper_soft_cube" type="double" value="0.115"/>
         <param name="gripper_open_hard_cube" type="double" value="0.16"/>
-        <param name="gripper_open_soft_cube" type="double" value="0.20"/>
+        <param name="gripper_open_soft_cube" type="double" value="0.22"/>
     </node>
 
     <!-- ===== RViz (navigation view) ===== -->
     <node pkg="rviz" type="rviz" name="rviz_nav"
         args="-d $(find gazebosim_demo)/rviz/nav.rviz" />
+
+    <!-- Dedicated RGB/point-cloud/object-detection view. -->
+    <node if="$(arg start_detection_rviz)"
+        pkg="rviz" type="rviz" name="rviz_detection"
+        args="-d $(find gazebosim_demo)/rviz/palletizing_detection_sim.rviz" />
 
 </launch>

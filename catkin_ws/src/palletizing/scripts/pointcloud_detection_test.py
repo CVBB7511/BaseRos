@@ -20,12 +20,11 @@ import threading
 
 import actionlib
 import rospy
-from geometry_msgs.msg import Point, Twist
+from geometry_msgs.msg import Twist
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from palletizing.srv import StartTask, StartTaskResponse
 from palletizing_detection import ObjectDetectionMixin
 from std_msgs.msg import String
-from visualization_msgs.msg import Marker
 from wpb_home_behaviors.msg import Coord
 
 
@@ -69,8 +68,6 @@ class PointCloudDetectionTest(ObjectDetectionMixin):
         self.behavior_pub = rospy.Publisher(
             '/wpb_home/behaviors', String, queue_size=10)
         self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-        self.fused_marker_pub = rospy.Publisher(
-            '/pointcloud_test/fused_marker', Marker, queue_size=20)
         rospy.Subscriber('/wpb_home/objects_3d', Coord, self._objects_callback)
 
         self.move_base_client = actionlib.SimpleActionClient(
@@ -144,84 +141,6 @@ class PointCloudDetectionTest(ObjectDetectionMixin):
 
     def _stop_detector(self):
         self._publish_detection_command('object_detect stop')
-
-    def _clear_fused_markers(self):
-        marker = Marker()
-        marker.action = Marker.DELETEALL
-        self.fused_marker_pub.publish(marker)
-
-    @staticmethod
-    def _box_edge_points(x_min, x_max, y_min, y_max, z_min, z_max):
-        corners = [
-            (x_min, y_min, z_min), (x_min, y_max, z_min),
-            (x_max, y_max, z_min), (x_max, y_min, z_min),
-            (x_min, y_min, z_max), (x_min, y_max, z_max),
-            (x_max, y_max, z_max), (x_max, y_min, z_max),
-        ]
-        edges = [
-            (0, 1), (1, 2), (2, 3), (3, 0),
-            (4, 5), (5, 6), (6, 7), (7, 4),
-            (0, 4), (1, 5), (2, 6), (3, 7),
-        ]
-        points = []
-        for start, end in edges:
-            points.append(Point(*corners[start]))
-            points.append(Point(*corners[end]))
-        return points
-
-    def _publish_fused_markers(self, objects):
-        self._clear_fused_markers()
-        stamp = rospy.Time.now()
-        for idx, name in enumerate(objects.name):
-            if idx >= len(objects.x) or idx >= len(objects.y) or idx >= len(objects.z):
-                continue
-            obj_type = objects.type[idx] if idx < len(objects.type) else 'hard_cube'
-            default_size = self._get_object_height(obj_type)
-            size_x = objects.size_x[idx] if idx < len(objects.size_x) else default_size
-            size_y = objects.size_y[idx] if idx < len(objects.size_y) else default_size
-            size_z = objects.size_z[idx] if idx < len(objects.size_z) else default_size
-            x_max = objects.x[idx]
-            x_min = x_max - max(size_x, 0.01)
-            y_min = objects.y[idx] - max(size_y, 0.01) / 2.0
-            y_max = objects.y[idx] + max(size_y, 0.01) / 2.0
-            z_min = objects.z[idx] - self.PRISM_Z_OFFSET
-            z_max = z_min + max(size_z, 0.01)
-
-            box = Marker()
-            box.header.frame_id = 'base_footprint'
-            box.header.stamp = stamp
-            box.ns = 'fused_boxes'
-            box.id = idx
-            box.type = Marker.LINE_LIST
-            box.action = Marker.ADD
-            box.pose.orientation.w = 1.0
-            box.scale.x = 0.008
-            box.color.r = 0.0
-            box.color.g = 0.9
-            box.color.b = 1.0
-            box.color.a = 1.0
-            box.points = self._box_edge_points(
-                x_min, x_max, y_min, y_max, z_min, z_max)
-            self.fused_marker_pub.publish(box)
-
-            label = Marker()
-            label.header.frame_id = 'base_footprint'
-            label.header.stamp = stamp
-            label.ns = 'fused_labels'
-            label.id = idx
-            label.type = Marker.TEXT_VIEW_FACING
-            label.action = Marker.ADD
-            label.pose.orientation.w = 1.0
-            label.pose.position.x = x_max
-            label.pose.position.y = objects.y[idx]
-            label.pose.position.z = z_max + 0.04
-            label.scale.z = 0.05
-            label.color.r = 0.0
-            label.color.g = 0.9
-            label.color.b = 1.0
-            label.color.a = 1.0
-            label.text = '%s %s' % (name, obj_type)
-            self.fused_marker_pub.publish(label)
 
     def _source_approach_pose(self):
         yaw = self._derive_approach_yaw(self.source_table_yaw)
@@ -317,8 +236,7 @@ class PointCloudDetectionTest(ObjectDetectionMixin):
             rospy.loginfo("Manual mode: detecting at the current base pose")
 
         while not rospy.is_shutdown():
-            if self.detect_with_retry() and self.latest_objects is not None:
-                self._publish_fused_markers(self.latest_objects)
+            self.detect_with_retry()
             if not self.continuous_detection or self.stop_detection_event.is_set():
                 break
             if self.stop_detection_event.wait(

@@ -28,16 +28,16 @@
     <param name="dest_table_length" type="double" value="$(arg dest_table_length)"/>
     <param name="dest_table_width" type="double" value="$(arg dest_table_width)"/>
     <param name="grid_cols" type="int" value="2"/>
-    <param name="grid_rows" type="int" value="3"/>
+    <param name="grid_rows" type="int" value="2"/>
     <param name="cube_height" type="double" value="0.06"/>   <!-- 兜底默认值 -->
     <param name="hard_cube_height" type="double" value="0.10"/>
     <param name="soft_cube_height" type="double" value="0.15"/>
     <param name="sphere_height" type="double" value="0.15"/>
     <param name="soft_place_offset" type="double" value="0.005"/>
     <param name="stacking_pattern" type="string" value="aligned"/>
-    <param name="spacing_x" type="double" value="0.18"/>
+    <param name="spacing_x" type="double" value="0.20"/>
     <param name="spacing_y" type="double" value="0.17"/>
-    <param name="zone_separation_y" type="double" value="0.35"/>   <!-- 两种物体的堆叠区间距 -->
+    <param name="zone_separation_y" type="double" value="0.45"/>   <!-- 两种物体的堆叠区间距 -->
     <param name="place_depth_retreat" type="double" value="0.06"/> <!-- 放置点从桌子远端往机器人方向回收，避免过深掉落 -->
     <param name="zone_half_x" type="double" value="0.50"/>        <!-- 候选点法: 区半宽 -->
     <param name="zone_half_y" type="double" value="0.25"/>        <!-- 候选点法: 区半深 -->
@@ -47,7 +47,7 @@
     <param name="gripper_hard_cube" type="double" value="0.032"/>
     <param name="gripper_soft_cube" type="double" value="0.115"/>
     <param name="gripper_open_hard_cube" type="double" value="0.16"/>
-    <param name="gripper_open_soft_cube" type="double" value="0.20"/>
+    <param name="gripper_open_soft_cube" type="double" value="0.22"/>
     <param name="gripper_hard_sphere" type="double" value="0.028"/>
     <param name="gripper_soft_sphere" type="double" value="0.040"/>
     <param name="gripper_open_hard_sphere" type="double" value="0.16"/>

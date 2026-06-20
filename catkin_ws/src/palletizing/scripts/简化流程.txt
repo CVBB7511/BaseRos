@@ -12,14 +12,18 @@
 x 0.000
 y -0.100
 z 0
+ kinect_height: 1.36
+ kinect_pitch: -0.4538
+
+
 有机械臂的机器人
 x 0.170
 y -0.100
 z 0
-
 zeros:
  kinect_height: 1.32
  kinect_pitch: -0.61
+
 
 
  注意： 全部流程，机械臂的默认高度是0.8m,这是不会碰到桌面的安全高度

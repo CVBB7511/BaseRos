@@ -40,6 +40,7 @@ class SimpleGridStacking:
     def __init__(self, table_x, table_y, table_z, approach_yaw,
                  grid_cols=2, grid_rows=2, spacing_x=0.20,
                  spacing_y=0.17, depth_retreat=0.06):
+        """Initialize one stacking grid and its map-frame orientation."""
         self.table_x = table_x
         self.table_y = table_y
         self.table_z = table_z
@@ -57,6 +58,7 @@ class SimpleGridStacking:
         self.cell_heights = []
 
     def get_place_pose(self, object_height):
+        """Return the next cell position and its current stack-top height."""
         col = self.current_index % self.grid_cols
         row = self.current_index // self.grid_cols
         side_offset = -(self.grid_cols - 1) * self.spacing_x / 2.0 + col * self.spacing_x
@@ -72,6 +74,7 @@ class SimpleGridStacking:
         return x, y, z
 
     def mark_placed(self, object_height):
+        """Advance the grid after a placement and raise that cell's top."""
         cell_idx = self.current_index
         if cell_idx >= len(self.cell_heights):
             self.cell_heights.append(self.table_z)
@@ -90,6 +93,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
     PRISM_Z_OFFSET = 0.03
 
     def __init__(self):
+        """Load ROS parameters and create all publishers, services, and state."""
         rospy.init_node('palletizing_executor')
 
         self.source_table_x = rospy.get_param('~source_table_x', -1.5)
@@ -218,14 +222,17 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
     @staticmethod
     def _derive_approach_yaw(table_yaw):
+        """Return the normalized robot heading facing the table front."""
         yaw = table_yaw + math.pi
         return math.atan2(math.sin(yaw), math.cos(yaw))
 
     @staticmethod
     def _angle_diff(a, b):
+        """Return the shortest signed angular difference in radians."""
         return math.atan2(math.sin(a - b), math.cos(a - b))
 
     def _default_zones_file(self):
+        """Choose the default persistent table-zone calibration file."""
         try:
             pkg_path = rospkg.RosPack().get_path('palletizing')
             project_root = os.path.abspath(os.path.join(pkg_path, '..', '..', '..'))
@@ -234,6 +241,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             return os.path.join(os.path.expanduser('~'), 'waterjet', 'zones.yaml')
 
     def _load_zones_file(self):
+        """Load saved table-zone values, returning an empty dict on failure."""
         try:
             if os.path.exists(self.zones_file):
                 with open(self.zones_file, 'r') as f:
@@ -243,6 +251,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return {}
 
     def _save_zones_file(self, data):
+        """Save zone data and report whether the YAML write succeeded."""
         try:
             os.makedirs(os.path.dirname(self.zones_file), exist_ok=True)
             with open(self.zones_file, 'w') as f:
@@ -253,6 +262,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             return False
 
     def _load_saved_zones(self):
+        """Apply persisted source/destination geometry over ROS defaults."""
         saved = self._load_zones_file()
         if not saved:
             return
@@ -273,6 +283,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         rospy.loginfo("Loaded saved table zones from %s", self.zones_file)
 
     def _mark_zone(self, req):
+        """Handle a table calibration request and rebuild stacking zones."""
         saved = self._load_zones_file()
         length = req.length if req.length > 0.01 else 1.0
         width = req.width if req.width > 0.01 else 0.5
@@ -310,6 +321,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return MarkZoneResponse(success=ok)
 
     def _create_zones(self):
+        """Build separate hard/soft stacking grids on the destination table."""
         zones = {}
         side_x = -math.sin(self.dest_approach_yaw)
         side_y = math.cos(self.dest_approach_yaw)
@@ -329,15 +341,18 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return zones
 
     def _on_detection_message(self, msg):
+        """Record the object count from each accepted detector message."""
         self.objects_total = len(msg.name)
 
     def _grab_result_callback(self, msg):
+        """Track grab-action feedback and mark terminal results complete."""
         self.grab_feedback = msg.data
         rospy.loginfo("[grab_result] %s", msg.data)
         if msg.data in ('done', 'failed'):
             self.grab_done = True
 
     def _place_result_callback(self, msg):
+        """Track place feedback while rejecting stale immediate done messages."""
         if msg.data != self.place_feedback:
             rospy.loginfo("[place_result] %s", msg.data)
         self.place_feedback = msg.data
@@ -345,6 +360,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             self.place_done = True
 
     def _start_callback(self, _req):
+        """Start one palletizing run in a worker thread if currently idle."""
         if self.state not in ('IDLE', 'DONE'):
             return StartTaskResponse(
                 success=False,
@@ -354,6 +370,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return StartTaskResponse(success=True, message="Simplified palletizing started")
 
     def _get_object_height(self, obj_type):
+        """Return the configured physical height for a normalized object type."""
         if obj_type == 'hard_cube':
             return self.hard_cube_height
         if obj_type == 'soft_cube':
@@ -363,6 +380,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return self.cube_height
 
     def _object_type(self, objects, idx, default='hard_cube'):
+        """Normalize detector labels into the executor's material/type names."""
         types = getattr(objects, 'type', [])
         if idx < len(types) and types[idx]:
             raw_type = types[idx]
@@ -374,15 +392,22 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return default
 
     def _zone_for_type(self, obj_type):
+        """Select the destination grid associated with an object's material."""
         return self.zones['soft'] if 'soft' in obj_type else self.zones['hard']
 
     def _material_name(self, obj_type):
+        """Return the short material name used by logs and speech."""
         return 'soft' if 'soft' in obj_type else 'hard'
 
     def _estimate_half_size(self, obj_type):
+        """Estimate a symmetric object's half-size from configured height."""
         return self._get_object_height(obj_type) / 2.0
 
     def _compute_collision_risk(self, objects):
+        """Score grasp obstruction using fixed-table 3D object envelopes.
+
+        Returns per-object risk and dependency data consumed by the picker.
+        """
         n = len(objects.name)
         half = []
         cx = []
@@ -453,6 +478,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return risk, blocked, y_nbrs, arm_blocked, z_top, edge_x, arm_blockers, cx, cy, cz
 
     def _sort_objects(self, objects):
+        """Order detections by reachability, collision risk, and correction."""
         n = len(objects.name)
         if n == 0:
             return []
@@ -494,6 +520,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return sorted_indices
 
     def _transform_point(self, x, y, z, from_frame, to_frame):
+        """Transform a 3D point with the latest TF, raising on TF failure."""
         point = PointStamped()
         point.header.frame_id = from_frame
         point.header.stamp = rospy.Time(0)
@@ -511,6 +538,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
                                (from_frame, to_frame, e))
 
     def _get_robot_position(self):
+        """Return the latest robot map-frame x, y, and yaw pose."""
         try:
             self.tf_listener.waitForTransform(
                 '/map', '/base_link', rospy.Time(0), rospy.Duration(0.5))
@@ -523,6 +551,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             raise RuntimeError("TF lookup /map -> /base_link failed: %s" % e)
 
     def _wait_robot_settled(self, duration=None):
+        """Publish stop commands and wait briefly before precision work."""
         if duration is None:
             duration = self.robot_settle_time
         self._publish_stop()
@@ -530,26 +559,32 @@ class PalletizingExecutor(ObjectDetectionMixin):
             rospy.sleep(duration)
 
     def _publish_stop(self):
+        """Publish repeated zero twists so previous velocity commands expire."""
         stop = Twist()
         for _ in range(self.nav_stop_publish_count):
             self.cmd_vel_pub.publish(stop)
             rospy.sleep(self.nav_stop_publish_period)
 
     def _raise_arm(self):
+        """Move to the configured transport height with an open gripper."""
         self._set_arm(self.safe_lift_height, self.safe_gripper_open)
 
     def _prepare_arm_for_detection(self):
+        """Command the low, open arm pose used for unobstructed detection."""
         self._set_arm(self.detect_lift_height, self.detect_gripper_open)
 
     def _raise_arm_keep_grip(self, obj_type):
+        """Move to transport height while retaining the object's grip width."""
         self._set_arm(self.safe_lift_height, self._get_gripper_value(obj_type))
 
     def _retract_arm(self):
+        """Start retracting after table clearance, normally during navigation."""
         rospy.loginfo("Retracting arm after table exit: lift=%.3f gripper=%.3f",
                       self.retract_lift_height, self.safe_gripper_open)
         self._set_arm(self.retract_lift_height, self.safe_gripper_open)
 
     def _set_arm(self, lift, gripper):
+        """Repeat an asynchronous absolute lift/gripper command for reliability."""
         cmd = JointState()
         cmd.name = ['lift', 'gripper']
         cmd.position = [lift, gripper]
@@ -559,6 +594,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             rospy.sleep(self.arm_publish_period)
 
     def _back_up(self, distance=None):
+        """Drive backward open-loop for a requested distance, then stop."""
         if distance is None:
             distance = self.back_distance
         if distance <= 0.0:
@@ -576,6 +612,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self._publish_stop()
 
     def _table_edge_clearance(self, table_x, table_y, table_width, approach_yaw):
+        """Compute forward distance from robot center to the near table edge."""
         robot_x, robot_y, _ = self._get_robot_position()
         depth_x = math.cos(approach_yaw)
         depth_y = math.sin(approach_yaw)
@@ -586,6 +623,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
     def _back_up_until_arm_exits_table(self, table_x, table_y, table_width,
                                        approach_yaw, label):
+        """Back up only enough for arm reach plus margin to clear a table."""
         required_clearance = self.arm_reach_distance + self.arm_exit_margin
         try:
             current_clearance = self._table_edge_clearance(
@@ -608,6 +646,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self._back_up(back_distance)
 
     def _get_approach_position(self, table_x, table_y, for_place=False):
+        """Calculate a map-frame navigation pose offset from a table edge."""
         if for_place:
             yaw = self.dest_approach_yaw
             half_depth = self.dest_table_width / 2.0 if self.dest_table_width > 0.01 else self.table_half_depth
@@ -619,6 +658,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return table_x - distance * math.cos(yaw), table_y - distance * math.sin(yaw), yaw
 
     def _near_nav_goal(self, nav_x, nav_y, nav_yaw):
+        """Accept a non-success action result when final pose is in tolerance."""
         try:
             robot_x, robot_y, robot_yaw = self._get_robot_position()
         except RuntimeError as e:
@@ -632,6 +672,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return ok
 
     def navigate_to_pose(self, nav_x, nav_y, nav_yaw, timeout=None):
+        """Send a map-frame move_base goal and enforce timeout/stop handling."""
         if timeout is None:
             timeout = self.nav_timeout
         self.state = 'NAVIGATING'
@@ -659,16 +700,20 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return self._near_nav_goal(nav_x, nav_y, nav_yaw)
 
     def navigate_to_table(self, table_x, table_y, for_place=False):
+        """Navigate to the configured source or destination approach offset."""
         nav_x, nav_y, nav_yaw = self._get_approach_position(table_x, table_y, for_place)
         return self.navigate_to_pose(nav_x, nav_y, nav_yaw)
 
     def _get_gripper_value(self, obj_type):
+        """Return the closed gripper width for an object type."""
         return self.gripper_values.get(obj_type, 0.035)
 
     def _get_gripper_open_value(self, obj_type):
+        """Return the pre-grasp/release opening width for an object type."""
         return self.gripper_open_values.get(obj_type, 0.18)
 
     def grab_object(self, obj_type, x, y, z, timeout=90.0):
+        """Configure and run grab_action for a base-frame grasp point."""
         self.state = 'GRABBING'
         self.grab_done = False
         self.grab_feedback = ''
@@ -694,6 +739,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return self.grab_feedback != 'failed'
 
     def place_object(self, x, y, z, obj_type=None, timeout=None):
+        """Configure and run place_action, stopping the behavior on timeout."""
         if timeout is None:
             timeout = self.place_timeout
         self.state = 'PLACING'
@@ -725,6 +771,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return True
 
     def _publish_stats(self):
+        """Publish the latest task counts, layers, state, and timing metrics."""
         stats = PalletizingStats()
         stats.total_objects = self.objects_processed + 1
         stats.success_count = self.objects_succeeded
@@ -741,9 +788,11 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.stats_pub.publish(stats)
 
     def _publish_stats_timer(self, _event):
+        """Timer callback that republishes current task statistics."""
         self._publish_stats()
 
     def _speak(self, text):
+        """Send one text-to-speech request without blocking task execution."""
         msg = SoundRequest()
         msg.sound = SoundRequest.SAY
         msg.command = SoundRequest.PLAY_ONCE
@@ -752,6 +801,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.tts_pub.publish(msg)
 
     def _selected_grasp_points(self, objects, idx):
+        """Build a cube-center grasp point using fixed table height.
+
+        Detector X is the far box edge, so nominal half-size is subtracted.
+        """
         obj_type = self._object_type(objects, idx)
         half = self._estimate_half_size(obj_type)
         edge_x = objects.x[idx] if idx < len(objects.x) else 0.0
@@ -759,6 +812,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return obj_type, edge_x - half, y, self.grab_table_height + half
 
     def run(self):
+        """Execute repeated detect, pick, transport, place, and return cycles."""
         rospy.loginfo("Simplified palletizing flow starting")
         rospy.sleep(0.5)
         self.task_start_time = time.time()

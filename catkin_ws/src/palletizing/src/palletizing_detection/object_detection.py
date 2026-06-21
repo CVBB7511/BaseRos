@@ -243,6 +243,8 @@ class ObjectDetectionMixin:
         return fused
 
     def detect_objects(self, timeout=None):
+        if getattr(self, '_stop_requested', lambda: False)():
+            return False
         if timeout is None:
             timeout = self.detect_timeout
         self.state = 'DETECTING'
@@ -256,6 +258,9 @@ class ObjectDetectionMixin:
         last_early_sample_count = 0
 
         while len(self.detected_object_samples) < target_samples:
+            if getattr(self, '_stop_requested', lambda: False)():
+                self.behavior_pub.publish(String(data='object_detect stop'))
+                return False
             sample_count = len(self.detected_object_samples)
             if (self.detect_early_finish and sample_count >= min_samples and
                     sample_count != last_early_sample_count):
@@ -307,6 +312,8 @@ class ObjectDetectionMixin:
     def detect_with_retry(self):
         attempts = max(1, int(self.detect_retry_count))
         for attempt in range(attempts):
+            if getattr(self, '_stop_requested', lambda: False)():
+                return False
             self._wait_robot_settled(self.detect_retry_settle)
             if self.detect_objects():
                 self._publish_fused_markers(self.latest_objects)

@@ -94,18 +94,25 @@
     <v-btn
       color="success"
       prepend-icon="mdi-play-circle-outline"
-      :disabled="!rosStore.ros || frontendStore.busy"
+      :disabled="!rosStore.ros || frontendStore.busy || frontendStore.palletizingActive"
       :loading="frontendStore.busy"
       @click="startTask"
     >
       开始码垛
     </v-btn>
+    <v-btn
+      color="error"
+      prepend-icon="mdi-stop-circle-outline"
+      variant="outlined"
+      :disabled="!rosStore.ros || frontendStore.busy || !frontendStore.palletizingActive"
+      :loading="frontendStore.busy"
+      @click="stopTask"
+    >
+      终止码垛
+    </v-btn>
 
     <v-divider />
 
-    <div class="hint">
-      键盘遥控会在联调脚本中独立弹出终端：w/s/a/d/q/e 移动，空格刹车。
-    </div>
     <div class="log-window">
       <div v-if="!frontendStore.message && !frontendStore.error" class="log-empty">暂无操作日志</div>
       <v-alert v-if="frontendStore.message" density="compact" type="success" variant="tonal">
@@ -152,6 +159,12 @@ function calibrate() {
 function startTask() {
   if (rosStore.ros) {
     frontendStore.startTask(rosStore.ros)
+  }
+}
+
+function stopTask() {
+  if (rosStore.ros) {
+    frontendStore.stopTask(rosStore.ros)
   }
 }
 </script>

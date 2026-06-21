@@ -45,6 +45,10 @@ export function startPalletizing(ros: ROSLIB.Ros): Promise<ServiceResult> {
   return callService(ros, '/frontend/start_palletizing', 'std_srvs/Trigger', {})
 }
 
+export function stopPalletizing(ros: ROSLIB.Ros): Promise<ServiceResult> {
+  return callService(ros, '/frontend/stop_palletizing', 'std_srvs/Trigger', {})
+}
+
 function callService(
   ros: ROSLIB.Ros,
   name: string,

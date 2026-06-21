@@ -1,6 +1,6 @@
 import ROSLIB from 'roslib'
 import { defineStore } from 'pinia'
-import { calibrateZone, importMap, queryFrontendStatus, saveMap, startMapping, startPalletizing } from '../ros/frontend'
+import { calibrateZone, importMap, queryFrontendStatus, saveMap, startMapping, startPalletizing, stopPalletizing } from '../ros/frontend'
 import type { PalletizingStats } from '../ros/types'
 
 type ZoneName = 'source' | 'dest'
@@ -23,6 +23,8 @@ interface FrontendState {
   error: string
   palletizingStats: PalletizingStats | null
   palletizingTopic: ROSLIB.Topic | null
+  palletizingActive: boolean
+  palletizingState: string
 }
 
 export const useFrontendStore = defineStore('frontend', {
@@ -44,11 +46,13 @@ export const useFrontendStore = defineStore('frontend', {
     error: '',
     palletizingStats: null,
     palletizingTopic: null,
+    palletizingActive: false,
+    palletizingState: 'IDLE',
   }),
   getters: {
     modeLabel: (state) => state.mode === 'sim' ? '仿真' : '真机',
     palletizingStateLabel: (state) => {
-      const value = state.palletizingStats?.current_state || '未启动'
+      const value = state.palletizingState
       const labels: Record<string, string> = {
         IDLE: '空闲',
         STARTING: '启动中',
@@ -56,6 +60,8 @@ export const useFrontendStore = defineStore('frontend', {
         DETECTING: '检测物体',
         GRABBING: '抓取中',
         PLACING: '放置中',
+        ABORTING: '正在终止',
+        ABORTED: '人为终止',
         DONE: '已完成',
       }
       return labels[value] || value
@@ -122,6 +128,20 @@ export const useFrontendStore = defineStore('frontend', {
         this.subscribePalletizingStats(ros)
         const result = await startPalletizing(ros)
         this.applyResult(result)
+        if (result.success) {
+          this.palletizingActive = true
+          this.palletizingState = 'STARTING'
+        }
+      })
+    },
+    async stopTask(ros: ROSLIB.Ros) {
+      await this.run(async () => {
+        const result = await stopPalletizing(ros)
+        this.applyResult(result)
+        if (result.success) {
+          this.palletizingActive = false
+          this.palletizingState = 'ABORTED'
+        }
       })
     },
     subscribePalletizingStats(ros: ROSLIB.Ros) {
@@ -136,6 +156,10 @@ export const useFrontendStore = defineStore('frontend', {
       })
       this.palletizingTopic.subscribe((message) => {
         this.palletizingStats = message as PalletizingStats
+        this.palletizingState = this.palletizingStats.current_state
+        this.palletizingActive = !['IDLE', 'DONE', 'ABORTED'].includes(
+          this.palletizingStats.current_state,
+        )
       })
     },
     unsubscribePalletizingStats() {
@@ -144,6 +168,8 @@ export const useFrontendStore = defineStore('frontend', {
         this.palletizingTopic = null
       }
       this.palletizingStats = null
+      this.palletizingActive = false
+      this.palletizingState = 'IDLE'
     },
     applyZoneDefaults(zone: ZoneName) {
       this.calibrationZone = zone

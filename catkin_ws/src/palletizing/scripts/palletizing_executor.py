@@ -31,6 +31,7 @@ from palletizing_detection import ObjectDetectionMixin
 from sensor_msgs.msg import JointState
 from sound_play.msg import SoundRequest
 from std_msgs.msg import String
+from std_srvs.srv import Trigger, TriggerResponse
 from wpb_home_behaviors.msg import Coord
 
 
@@ -183,7 +184,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.place_pub = rospy.Publisher('/wpb_home/place_action', Pose, queue_size=10)
         self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         self.mani_ctrl_pub = rospy.Publisher('/wpb_home/mani_ctrl', JointState, queue_size=10)
-        self.stats_pub = rospy.Publisher('/palletizing/stats', PalletizingStats, queue_size=10)
+        self.stats_pub = rospy.Publisher(
+            '/palletizing/stats', PalletizingStats, queue_size=10, latch=True)
         self.tts_pub = rospy.Publisher('/robotsound', SoundRequest, queue_size=5)
 
         self.state = 'IDLE'
@@ -200,6 +202,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.task_start_time = 0.0
         self.last_cycle_start = 0.0
         self.cycle_times = []
+        self.stop_event = threading.Event()
+        self.task_thread = None
 
         rospy.Subscriber('/wpb_home/objects_3d', Coord, self._objects_callback)
         rospy.Subscriber('/wpb_home/grab_result', String, self._grab_result_callback)
@@ -217,6 +221,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
         rospy.Service('/palletizing/mark_zone', MarkZone, self._mark_zone)
         rospy.Service('/palletizing/start', StartTask, self._start_callback)
+        rospy.Service('/palletizing/stop', Trigger, self._stop_callback)
         self.stats_timer = rospy.Timer(rospy.Duration(1.0), self._publish_stats_timer)
         rospy.loginfo("Simplified palletizing executor ready")
 
@@ -361,13 +366,37 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
     def _start_callback(self, _req):
         """Start one palletizing run in a worker thread if currently idle."""
-        if self.state not in ('IDLE', 'DONE'):
+        if self.task_thread is not None and self.task_thread.is_alive():
+            return StartTaskResponse(
+                success=False,
+                message="Previous task is still stopping")
+        if self.state not in ('IDLE', 'DONE', 'ABORTED'):
             return StartTaskResponse(
                 success=False,
                 message="Task already running (state: %s)" % self.state)
+        self.stop_event.clear()
         self.state = 'STARTING'
-        threading.Thread(target=self.run, daemon=True).start()
+        self.task_thread = threading.Thread(target=self.run, daemon=True)
+        self.task_thread.start()
         return StartTaskResponse(success=True, message="Simplified palletizing started")
+
+    def _stop_callback(self, _req):
+        """Request cooperative cancellation of the active palletizing run."""
+        if self.state in ('IDLE', 'DONE', 'ABORTED'):
+            return TriggerResponse(False, "当前没有正在执行的码垛任务")
+        self.stop_event.set()
+        self.state = 'ABORTING'
+        self.move_base_client.cancel_all_goals()
+        for command in ('object_detect stop', 'grab stop', 'place stop'):
+            self.behavior_pub.publish(String(data=command))
+        self._publish_stop()
+        self.state = 'ABORTED'
+        self._publish_stats()
+        rospy.logwarn("Palletizing task aborted by user")
+        return TriggerResponse(True, "本次码垛任务已人为终止")
+
+    def _stop_requested(self):
+        return self.stop_event.is_set() or rospy.is_shutdown()
 
     def _get_object_height(self, obj_type):
         """Return the configured physical height for a normalized object type."""
@@ -590,6 +619,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         cmd.position = [lift, gripper]
         cmd.velocity = [0.0, 0.0]
         for _ in range(self.arm_publish_count):
+            if self._stop_requested():
+                break
             self.mani_ctrl_pub.publish(cmd)
             rospy.sleep(self.arm_publish_period)
 
@@ -607,6 +638,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         cmd.linear.x = speed
         rospy.loginfo("Backing up %.2fm at %.2fm/s", distance, speed)
         for _ in range(steps):
+            if self._stop_requested():
+                break
             self.cmd_vel_pub.publish(cmd)
             rospy.sleep(self.back_period)
         self._publish_stop()
@@ -675,6 +708,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         """Send a map-frame move_base goal and enforce timeout/stop handling."""
         if timeout is None:
             timeout = self.nav_timeout
+        if self._stop_requested():
+            return False
         self.state = 'NAVIGATING'
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = 'map'
@@ -685,7 +720,16 @@ class PalletizingExecutor(ObjectDetectionMixin):
         goal.target_pose.pose.orientation.w = math.cos(nav_yaw / 2.0)
         rospy.loginfo("Navigate to %.3f %.3f yaw=%.1f", nav_x, nav_y, math.degrees(nav_yaw))
         self.move_base_client.send_goal(goal)
-        finished = self.move_base_client.wait_for_result(rospy.Duration(timeout))
+        deadline = time.time() + timeout
+        finished = False
+        while time.time() < deadline and not self._stop_requested():
+            if self.move_base_client.wait_for_result(rospy.Duration(0.2)):
+                finished = True
+                break
+        if self._stop_requested():
+            self.move_base_client.cancel_all_goals()
+            self._publish_stop()
+            return False
         if not finished:
             self.move_base_client.cancel_goal()
             rospy.logwarn("Navigation timeout")
@@ -714,6 +758,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
     def grab_object(self, obj_type, x, y, z, timeout=90.0):
         """Configure and run grab_action for a base-frame grasp point."""
+        if self._stop_requested():
+            return False
         self.state = 'GRABBING'
         self.grab_done = False
         self.grab_feedback = ''
@@ -729,6 +775,9 @@ class PalletizingExecutor(ObjectDetectionMixin):
         rospy.loginfo("Grab action target base(%.3f, %.3f, %.3f) type=%s", x, y, z, obj_type)
         start = time.time()
         while not self.grab_done:
+            if self._stop_requested():
+                self.behavior_pub.publish(String(data='grab stop'))
+                return False
             if time.time() - start > timeout:
                 stop = String()
                 stop.data = 'grab stop'
@@ -742,6 +791,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         """Configure and run place_action, stopping the behavior on timeout."""
         if timeout is None:
             timeout = self.place_timeout
+        if self._stop_requested():
+            return False
         self.state = 'PLACING'
         self.place_done = False
         self.place_feedback = ''
@@ -762,6 +813,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
                       self._get_gripper_open_value(obj_type) if obj_type else 0.18)
         start = time.time()
         while not self.place_done:
+            if self._stop_requested():
+                self.behavior_pub.publish(String(data='place stop'))
+                self._publish_stop()
+                return False
             if time.time() - start > timeout:
                 rospy.logwarn("Place timeout: %s", self.place_feedback)
                 self.behavior_pub.publish(String(data='place stop'))
@@ -815,6 +870,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
         """Execute repeated detect, pick, transport, place, and return cycles."""
         rospy.loginfo("Simplified palletizing flow starting")
         rospy.sleep(0.5)
+        if self._stop_requested():
+            self.state = 'ABORTED'
+            self._publish_stats()
+            return
         self.task_start_time = time.time()
         self.objects_processed = 0
         self.objects_succeeded = 0
@@ -823,15 +882,21 @@ class PalletizingExecutor(ObjectDetectionMixin):
 
         self._prepare_arm_for_detection()
         if not self.navigate_to_table(self.source_table_x, self.source_table_y, for_place=False):
+            if self._stop_requested():
+                self.state = 'ABORTED'
+                self._publish_stats()
+                return
             rospy.logerr("Failed to reach source table")
             self.state = 'DONE'
             return
 
-        while not rospy.is_shutdown():
+        while not self._stop_requested():
             self.last_cycle_start = time.time()
             self._prepare_arm_for_detection()
 
             if not self.detect_with_retry():
+                if self._stop_requested():
+                    break
                 rospy.loginfo("No objects detected on source table; task complete")
                 break
 
@@ -866,6 +931,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
             rospy.loginfo("Selected object absolute map=(%.3f, %.3f, %.3f)", map_x, map_y, map_z)
             self._speak("zhua {} qu".format(material))
             if not self.grab_object(obj_type, action_x, action_y, action_z):
+                if self._stop_requested():
+                    break
                 rospy.logerr("Grab failed for %s", obj_name)
                 self.objects_failed += 1
                 self.objects_processed += 1
@@ -877,8 +944,12 @@ class PalletizingExecutor(ObjectDetectionMixin):
             self._back_up_until_arm_exits_table(
                 self.source_table_x, self.source_table_y,
                 self.source_table_width, self.source_approach_yaw, 'source')
+            if self._stop_requested():
+                break
 
             if not self.navigate_to_table(self.dest_table_x, self.dest_table_y, for_place=True):
+                if self._stop_requested():
+                    break
                 rospy.logerr("Failed to reach destination table")
                 self.objects_failed += 1
                 self.objects_processed += 1
@@ -904,6 +975,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 break
 
             if not self.place_object(place_x, place_y, place_z, obj_type):
+                if self._stop_requested():
+                    break
                 rospy.logerr("Place failed for %s", obj_name)
                 self.objects_failed += 1
                 self.objects_processed += 1
@@ -924,11 +997,23 @@ class PalletizingExecutor(ObjectDetectionMixin):
             self._back_up_until_arm_exits_table(
                 self.dest_table_x, self.dest_table_y,
                 self.dest_table_width, self.dest_approach_yaw, 'destination')
+            if self._stop_requested():
+                break
             self._retract_arm()
 
             if not self.navigate_to_table(self.source_table_x, self.source_table_y, for_place=False):
+                if self._stop_requested():
+                    break
                 rospy.logerr("Failed to return to source table; stopping")
                 break
+
+        if self._stop_requested():
+            self.state = 'ABORTED'
+            self._publish_stop()
+            self._publish_stats()
+            rospy.logwarn("Simplified palletizing aborted by user: success=%d failed=%d",
+                          self.objects_succeeded, self.objects_failed)
+            return
 
         self.state = 'DONE'
         self._publish_stats()

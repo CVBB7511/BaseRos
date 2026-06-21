@@ -19,11 +19,8 @@ sleep 3
 "$ROOT_DIR/scripts/open_ros_terminal.sh" "ROS Bridge" \
   "cd '$ROOT_DIR' && bash scripts/start_rosbridge.sh"
 
-"$ROOT_DIR/scripts/open_ros_terminal.sh" "Keyboard Control" \
-  "cd '$WS_DIR' && export ROS_HOME='$ROS_HOME' && source /opt/ros/noetic/setup.bash && source devel/setup.bash && echo 'Use W/S/A/D/Q/E and Space when the real robot mapping flow is active.' && rosrun gazebosim_demo vel_ctrl_node.py"
-
 "$ROOT_DIR/scripts/open_ros_terminal.sh" "Frontend" \
   "cd '$ROOT_DIR' && bash scripts/start_frontend.sh"
 
-echo "[verify_real_frontend_palletizing] opened roscore, frontend services, rosbridge, keyboard, and frontend."
+echo "[verify_real_frontend_palletizing] opened roscore, frontend services, rosbridge, and frontend."
 echo "Open the frontend URL printed in the Frontend terminal, connect ROS Bridge, choose 真机, then use 重新建图 / 保存地图 / 导入地图 / 标定 / 开始码垛."

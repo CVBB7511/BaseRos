@@ -28,6 +28,13 @@
             <strong>{{ frontendStore.lastPath || '-' }}</strong>
           </div>
         </section>
+        <div class="teleop-slot">
+          <BaseTeleopPanel
+            :ros="rosStore.ros"
+            :connected="rosStore.connected"
+            :locked="frontendStore.palletizingActive"
+          />
+        </div>
       </aside>
 
       <section class="rviz-area">
@@ -48,6 +55,7 @@
 import { ref, watch } from 'vue'
 import EnvironmentSettingsDialog from '../components/EnvironmentSettingsDialog.vue'
 import CameraPanel from '../components/CameraPanel.vue'
+import BaseTeleopPanel from '../components/BaseTeleopPanel.vue'
 import MappingPanel from '../components/MappingPanel.vue'
 import ProjectTopBar from '../components/ProjectTopBar.vue'
 import RosConnectionPanel from '../components/RosConnectionPanel.vue'
@@ -111,6 +119,10 @@ watch(
   padding: 14px;
   border: 1px solid #d6dde5;
   background: #ffffff;
+}
+
+.teleop-slot {
+  margin-top: auto;
 }
 
 .section-title {

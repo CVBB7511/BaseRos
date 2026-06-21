@@ -15,9 +15,10 @@
 - ROS Bridge 连接区。
 - 运行模式选择：真机 / 仿真。
 - 建图控制：重新建图、保存地图。
+- 底盘遥控：位于页面左下角，可直接使用 `W/S/A/D/Q/E` 调整移动速度，`Space` 急停；码垛任务执行期间自动锁定。
 - 地图导入：选择地图所在文件夹并启动执行系统与 RViz。
 - 桌面标定：选择取货桌 / 码垛桌，输入桌子长度、宽度/深度、高度、机器人到桌面中心距离。
-- 码垛任务：开始码垛，并显示当前任务状态和耗时。
+- 码垛任务：开始或人为终止码垛，并显示当前任务状态和耗时。
 - 摄像头画面：连接 ROS Bridge 后自动订阅压缩图像话题并显示实时画面。
 - 操作日志：显示前端服务调用结果和错误信息。
 
@@ -30,6 +31,7 @@
 - `/frontend/import_map`：导入地图并启动执行系统与 RViz。
 - `/frontend/calibrate_table`：读取机器人当前 TF，计算桌面中心和朝向，再调用 `/palletizing/mark_zone` 保存标定数据。
 - `/frontend/start_palletizing`：调用 `/palletizing/start` 开始码垛。
+- `/frontend/stop_palletizing`：调用 `/palletizing/stop`，取消导航和执行行为并停止本次任务。
 - `/frontend/status`：查询建图/执行流程状态。
 
 码垛状态通过订阅 `/palletizing/stats` 获取，前端显示当前状态和耗时。
@@ -42,7 +44,7 @@
 bash scripts/verify_sim_frontend_mapping.sh
 ```
 
-该脚本会启动 roscore、常驻 Gazebo 仿真、前端控制服务、rosbridge、键盘遥控终端和前端。Gazebo 仿真保持常开，建图和执行流程复用同一个仿真窗口，避免重复启动多个 Gazebo。
+该脚本会启动 roscore、常驻 Gazebo 仿真、前端控制服务、rosbridge 和前端。Gazebo 仿真保持常开，建图和执行流程复用同一个仿真窗口；键盘遥控已集成到前端，不再额外打开遥控终端。
 
 仿真场景使用：
 
@@ -58,7 +60,7 @@ bash scripts/verify_sim_frontend_mapping.sh
 bash scripts/verify_real_frontend_palletizing.sh
 ```
 
-该脚本会启动 roscore、前端控制服务、rosbridge、键盘遥控终端和前端，不启动 Gazebo。前端选择“真机”后，按重新建图、保存地图、导入地图、RViz 中 `2D Pose Estimate`、保存标定、开始码垛的顺序联调。
+该脚本会启动 roscore、前端控制服务、rosbridge 和前端，不启动 Gazebo。前端选择“真机”后，按重新建图、保存地图、导入地图、RViz 中 `2D Pose Estimate`、保存标定、开始码垛的顺序联调；移动机器人时在前端启用“键盘控制”。
 
 真机默认标定文件为项目根目录：
 

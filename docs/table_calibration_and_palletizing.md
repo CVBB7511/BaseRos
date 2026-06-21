@@ -196,4 +196,4 @@ rosservice call /palletizing/start "{}"
 bash scripts/verify_real_frontend_palletizing.sh
 ```
 
-该脚本会打开 roscore、前端控制服务、rosbridge、键盘遥控终端和前端终端，不会启动 Gazebo。前端中选择“真机”后，按正常流程点击“重新建图”“保存地图”“导入地图”“保存标定”“开始码垛”；导入地图后真机执行系统会启动 RViz、硬件驱动、AMCL、`move_base` 和 `palletizing_executor.py`。
+该脚本会打开 roscore、前端控制服务、rosbridge 和前端终端，不会启动 Gazebo。键盘遥控已集成到前端；选择“真机”后，按正常流程点击“重新建图”“保存地图”“导入地图”“保存标定”“开始码垛”，导入地图后真机执行系统会启动 RViz、硬件驱动、AMCL、`move_base` 和 `palletizing_executor.py`。

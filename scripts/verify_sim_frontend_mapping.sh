@@ -30,11 +30,8 @@ fi
 "$ROOT_DIR/scripts/open_ros_terminal.sh" "ROS Bridge" \
   "cd '$ROOT_DIR' && bash scripts/start_rosbridge.sh"
 
-"$ROOT_DIR/scripts/open_ros_terminal.sh" "Keyboard Control" \
-  "cd '$WS_DIR' && export ROS_HOME='$ROS_HOME' && source /opt/ros/noetic/setup.bash && source devel/setup.bash && echo 'Wait until the frontend starts simulation mapping, then use W/S/A/D/Q/E and Space.' && rosrun gazebosim_demo vel_ctrl_node.py"
-
 "$ROOT_DIR/scripts/open_ros_terminal.sh" "Frontend" \
   "cd '$ROOT_DIR' && bash scripts/start_frontend.sh"
 
-echo "[verify_sim_frontend_mapping] opened roscore, one Gazebo simulation, frontend services, rosbridge, keyboard, and frontend."
-echo "Open the frontend URL printed in the Frontend terminal, connect ROS Bridge, choose 仿真, then click 重新建图."
+echo "[verify_sim_frontend_mapping] opened roscore, one Gazebo simulation, frontend services, rosbridge, and frontend."
+echo "Open the frontend URL, connect ROS Bridge, choose 仿真, click 重新建图, then enable 前端键盘控制."

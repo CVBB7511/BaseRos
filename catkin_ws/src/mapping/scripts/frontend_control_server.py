@@ -30,6 +30,7 @@ class FrontendControlServer:
         self.import_service = rospy.Service("/frontend/import_map", MapFile, self.import_map)
         self.calibrate_service = rospy.Service("/frontend/calibrate_table", CalibrateTable, self.calibrate_table)
         self.palletizing_service = rospy.Service("/frontend/start_palletizing", Trigger, self.start_palletizing)
+        self.stop_palletizing_service = rospy.Service("/frontend/stop_palletizing", Trigger, self.stop_palletizing)
         self.status_service = rospy.Service("/frontend/status", Trigger, self.status)
         rospy.loginfo("Frontend control services are ready.")
 
@@ -126,6 +127,16 @@ class FrontendControlServer:
         except Exception as exc:
             rospy.logerr("Failed to start palletizing: %s", exc)
             return TriggerResponse(False, f"启动码垛失败: {exc}")
+
+    def stop_palletizing(self, _req):
+        try:
+            rospy.wait_for_service("/palletizing/stop", timeout=5.0)
+            stop = rospy.ServiceProxy("/palletizing/stop", Trigger)
+            resp = stop()
+            return TriggerResponse(resp.success, resp.message)
+        except Exception as exc:
+            rospy.logerr("Failed to stop palletizing: %s", exc)
+            return TriggerResponse(False, f"终止码垛失败: {exc}")
 
     def calibrate_table(self, req):
         try:

@@ -29,6 +29,58 @@ export interface OperationLogRequest {
   text?: string
 }
 
+export interface EnvironmentResult extends ServiceResult {
+  mode: '' | 'sim' | 'real'
+  state: 'stopped' | 'running' | 'error'
+}
+
+export interface RobotParameters {
+  kinect_height: number
+  kinect_pitch: number
+  camera_x: number
+  camera_y: number
+  camera_z: number
+  grab_y_offset: number
+  grab_lift_offset: number
+  grab_forward_offset: number
+  grab_gripper_value: number
+  grab_hand_up_wait: number
+}
+
+export interface RobotParametersResult extends ServiceResult, RobotParameters {}
+
+const emptyRobotParameters: RobotParameters = {
+  kinect_height: 0,
+  kinect_pitch: 0,
+  camera_x: 0,
+  camera_y: 0,
+  camera_z: 0,
+  grab_y_offset: 0,
+  grab_lift_offset: 0,
+  grab_forward_offset: 0,
+  grab_gripper_value: 0,
+  grab_hand_up_wait: 0,
+}
+
+export function manageRobotParameters(
+  ros: ROSLIB.Ros,
+  action: 'get' | 'save' | 'restore',
+  parameters: RobotParameters = emptyRobotParameters,
+): Promise<RobotParametersResult> {
+  return callService(ros, '/frontend/robot_parameters', 'mapping/RobotParameters', {
+    action,
+    ...parameters,
+  }) as Promise<RobotParametersResult>
+}
+
+export function manageEnvironment(
+  ros: ROSLIB.Ros,
+  action: 'start' | 'stop' | 'status',
+  mode: '' | 'sim' | 'real',
+): Promise<EnvironmentResult> {
+  return callService(ros, '/frontend/environment', 'mapping/Environment', { action, mode }) as Promise<EnvironmentResult>
+}
+
 export function startMapping(ros: ROSLIB.Ros, request: StartMappingRequest): Promise<ServiceResult> {
   return callService(ros, '/frontend/start_mapping', 'mapping/Start', request)
 }

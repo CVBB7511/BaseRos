@@ -1,10 +1,12 @@
 zeros:
   kinect_height: 1.32
   kinect_pitch: -0.61
+
 camera_mount:
-  x: 0.17
-  y: -0.1
+  x: 0.170
+  y: -0.100
   z: 0.0
+
 grab:
   grab_y_offset: 0.0
   grab_lift_offset: 0.0

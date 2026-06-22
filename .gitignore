@@ -27,6 +27,7 @@ catkin_ws/src/**/__pycache__/
 logs/*.log
 *.bag
 *.bag.active
+*.yaml.bak
 
 # Frontend generated files
 frontend/node_modules/

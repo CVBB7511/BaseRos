@@ -1,7 +1,7 @@
 <template>
   <footer class="status-footer">
     <span>ROS: {{ rosStore.status }}</span>
-    <span>Mode: {{ frontendStore.modeLabel }}</span>
+    <span>Environment: {{ frontendStore.environmentStatusLabel }}</span>
     <span>Mapping: {{ frontendStore.mappingRunning ? 'running' : 'stopped' }}</span>
     <span>Execute: {{ frontendStore.executeRunning ? 'running' : 'stopped' }}</span>
   </footer>

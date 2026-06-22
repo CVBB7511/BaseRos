@@ -7,7 +7,6 @@ interface RosState {
   url: string
   mapFrame: string
   baseFrame: string
-  mode: 'sim' | 'real'
   status: 'disconnected' | 'connecting' | 'connected' | 'error'
   error: string
   autoReconnect: boolean
@@ -21,7 +20,6 @@ export const useRosStore = defineStore('ros', {
     url: localStorage.getItem('rosbridge_url') || defaultRosbridgeUrl,
     mapFrame: localStorage.getItem('map_frame') || defaultMapFrame,
     baseFrame: localStorage.getItem('base_frame') || defaultBaseFrame,
-    mode: (localStorage.getItem('run_mode') as 'sim' | 'real') || 'sim',
     status: 'disconnected',
     error: '',
     autoReconnect: localStorage.getItem('auto_reconnect') !== 'false',
@@ -36,7 +34,6 @@ export const useRosStore = defineStore('ros', {
       localStorage.setItem('rosbridge_url', this.url)
       localStorage.setItem('map_frame', this.mapFrame)
       localStorage.setItem('base_frame', this.baseFrame)
-      localStorage.setItem('run_mode', this.mode)
       localStorage.setItem('auto_reconnect', String(this.autoReconnect))
     },
     connect() {

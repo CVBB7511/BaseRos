@@ -93,11 +93,7 @@
     </node>
     <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
         <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
-        <param name="grab/grab_y_offset" type="double" value="-0.00" />
-        <param name="grab/grab_lift_offset" type="double" value="0.0" />
-        <param name="grab/grab_forward_offset" type="double" value="0.0" />
         <param name="grab/grab_align_timeout" type="double" value="15.0" />
-        <param name="grab/grab_hand_up_wait" type="double" value="15.0" />
     </node>
     <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action">
         <param name="place_lift_clearance" type="double" value="0.01" />

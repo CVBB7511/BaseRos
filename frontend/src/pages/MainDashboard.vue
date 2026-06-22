@@ -74,6 +74,8 @@ watch(
       const ros = rosStore.ros
       await frontendStore.attachOperationLogs(ros)
       if (rosStore.status !== 'connected' || rosStore.ros !== ros) return
+      await frontendStore.refreshEnvironment(ros)
+      if (rosStore.status !== 'connected' || rosStore.ros !== ros) return
       frontendStore.refreshStatus(ros)
       frontendStore.subscribePalletizingStats(ros)
     } else {

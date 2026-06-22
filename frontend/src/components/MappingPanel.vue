@@ -1,15 +1,16 @@
 <template>
   <section class="operator-panel">
     <div class="section-title">建图控制</div>
-    <v-btn-toggle v-model="frontendStore.mode" mandatory density="comfortable" color="primary" class="segmented-control">
-      <v-btn value="real" prepend-icon="mdi-robot-industrial-outline">真机</v-btn>
-      <v-btn value="sim" prepend-icon="mdi-cube-outline">仿真</v-btn>
-    </v-btn-toggle>
+    <div class="mode-summary">
+      <v-icon :icon="frontendStore.mode === 'sim' ? 'mdi-cube-outline' : 'mdi-robot-industrial-outline'" size="18" />
+      <span>{{ frontendStore.modeLabel }}</span>
+      <strong>{{ frontendStore.environmentStatusLabel }}</strong>
+    </div>
 
     <v-btn
       color="primary"
       prepend-icon="mdi-power"
-      :disabled="!rosStore.ros || frontendStore.busy"
+      :disabled="!rosStore.ros || !frontendStore.environmentReady || frontendStore.busy"
       :loading="frontendStore.busy"
       @click="requestRestartMapping"
     >
@@ -23,7 +24,7 @@
     <v-btn
       color="primary"
       prepend-icon="mdi-content-save-outline"
-      :disabled="!rosStore.ros || frontendStore.busy"
+      :disabled="!rosStore.ros || !frontendStore.environmentReady || frontendStore.busy"
       :loading="frontendStore.busy"
       @click="save"
     >
@@ -36,7 +37,7 @@
     <v-btn
       color="secondary"
       prepend-icon="mdi-folder-upload-outline"
-      :disabled="!rosStore.ros || frontendStore.busy"
+      :disabled="!rosStore.ros || !frontendStore.environmentReady || frontendStore.busy"
       @click="importSelected"
     >
       导入地图
@@ -71,7 +72,7 @@
     <v-btn
       color="primary"
       prepend-icon="mdi-crosshairs-gps"
-      :disabled="!rosStore.ros || frontendStore.busy"
+      :disabled="!rosStore.ros || !frontendStore.environmentReady || frontendStore.busy"
       :loading="frontendStore.busy"
       @click="calibrate"
     >
@@ -94,7 +95,7 @@
     <v-btn
       color="success"
       prepend-icon="mdi-play-circle-outline"
-      :disabled="!rosStore.ros || frontendStore.busy || frontendStore.palletizingActive"
+      :disabled="!rosStore.ros || !frontendStore.environmentReady || frontendStore.busy || frontendStore.palletizingActive"
       :loading="frontendStore.busy"
       @click="startTask"
     >
@@ -254,6 +255,25 @@ function formatLogTime(timestamp: string) {
   color: #566579;
   font-size: 13px;
   line-height: 1.6;
+}
+
+.mode-summary {
+  display: grid;
+  grid-template-columns: 22px auto 1fr;
+  min-height: 42px;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid #d6dde5;
+  background: #f8fafc;
+  color: #354255;
+  font-size: 13px;
+}
+
+.mode-summary strong {
+  justify-self: end;
+  color: #26704c;
+  font-size: 12px;
 }
 
 .field-grid {

@@ -1,0 +1,24 @@
+string action
+float64 kinect_height
+float64 kinect_pitch
+float64 camera_x
+float64 camera_y
+float64 camera_z
+float64 grab_y_offset
+float64 grab_lift_offset
+float64 grab_forward_offset
+float64 grab_gripper_value
+float64 grab_hand_up_wait
+---
+bool success
+string message
+float64 kinect_height
+float64 kinect_pitch
+float64 camera_x
+float64 camera_y
+float64 camera_z
+float64 grab_y_offset
+float64 grab_lift_offset
+float64 grab_forward_offset
+float64 grab_gripper_value
+float64 grab_hand_up_wait

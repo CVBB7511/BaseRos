@@ -1,6 +1,7 @@
 import ROSLIB from 'roslib'
 import { defineStore } from 'pinia'
-import { calibrateZone, importMap, manageOperationLogs, queryFrontendStatus, saveMap, startMapping, startPalletizing, stopPalletizing } from '../ros/frontend'
+import { calibrateZone, importMap, manageEnvironment, manageOperationLogs, manageRobotParameters, queryFrontendStatus, saveMap, startMapping, startPalletizing, stopPalletizing } from '../ros/frontend'
+import type { RobotParameters } from '../ros/frontend'
 import type { PalletizingStats } from '../ros/types'
 
 type ZoneName = 'source' | 'dest'
@@ -38,6 +39,8 @@ function loadOperationLogs(): OperationLogEntry[] {
 
 interface FrontendState {
   mode: 'sim' | 'real'
+  environmentMode: '' | 'sim' | 'real'
+  environmentState: 'stopped' | 'running' | 'error'
   saveDirectory: string
   importDirectory: string
   mapName: string
@@ -62,6 +65,8 @@ interface FrontendState {
 export const useFrontendStore = defineStore('frontend', {
   state: (): FrontendState => ({
     mode: (localStorage.getItem('frontend_mode') as 'sim' | 'real') || 'real',
+    environmentMode: '',
+    environmentState: 'stopped',
     saveDirectory: localStorage.getItem('save_directory') || '/home/yubowen/BaseRos/real_maps',
     importDirectory: localStorage.getItem('import_directory') || '/home/yubowen/BaseRos/real_maps',
     mapName: localStorage.getItem('map_name') || 'real_map',
@@ -71,7 +76,7 @@ export const useFrontendStore = defineStore('frontend', {
     calibrationZone: (localStorage.getItem('calibration_zone') as ZoneName) || 'source',
     calibrationLength: Number(localStorage.getItem('calibration_length') || '1.2'),
     calibrationWidth: Number(localStorage.getItem('calibration_width') || '0.5'),
-    calibrationHeight: Number(localStorage.getItem('calibration_height') || '0.765'),
+    calibrationHeight: Number(localStorage.getItem('calibration_height') || '0.75'),
     calibrationDistance: Number(localStorage.getItem('calibration_distance') || '0.95'),
     lastPath: '',
     message: '',
@@ -84,6 +89,14 @@ export const useFrontendStore = defineStore('frontend', {
   }),
   getters: {
     modeLabel: (state) => state.mode === 'sim' ? '仿真' : '真机',
+    environmentReady: (state) => state.environmentState === 'running' && state.environmentMode === state.mode,
+    environmentStatusLabel: (state) => {
+      if (state.environmentState === 'running') {
+        return state.environmentMode === 'sim' ? '仿真已启用' : '实机已连接'
+      }
+      if (state.environmentState === 'error') return '启用失败'
+      return '未启用'
+    },
     operationLogsNewest: (state) => [...state.operationLogs].reverse(),
     palletizingStateLabel: (state) => {
       const value = state.palletizingState
@@ -135,6 +148,85 @@ export const useFrontendStore = defineStore('frontend', {
       localStorage.setItem('calibration_width', String(this.calibrationWidth))
       localStorage.setItem('calibration_height', String(this.calibrationHeight))
       localStorage.setItem('calibration_distance', String(this.calibrationDistance))
+    },
+    async activateEnvironment(ros: ROSLIB.Ros) {
+      await this.run(async () => {
+        this.persist()
+        const result = await manageEnvironment(ros, 'start', this.mode)
+        this.environmentMode = result.mode
+        this.environmentState = result.state
+        this.applyResult(result)
+      })
+    },
+    async deactivateEnvironment(ros: ROSLIB.Ros) {
+      await this.run(async () => {
+        const result = await manageEnvironment(ros, 'stop', this.environmentMode || this.mode)
+        this.environmentMode = result.mode
+        this.environmentState = result.state
+        this.mappingRunning = false
+        this.executeRunning = false
+        this.applyResult(result)
+      })
+    },
+    async refreshEnvironment(ros: ROSLIB.Ros) {
+      try {
+        const result = await manageEnvironment(ros, 'status', '')
+        this.environmentMode = result.mode
+        this.environmentState = result.state
+        if (result.state === 'running' && result.mode) {
+          this.mode = result.mode
+          this.persist()
+        }
+      } catch {
+        this.environmentMode = ''
+        this.environmentState = 'error'
+      }
+    },
+    async loadRobotParameters(ros: ROSLIB.Ros): Promise<RobotParameters | null> {
+      try {
+        const result = await manageRobotParameters(ros, 'get')
+        if (!result.success) {
+          this.applyResult(result)
+          return null
+        }
+        return this.parametersFromResult(result)
+      } catch (error) {
+        this.error = String(error)
+        this.addLog('error', this.error)
+        return null
+      }
+    },
+    async saveRobotParameters(ros: ROSLIB.Ros, parameters: RobotParameters): Promise<RobotParameters | null> {
+      let updated: RobotParameters | null = null
+      await this.run(async () => {
+        const result = await manageRobotParameters(ros, 'save', parameters)
+        this.applyResult(result)
+        if (result.success) updated = this.parametersFromResult(result)
+      })
+      return updated
+    },
+    async restoreRobotParameters(ros: ROSLIB.Ros): Promise<RobotParameters | null> {
+      let restored: RobotParameters | null = null
+      await this.run(async () => {
+        const result = await manageRobotParameters(ros, 'restore')
+        this.applyResult(result)
+        if (result.success) restored = this.parametersFromResult(result)
+      })
+      return restored
+    },
+    parametersFromResult(result: RobotParameters): RobotParameters {
+      return {
+        kinect_height: result.kinect_height,
+        kinect_pitch: result.kinect_pitch,
+        camera_x: result.camera_x,
+        camera_y: result.camera_y,
+        camera_z: result.camera_z,
+        grab_y_offset: result.grab_y_offset,
+        grab_lift_offset: result.grab_lift_offset,
+        grab_forward_offset: result.grab_forward_offset,
+        grab_gripper_value: result.grab_gripper_value,
+        grab_hand_up_wait: result.grab_hand_up_wait,
+      }
     },
     async restartMapping(ros: ROSLIB.Ros) {
       await this.run(async () => {
@@ -238,17 +330,19 @@ export const useFrontendStore = defineStore('frontend', {
       this.calibrationZone = zone
       this.calibrationLength = 1.2
       this.calibrationWidth = 0.5
-      this.calibrationHeight = 0.765
+      this.calibrationHeight = 0.75
       this.calibrationDistance = this.calibrationWidth / 2 + 0.70
       this.persist()
     },
     async refreshStatus(ros: ROSLIB.Ros) {
-      await this.run(async () => {
+      try {
         const result = await queryFrontendStatus(ros)
-        this.applyResult(result)
         this.mappingRunning = result.message.includes('mapping: running')
         this.executeRunning = result.message.includes('execute: running')
-      })
+      } catch {
+        this.mappingRunning = false
+        this.executeRunning = false
+      }
     },
     applyResult(result: { success: boolean, message: string, path?: string }) {
       this.message = result.success ? result.message : ''

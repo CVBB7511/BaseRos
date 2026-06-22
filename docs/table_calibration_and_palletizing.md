@@ -15,9 +15,9 @@ rosrun palletizing mark_table_positions.py
 它的交互流程是：
 
 1. 用户先在 RViz 中完成 `2D Pose Estimate`，让 AMCL 定位收敛。
-2. 用户把机器人移动到桌子正前方，并让机器人朝向桌面中心。
+2. 用户通过底盘遥控把机器人移动到桌子正前方，并让机器人朝向桌面中心。
 3. 工具询问标定区域：`source` 为取货桌，`dest` 为码垛桌。
-4. 工具读取当前机器人在 `/map` 中的位置和朝向。
+4. 工具读取当前机器人位置和朝向：真机取 `/map` TF，仿真取 Gazebo world 中的模型真实位姿。
 5. 用户输入桌子长度、桌子宽度/深度、桌面高度、机器人到桌面中心距离。
 6. 工具计算桌面中心和桌面朝向，并调用 `/palletizing/mark_zone` 保存。
 
@@ -43,25 +43,29 @@ rosrun palletizing mark_table_positions.py
 标定区域: source 或 dest
 桌子长度: 1.20
 桌子宽度/深度: 0.50
-桌面高度: 0.765
-机器人到桌面中心距离: 0.95
+桌面高度: 0.75
+机器人到桌面中心距离: 0.95（机器人已移动到桌前时）
 ```
 
 标定 `source` 时，让机器人在取货桌正前方并朝向取货桌中心；标定 `dest` 时，让机器人在码垛桌正前方并朝向码垛桌中心。
+
+真机标定依赖编码器里程计和 AMCL。应使用底盘遥控移动机器人，不要抬起、搬运或强行拖动机器人到标定位置；这类移动可能没有被轮式里程计完整记录，使 `/map` TF 与物理姿态不一致。后端会拒绝超过 `2s` 未更新的 TF，也会拒绝 source 和 dest 使用几乎完全相同的机器人标定位姿。
+
+如果仿真机器人保持在 world 原点，两个桌面中心分别距离机器人 `1.5m`，此时应输入 `1.5`：标定 `dest` 时机器人朝向 `0`，标定 `source` 时机器人朝向 `pi`。默认值 `0.95m` 只适用于机器人已经移动到距桌边约 `0.70m` 的接近位置。
 
 按上述输入保存后，当前仿真场景中 `palletizing_zones_sim.yaml` 应接近：
 
 ```yaml
 source_x: -1.5
 source_y: 0.0
-source_z: 0.765
-source_yaw: 3.1416
+source_z: 0.75
+source_yaw: 0.0
 source_length: 1.2
 source_width: 0.5
 dest_x: 1.5
 dest_y: 0.0
-dest_z: 0.765
-dest_yaw: 0.0
+dest_z: 0.75
+dest_yaw: 3.1416
 dest_length: 1.2
 dest_width: 0.5
 ```
@@ -121,14 +125,14 @@ source_width / dest_width:
 ```yaml
 source_x: -1.5
 source_y: 0.0
-source_z: 0.765
-source_yaw: 3.1416
+source_z: 0.75
+source_yaw: 0.0
 source_length: 1.2
 source_width: 0.5
 dest_x: 1.5
 dest_y: 0.0
-dest_z: 0.765
-dest_yaw: 0.0
+dest_z: 0.75
+dest_yaw: 3.1416
 dest_length: 1.2
 dest_width: 0.5
 ```
@@ -147,7 +151,7 @@ dest_width: 0.5
 - 桌面高度
 - 机器人到桌面中心距离
 
-前端不会要求用户手动输入 `/map` 坐标中的桌面中心 `x/y/yaw`。这些数据由后端读取 TF 后自动计算。
+前端不会要求用户手动输入桌面中心 `x/y/yaw`。真机由后端读取 `/map` TF 后计算；仿真直接读取 Gazebo 模型的 world 位姿，避免模型已转向但 AMCL/TF 仍停留在旧位姿时保存错误结果。标准仿真地图以 world 原点和方向建立，因此 Gazebo world 坐标与该地图坐标一致。
 
 ## 第 12 步：开始码垛
 
@@ -186,14 +190,14 @@ rosservice call /palletizing/start "{}"
 - `PLACING`：正在执行放置。
 - `DONE`：任务结束。
 
-如果需要查看详细日志，前端联调脚本启动的“Frontend Control Services”终端会显示后端控制服务以及由前端拉起的执行 launch 输出，其中包括 `palletizing_executor.py` 的导航、检测、抓取、放置日志。ROS 原生日志也会落在当前 `ROS_HOME` 下，例如联调脚本默认使用 `/home/yubowen/BaseRos/.ros/log`。
+如果需要查看详细日志，统一启动脚本打开的“Frontend Control Services”终端会显示后端控制服务以及由前端拉起的执行 launch 输出，其中包括 `palletizing_executor.py` 的导航、检测、抓取、放置日志。ROS 原生日志也会落在当前 `ROS_HOME` 下，默认使用 `/home/yubowen/BaseRos/.ros/log`。
 
 ## 真实场景前端联调
 
-真实机器人联调脚本为：
+真机和仿真共用统一启动脚本：
 
 ```bash
-bash scripts/verify_real_frontend_palletizing.sh
+bash scripts/start_frontend_system.sh
 ```
 
-该脚本会打开 roscore、前端控制服务、rosbridge 和前端终端，不会启动 Gazebo。键盘遥控已集成到前端；选择“真机”后，按正常流程点击“重新建图”“保存地图”“导入地图”“保存标定”“开始码垛”，导入地图后真机执行系统会启动 RViz、硬件驱动、AMCL、`move_base` 和 `palletizing_executor.py`。
+该脚本会打开 roscore、前端控制服务、ROS Bridge 和前端终端，但不会预先启动 Gazebo 或真机驱动。连接 ROS Bridge 后选择“实机”并点击“连接实机”，设备检查通过后再按正常流程点击“重新建图”“保存地图”“导入地图”“保存标定”“开始码垛”；导入地图后真机执行系统会启动 RViz、硬件驱动、AMCL、`move_base` 和 `palletizing_executor.py`。

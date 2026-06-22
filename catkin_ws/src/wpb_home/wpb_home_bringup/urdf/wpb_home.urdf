@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<robot name="wpb_home">
+<robot name="wpb_home" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="wpb_config" value="${xacro.load_yaml('$(find wpb_home_bringup)/config/wpb_home.yaml')}"/>
 
   <!-- material -->
   <material name = "black">
@@ -103,7 +105,7 @@
     <parent link="base_link"/>
     <child link="kinect2_dock"/>
     <limit effort="1000.0" lower="0" upper="1.7" velocity="0.5"/>
-    <origin xyz="0.170 -0.100 0" rpy="0 -1.5707963 0"/>
+    <origin xyz="${wpb_config['camera_mount']['x']} ${wpb_config['camera_mount']['y']} ${wpb_config['camera_mount']['z']}" rpy="0 -1.5707963 0"/>
   </joint>
 
 <link name = "kinect2_ir_optical_frame">

@@ -200,6 +200,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.objects_total = 0
         self.current_object_type = ''
         self.task_start_time = 0.0
+        self.task_end_time = 0.0
         self.last_cycle_start = 0.0
         self.cycle_times = []
         self.stop_event = threading.Event()
@@ -375,10 +376,12 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 success=False,
                 message="Task already running (state: %s)" % self.state)
         self.stop_event.clear()
+        self.task_start_time = 0.0
+        self.task_end_time = 0.0
         self.state = 'STARTING'
         self.task_thread = threading.Thread(target=self.run, daemon=True)
         self.task_thread.start()
-        return StartTaskResponse(success=True, message="Simplified palletizing started")
+        return StartTaskResponse(success=True, message="开始码垛")
 
     def _stop_callback(self, _req):
         """Request cooperative cancellation of the active palletizing run."""
@@ -390,6 +393,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         for command in ('object_detect stop', 'grab stop', 'place stop'):
             self.behavior_pub.publish(String(data=command))
         self._publish_stop()
+        self.task_end_time = time.time()
         self.state = 'ABORTED'
         self._publish_stats()
         rospy.logwarn("Palletizing task aborted by user")
@@ -836,7 +840,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         stats.hard_zone_layers = self.zones['hard'].current_layer
         stats.soft_zone_layers = self.zones['soft'].current_layer
         stats.current_state = self.state
-        stats.elapsed_time = time.time() - self.task_start_time if self.task_start_time else 0.0
+        elapsed_end = self.task_end_time if self.task_end_time else time.time()
+        stats.elapsed_time = elapsed_end - self.task_start_time if self.task_start_time else 0.0
         total_done = self.objects_succeeded + self.objects_failed
         stats.success_rate = (100.0 * self.objects_succeeded / total_done) if total_done else 0.0
         stats.avg_cycle_time = sum(self.cycle_times) / len(self.cycle_times) if self.cycle_times else 0.0
@@ -875,6 +880,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
             self._publish_stats()
             return
         self.task_start_time = time.time()
+        self.task_end_time = 0.0
         self.objects_processed = 0
         self.objects_succeeded = 0
         self.objects_failed = 0
@@ -887,7 +893,9 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 self._publish_stats()
                 return
             rospy.logerr("Failed to reach source table")
+            self.task_end_time = time.time()
             self.state = 'DONE'
+            self._publish_stats()
             return
 
         while not self._stop_requested():
@@ -1015,6 +1023,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
                           self.objects_succeeded, self.objects_failed)
             return
 
+        self.task_end_time = time.time()
         self.state = 'DONE'
         self._publish_stats()
         self._speak("ma duo wan cheng, cheng gong {} ge, shi bai {} ge".format(

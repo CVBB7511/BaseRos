@@ -69,11 +69,15 @@ const settingsOpen = ref(false)
 
 watch(
   () => rosStore.status,
-  (status) => {
+  async (status) => {
     if (status === 'connected' && rosStore.ros) {
-      frontendStore.refreshStatus(rosStore.ros)
-      frontendStore.subscribePalletizingStats(rosStore.ros)
+      const ros = rosStore.ros
+      await frontendStore.attachOperationLogs(ros)
+      if (rosStore.status !== 'connected' || rosStore.ros !== ros) return
+      frontendStore.refreshStatus(ros)
+      frontendStore.subscribePalletizingStats(ros)
     } else {
+      frontendStore.detachOperationLogs()
       frontendStore.unsubscribePalletizingStats()
     }
   },

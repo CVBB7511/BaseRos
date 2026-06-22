@@ -1,16 +1,19 @@
 #!/usr/bin/python3
 
 import os
+import json
 import shutil
 import signal
 import subprocess
 import math
+import threading
+from datetime import datetime, timezone
 from pathlib import Path
 
 import rospy
 import tf
 from geometry_msgs.msg import Twist
-from mapping.srv import CalibrateTable, CalibrateTableResponse, Halt, HaltResponse, MapFile, MapFileResponse, Start, StartResponse
+from mapping.srv import CalibrateTable, CalibrateTableResponse, Halt, HaltResponse, MapFile, MapFileResponse, OperationLog, OperationLogResponse, Start, StartResponse
 from std_srvs.srv import Trigger, TriggerResponse
 from palletizing.srv import MarkZone, StartTask
 
@@ -20,6 +23,13 @@ class FrontendControlServer:
         self.root_dir = Path(rospy.get_param("~root_dir", "/home/yubowen/BaseRos")).resolve()
         self.workspace_dir = Path(rospy.get_param("~workspace_dir", str(self.root_dir / "catkin_ws"))).resolve()
         self.default_map_dir = Path(rospy.get_param("~default_map_dir", str(self.root_dir / "real_maps"))).resolve()
+        self.operation_log_file = Path(rospy.get_param(
+            "~operation_log_file",
+            str(self.root_dir / "logs" / "frontend_operations.log"),
+        )).resolve()
+        self.operation_log_file.parent.mkdir(parents=True, exist_ok=True)
+        self.operation_log_file.touch(exist_ok=True)
+        self.operation_log_lock = threading.Lock()
         self.mapping_process = None
         self.execute_process = None
         self.tf_listener = tf.TransformListener()
@@ -31,8 +41,10 @@ class FrontendControlServer:
         self.calibrate_service = rospy.Service("/frontend/calibrate_table", CalibrateTable, self.calibrate_table)
         self.palletizing_service = rospy.Service("/frontend/start_palletizing", Trigger, self.start_palletizing)
         self.stop_palletizing_service = rospy.Service("/frontend/stop_palletizing", Trigger, self.stop_palletizing)
+        self.operation_log_service = rospy.Service(
+            "/frontend/operation_logs", OperationLog, self.manage_operation_logs)
         self.status_service = rospy.Service("/frontend/status", Trigger, self.status)
-        rospy.loginfo("Frontend control services are ready.")
+        rospy.loginfo("Frontend control services are ready. Operation log: %s", self.operation_log_file)
 
     def start_mapping(self, req):
         launch_args = "start_gazebo:=false start_robot:=false" if req.sim else ""
@@ -137,6 +149,84 @@ class FrontendControlServer:
         except Exception as exc:
             rospy.logerr("Failed to stop palletizing: %s", exc)
             return TriggerResponse(False, f"终止码垛失败: {exc}")
+
+    def manage_operation_logs(self, req):
+        """Append, list, import, or clear project-persistent frontend logs."""
+        try:
+            action = req.action.strip().lower()
+            with self.operation_log_lock:
+                if action == "append":
+                    entry = self._validated_log_entry({
+                        "id": req.id,
+                        "timestamp": req.timestamp,
+                        "level": req.level,
+                        "message": req.text,
+                    })
+                    with self.operation_log_file.open("a", encoding="utf-8") as stream:
+                        stream.write(json.dumps(entry, ensure_ascii=False) + "\n")
+                    return OperationLogResponse(True, "日志已保存")
+
+                if action == "list":
+                    entries = self._read_operation_logs()
+                    return OperationLogResponse(
+                        True, json.dumps(entries, ensure_ascii=False))
+
+                if action == "import":
+                    existing = self._read_operation_logs()
+                    if existing:
+                        return OperationLogResponse(True, "项目日志已有记录，未重复导入")
+                    imported = json.loads(req.text or "[]")
+                    if not isinstance(imported, list):
+                        raise ValueError("导入日志必须是 JSON 数组")
+                    entries = [self._validated_log_entry(item) for item in imported]
+                    with self.operation_log_file.open("w", encoding="utf-8") as stream:
+                        for entry in entries:
+                            stream.write(json.dumps(entry, ensure_ascii=False) + "\n")
+                    return OperationLogResponse(True, f"已导入 {len(entries)} 条日志")
+
+                if action == "clear":
+                    self.operation_log_file.write_text("", encoding="utf-8")
+                    return OperationLogResponse(True, "执行日志已清空")
+
+            return OperationLogResponse(False, f"不支持的日志操作: {req.action}")
+        except Exception as exc:
+            rospy.logerr("Failed to manage frontend operation logs: %s", exc)
+            return OperationLogResponse(False, f"日志操作失败: {exc}")
+
+    def _validated_log_entry(self, raw):
+        if not isinstance(raw, dict):
+            raise ValueError("日志条目格式无效")
+        level = str(raw.get("level", "")).strip().lower()
+        if level not in ("success", "error"):
+            raise ValueError("日志级别必须是 success 或 error")
+        message = str(raw.get("message", "")).strip()
+        if not message:
+            raise ValueError("日志内容不能为空")
+        timestamp = str(raw.get("timestamp", "")).strip()
+        if not timestamp:
+            timestamp = datetime.now(timezone.utc).isoformat()
+        entry_id = str(raw.get("id", "")).strip()
+        if not entry_id:
+            entry_id = timestamp
+        return {
+            "id": entry_id,
+            "timestamp": timestamp,
+            "level": level,
+            "message": message,
+        }
+
+    def _read_operation_logs(self):
+        entries = []
+        with self.operation_log_file.open("r", encoding="utf-8") as stream:
+            for line_number, line in enumerate(stream, 1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    entries.append(self._validated_log_entry(json.loads(line)))
+                except Exception as exc:
+                    rospy.logwarn("Skipping malformed operation log line %d: %s", line_number, exc)
+        return entries
 
     def calibrate_table(self, req):
         try:

@@ -14,13 +14,13 @@
 
 - ROS Bridge 连接区。
 - 运行模式选择：真机 / 仿真。
-- 建图控制：重新建图、保存地图。
+- 建图控制：重新建图、保存地图；存在未保存建图进度时，重新建图前会要求用户确认。
 - 底盘遥控：位于页面左下角，可直接使用 `W/S/A/D/Q/E` 调整移动速度，`Space` 急停；码垛任务执行期间自动锁定。
 - 地图导入：选择地图所在文件夹并启动执行系统与 RViz。
 - 桌面标定：选择取货桌 / 码垛桌，输入桌子长度、宽度/深度、高度、机器人到桌面中心距离。
-- 码垛任务：开始或人为终止码垛，并显示当前任务状态和耗时。
+- 码垛任务：开始或人为终止码垛，并显示当前任务状态和耗时；任务正常完成后自动写入一条带耗时的执行日志。
 - 摄像头画面：连接 ROS Bridge 后自动订阅压缩图像话题并显示实时画面。
-- 操作日志：显示前端服务调用结果和错误信息。
+- 操作日志：在右侧滚动区域中以独立卡片显示前端服务调用结果或错误信息，记录操作时间并持久化到项目日志文件，前端重启后仍可查看；卡片支持长路径完整换行和手动清空，底部状态栏仅显示系统状态。
 
 ## ROS 对接
 
@@ -32,6 +32,7 @@
 - `/frontend/calibrate_table`：读取机器人当前 TF，计算桌面中心和朝向，再调用 `/palletizing/mark_zone` 保存标定数据。
 - `/frontend/start_palletizing`：调用 `/palletizing/start` 开始码垛。
 - `/frontend/stop_palletizing`：调用 `/palletizing/stop`，取消导航和执行行为并停止本次任务。
+- `/frontend/operation_logs`：追加、读取、导入或清空项目中的前端操作日志。
 - `/frontend/status`：查询建图/执行流程状态。
 
 码垛状态通过订阅 `/palletizing/stats` 获取，前端显示当前状态和耗时。
@@ -70,7 +71,15 @@ bash scripts/verify_real_frontend_palletizing.sh
 
 ## 日志位置
 
-前端操作结果会显示在页面右侧日志窗口。更详细的 ROS 输出在联调脚本打开的 “Frontend Control Services” 终端中，包括后端服务和由前端拉起的 launch 输出。
+前端操作结果会显示在页面右侧日志窗口，并以 JSON Lines 格式持久化到：
+
+```text
+/home/yubowen/BaseRos/logs/frontend_operations.log
+```
+
+文件每行对应一条日志，包含 `id`、`timestamp`、`level` 和 `message`。前端连接 ROS Bridge 后会从该文件恢复最近 100 条到卡片列表；浏览器 `localStorage` 仍作为日志服务暂时不可用时的本地副本。点击界面的清空按钮会同时清除项目日志文件与浏览器副本。
+
+更详细的 ROS 输出在联调脚本打开的 “Frontend Control Services” 终端中，包括后端服务和由前端拉起的 launch 输出。
 
 ROS 原生日志默认保存到：
 

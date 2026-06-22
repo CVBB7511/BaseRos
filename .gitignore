@@ -24,6 +24,7 @@ catkin_ws/src/**/__pycache__/
 
 # Runtime ROS state and logs
 .ros/
+logs/*.log
 *.bag
 *.bag.active
 
@@ -51,3 +52,4 @@ real_maps/auto_*.yaml
 .env
 .env.*
 !.env.example
+reference/BaseRos_frontend

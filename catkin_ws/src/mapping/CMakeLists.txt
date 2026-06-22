@@ -63,6 +63,7 @@ add_service_files(
   Halt.srv
   MapFile.srv
   CalibrateTable.srv
+  OperationLog.srv
 )
 
 ## Generate actions in the 'action' folder

@@ -1,0 +1,8 @@
+string action
+string id
+string timestamp
+string level
+string text
+---
+bool success
+string message

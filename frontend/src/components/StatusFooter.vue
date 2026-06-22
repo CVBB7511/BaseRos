@@ -4,10 +4,6 @@
     <span>Mode: {{ frontendStore.modeLabel }}</span>
     <span>Mapping: {{ frontendStore.mappingRunning ? 'running' : 'stopped' }}</span>
     <span>Execute: {{ frontendStore.executeRunning ? 'running' : 'stopped' }}</span>
-    <span v-if="frontendStore.message">{{ frontendStore.message }}</span>
-    <span v-if="frontendStore.error" class="error-text">
-      {{ frontendStore.error }}
-    </span>
   </footer>
 </template>
 
@@ -33,7 +29,4 @@ const frontendStore = useFrontendStore()
   white-space: nowrap;
 }
 
-.error-text {
-  color: #b42318;
-}
 </style>

@@ -21,6 +21,14 @@ export interface CalibrationRequest {
   distance: number
 }
 
+export interface OperationLogRequest {
+  action: 'append' | 'list' | 'import' | 'clear'
+  id?: string
+  timestamp?: string
+  level?: 'success' | 'error'
+  text?: string
+}
+
 export function startMapping(ros: ROSLIB.Ros, request: StartMappingRequest): Promise<ServiceResult> {
   return callService(ros, '/frontend/start_mapping', 'mapping/Start', request)
 }
@@ -47,6 +55,16 @@ export function startPalletizing(ros: ROSLIB.Ros): Promise<ServiceResult> {
 
 export function stopPalletizing(ros: ROSLIB.Ros): Promise<ServiceResult> {
   return callService(ros, '/frontend/stop_palletizing', 'std_srvs/Trigger', {})
+}
+
+export function manageOperationLogs(ros: ROSLIB.Ros, request: OperationLogRequest): Promise<ServiceResult> {
+  return callService(ros, '/frontend/operation_logs', 'mapping/OperationLog', {
+    action: request.action,
+    id: request.id || '',
+    timestamp: request.timestamp || '',
+    level: request.level || '',
+    text: request.text || '',
+  })
 }
 
 function callService(

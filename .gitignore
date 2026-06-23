@@ -1,56 +1,119 @@
-# OS/editor noise
+# OS and editor files
 .DS_Store
 Thumbs.db
+desktop.ini
 *.swp
 *.swo
 *~
 .idea/
 .vscode/
+.vs/
 
-# Python
+# Local assistant/tooling state
+.agents/
+.codex/
+
+# Documentation, reports, and assignment notes
+README.md
+*.md
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+docs/
+meta/
+
+# Python generated files
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+htmlcov/
 
-# ROS/catkin generated files
+# ROS runtime state, logs, and recordings
+.ros/
+logs/
+*.log
+*.pid
+*.bag
+*.bag.active
+*.db3
+*.mcap
+
+# Generated/local ROS maps
+catkin_ws/src/**/maps/
+*.pgm
+
+# ROS/catkin build outputs
 catkin_ws/build/
 catkin_ws/devel/
 catkin_ws/install/
 catkin_ws/logs/
 catkin_ws/.catkin_tools/
+catkin_ws/.catkin_workspace
 catkin_ws/src/**/__pycache__/
+catkin_ws/src/**/CMakeFiles/
+catkin_ws/src/**/CMakeCache.txt
+catkin_ws/src/**/cmake_install.cmake
+catkin_ws/src/**/compile_commands.json
 
-# Runtime ROS state and logs
-.ros/
-logs/*.log
-*.bag
-*.bag.active
-*.yaml.bak
+# C/C++ and binary build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.dylib
+*.exe
+*.out
+*.bin
+catkin_ws/src/**/tools/ffmpeg
+catkin_ws/src/**/tools/lib_install/
 
-# Frontend generated files
+# Frontend dependencies, caches, and build outputs
 frontend/node_modules/
-frontend/dist/
 frontend/.pnpm-store/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+frontend/.cache/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
 
-# Temporary local data
+# Environment and local machine settings
+.env
+.env.*
+!.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Temporary data, generated maps, and backups
 backup/
 test_map/
-catkin_ws.zip
+real_map/
+real_maps/
+*.yaml.bak
+*.bak
+*.tmp
+*.temp
+
+# Local archives and external reference material
+reference/
 *.zip
 *.tar
 *.tar.gz
 *.tgz
-
-# Locally saved maps. Existing tracked baseline maps are not affected.
-real_maps/map-*.pgm
-real_maps/map-*.yaml
-real_maps/auto_*.pgm
-real_maps/auto_*.yaml
-
-# Local environment files
-.env
-.env.*
-!.env.example
-reference/BaseRos_frontend
+*.rar
+*.7z
+*.gif

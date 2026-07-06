@@ -1,119 +1,38 @@
-# OS and editor files
-.DS_Store
-Thumbs.db
-desktop.ini
-*.swp
-*.swo
-*~
-.idea/
-.vscode/
-.vs/
+# ====== Root Workspace Rules ======
+# Rules for /src are maintained by /src/.gitignore.
+# Keep /src-specific patterns out of this file so Git can apply that nested file.
 
-# Local assistant/tooling state
-.agents/
-.codex/
+# ====== IDE & Editor ======
+/.idea/
+/.vscode/
+/*.swp
+/*.swo
+/*~
+/.DS_Store
 
-# Documentation, reports, and assignment notes
-README.md
-*.md
-*.pdf
-*.doc
-*.docx
-*.ppt
-*.pptx
-*.xls
-*.xlsx
-docs/
-meta/
+# ====== Python ======
+/__pycache__/
+/*.py[cod]
+/*.egg-info/
+/*.egg
+/build/
+/dist/
 
-# Python generated files
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
+# ====== Conda ======
+/.python-version
+/environment.yml
 
-# ROS runtime state, logs, and recordings
-.ros/
-logs/
-*.log
-*.pid
-*.bag
-*.bag.active
-*.db3
-*.mcap
+# ====== System & Logs ======
+/*.log
+/*.ros_log*
+/*.pcd
+/.ros/
 
-# Generated/local ROS maps
-catkin_ws/src/**/maps/
-*.pgm
+# ====== Archives & Backups ======
+/*.tar.gz
+/*.zip
+/*.bak
+/*.backup
 
-# ROS/catkin build outputs
-catkin_ws/build/
-catkin_ws/devel/
-catkin_ws/install/
-catkin_ws/logs/
-catkin_ws/.catkin_tools/
-catkin_ws/.catkin_workspace
-catkin_ws/src/**/__pycache__/
-catkin_ws/src/**/CMakeFiles/
-catkin_ws/src/**/CMakeCache.txt
-catkin_ws/src/**/cmake_install.cmake
-catkin_ws/src/**/compile_commands.json
-
-# C/C++ and binary build artifacts
-*.o
-*.obj
-*.a
-*.lib
-*.so
-*.so.*
-*.dll
-*.dylib
-*.exe
-*.out
-*.bin
-catkin_ws/src/**/tools/ffmpeg
-catkin_ws/src/**/tools/lib_install/
-
-# Frontend dependencies, caches, and build outputs
-frontend/node_modules/
-frontend/.pnpm-store/
-frontend/dist/
-frontend/coverage/
-frontend/.vite/
-frontend/.cache/
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/pnpm-debug.log*
-
-# Environment and local machine settings
-.env
-.env.*
-!.env.example
-frontend/.env
-frontend/.env.*
-!frontend/.env.example
-
-# Temporary data, generated maps, and backups
-backup/
-test_map/
-real_map/
-real_maps/
-*.yaml.bak
-*.bak
-*.tmp
-*.temp
-
-# Local archives and external reference material
-reference/
-*.zip
-*.tar
-*.tar.gz
-*.tgz
-*.rar
-*.7z
-*.gif
+# ====== Claude ======
+/.claude/settings.local.json

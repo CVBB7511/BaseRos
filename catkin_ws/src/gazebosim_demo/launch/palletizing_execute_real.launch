@@ -94,9 +94,11 @@
     <node pkg="wpb_home_behaviors" type="wpb_home_grab_action" name="wpb_home_grab_action">
         <rosparam file="$(find wpb_home_bringup)/config/wpb_home.yaml" command="load" />
         <param name="grab/grab_align_timeout" type="double" value="15.0" />
+        <param name="grab/grab_hand_up_wait" type="double" value="20.0" />
     </node>
     <node pkg="wpb_home_behaviors" type="wpb_home_place_action" name="wpb_home_place_action">
         <param name="place_lift_clearance" type="double" value="0.01" />
+        <param name="place_forward_offset" type="double" value="0.10" />
         <param name="place_hand_up_wait" type="double" value="15.0" />
         <param name="place_release_wait" type="double" value="1.0" />
     </node>
@@ -177,11 +179,12 @@
         <param name="detect_fusion_merge_xy" type="double" value="0.08"/>
         <param name="detect_retry_count" type="int" value="1"/>
         <param name="detect_retry_settle" type="double" value="0.20"/>
+        <param name="pre_detect_settle_time" type="double" value="4.0"/>
         <param name="detect_lift_height" type="double" value="0.0"/>
         <param name="detect_gripper_open" type="double" value="0.15"/>
         <param name="safe_lift_height" type="double" value="0.90"/>
-        <!-- Arm retracts after clearing DEST DESK and continues while navigating to SRC DESK. -->
-        <param name="retract_lift_height" type="double" value="0.0"/>
+        <!-- After clearing DEST DESK, keep the arm at 10 cm instead of fully retracting. -->
+        <param name="retract_lift_height" type="double" value="0.10"/>
         <param name="arm_reach_distance" type="double" value="0.50"/>
         <param name="arm_exit_margin" type="double" value="0.10"/>
         <param name="min_table_exit_back_distance" type="double" value="0.02"/>

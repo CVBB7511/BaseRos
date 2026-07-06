@@ -132,10 +132,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.safe_gripper_open = rospy.get_param('~safe_gripper_open', 0.15)
         self.detect_lift_height = rospy.get_param('~detect_lift_height', 0.0)
         self.detect_gripper_open = rospy.get_param('~detect_gripper_open', self.safe_gripper_open)
-        # Retract while navigating back so the arm is already in the
-        # detection pose when the robot reaches the source table.
+        # Lower to a small carry height after clearing the destination table;
+        # this keeps the arm compact without fully retracting it to zero.
         self.retract_lift_height = rospy.get_param(
-            '~retract_lift_height', self.detect_lift_height)
+            '~retract_lift_height', 0.10)
         self.back_distance = rospy.get_param('~back_distance', 0.50)
         self.arm_reach_distance = rospy.get_param('~arm_reach_distance', 0.50)
         self.arm_exit_margin = rospy.get_param('~arm_exit_margin', 0.10)
@@ -151,6 +151,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.nav_accept_xy_tolerance = rospy.get_param('~nav_accept_xy_tolerance', 0.05)
         self.nav_accept_yaw_tolerance = rospy.get_param('~nav_accept_yaw_tolerance', 0.15)
         self.robot_settle_time = rospy.get_param('~robot_settle_time', 0.40)
+        self.pre_detect_settle_time = rospy.get_param(
+            '~pre_detect_settle_time', self.robot_settle_time)
         self._init_object_detection()
         self.max_direct_grab_y = rospy.get_param('~max_direct_grab_y', 0.15)
         self.action_poll_period = rospy.get_param('~action_poll_period', 0.20)
@@ -400,6 +402,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         return TriggerResponse(True, "本次码垛任务已人为终止")
 
     def _stop_requested(self):
+        """Return whether the current task should stop immediately."""
         return self.stop_event.is_set() or rospy.is_shutdown()
 
     def _get_object_height(self, obj_type):
@@ -583,6 +586,31 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 tf.ExtrapolationException, tf.Exception) as e:
             raise RuntimeError("TF lookup /map -> /base_link failed: %s" % e)
 
+    def _log_robot_pose(self, label):
+        """Log the robot's current absolute map pose for action debugging."""
+        try:
+            robot_x, robot_y, robot_yaw = self._get_robot_position()
+            rospy.loginfo("%s robot_map=(%.3f, %.3f, yaw=%.1fdeg)",
+                          label, robot_x, robot_y, math.degrees(robot_yaw))
+            return robot_x, robot_y, robot_yaw
+        except RuntimeError as e:
+            rospy.logwarn("%s robot_map unavailable: %s", label, e)
+            return None
+
+    def _log_map_target_context(self, label, x, y, z):
+        """Log a map-frame target and its planar offset from the robot."""
+        robot_pose = self._log_robot_pose(label)
+        if robot_pose is None:
+            rospy.loginfo("%s target_map=(%.3f, %.3f, %.3f)",
+                          label, x, y, z)
+            return
+        robot_x, robot_y, _ = robot_pose
+        dx = x - robot_x
+        dy = y - robot_y
+        rospy.loginfo("%s target_map=(%.3f, %.3f, %.3f) "
+                      "target_minus_robot=(%.3f, %.3f, dist=%.3f)",
+                      label, x, y, z, dx, dy, math.hypot(dx, dy))
+
     def _wait_robot_settled(self, duration=None):
         """Publish stop commands and wait briefly before precision work."""
         if duration is None:
@@ -723,6 +751,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         goal.target_pose.pose.orientation.z = math.sin(nav_yaw / 2.0)
         goal.target_pose.pose.orientation.w = math.cos(nav_yaw / 2.0)
         rospy.loginfo("Navigate to %.3f %.3f yaw=%.1f", nav_x, nav_y, math.degrees(nav_yaw))
+        self._log_map_target_context("Navigation goal", nav_x, nav_y, 0.0)
         self.move_base_client.send_goal(goal)
         deadline = time.time() + timeout
         finished = False
@@ -743,6 +772,7 @@ class PalletizingExecutor(ObjectDetectionMixin):
         self.move_base_client.cancel_all_goals()
         rospy.sleep(self.nav_release_delay)
         self._publish_stop()
+        self._log_robot_pose("Navigation finished")
         if state == actionlib.GoalStatus.SUCCEEDED:
             return True
         return self._near_nav_goal(nav_x, nav_y, nav_yaw)
@@ -777,6 +807,13 @@ class PalletizingExecutor(ObjectDetectionMixin):
         pose.position.z = z
         self.grab_action_pub.publish(pose)
         rospy.loginfo("Grab action target base(%.3f, %.3f, %.3f) type=%s", x, y, z, obj_type)
+        self._log_robot_pose("Before grab_action")
+        try:
+            map_x, map_y, map_z = self._transform_point(
+                x, y, z, self.action_frame, '/map')
+            self._log_map_target_context("Grab action target", map_x, map_y, map_z)
+        except RuntimeError as e:
+            rospy.logwarn("Cannot log grab action target in map: %s", e)
         start = time.time()
         while not self.grab_done:
             if self._stop_requested():
@@ -789,7 +826,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 rospy.logwarn("Grab timeout: %s", self.grab_feedback)
                 return False
             rospy.sleep(self.action_poll_period)
-        return self.grab_feedback != 'failed'
+        success = self.grab_feedback != 'failed'
+        self._log_robot_pose("After grab_action success=%s feedback=%s" %
+                             (success, self.grab_feedback or 'none'))
+        return success
 
     def place_object(self, x, y, z, obj_type=None, timeout=None):
         """Configure and run place_action, stopping the behavior on timeout."""
@@ -815,6 +855,13 @@ class PalletizingExecutor(ObjectDetectionMixin):
         rospy.loginfo("Place action target base_xy(%.3f, %.3f), z=%.3f type=%s release=%.3f",
                       x, y, z, obj_type or 'default',
                       self._get_gripper_open_value(obj_type) if obj_type else 0.18)
+        self._log_robot_pose("Before place_action")
+        try:
+            map_x, map_y, map_z = self._transform_point(
+                x, y, z, self.action_frame, '/map')
+            self._log_map_target_context("Place action target", map_x, map_y, map_z)
+        except RuntimeError as e:
+            rospy.logwarn("Cannot log place action target in map: %s", e)
         start = time.time()
         while not self.place_done:
             if self._stop_requested():
@@ -827,6 +874,8 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 self._publish_stop()
                 return False
             rospy.sleep(self.action_poll_period)
+        self._log_robot_pose("After place_action feedback=%s" %
+                             (self.place_feedback or 'none'))
         return True
 
     def _publish_stats(self):
@@ -901,6 +950,9 @@ class PalletizingExecutor(ObjectDetectionMixin):
         while not self._stop_requested():
             self.last_cycle_start = time.time()
             self._prepare_arm_for_detection()
+            rospy.loginfo("Waiting %.2fs before object detection",
+                          self.pre_detect_settle_time)
+            self._wait_robot_settled(self.pre_detect_settle_time)
 
             if not self.detect_with_retry():
                 if self._stop_requested():
@@ -937,6 +989,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 continue
 
             rospy.loginfo("Selected object absolute map=(%.3f, %.3f, %.3f)", map_x, map_y, map_z)
+            self._log_map_target_context("Selected object", map_x, map_y, map_z)
+            rospy.loginfo("Selected object transform map=(%.3f, %.3f, %.3f) -> "
+                          "action_base=(%.3f, %.3f, %.3f)",
+                          map_x, map_y, map_z, action_x, action_y, action_z)
             self._speak("zhua {} qu".format(material))
             if not self.grab_object(obj_type, action_x, action_y, action_z):
                 if self._stop_requested():
@@ -969,6 +1025,11 @@ class PalletizingExecutor(ObjectDetectionMixin):
             place_map_x, place_map_y, stack_top_z = zone.get_place_pose(obj_height)
             place_z = (stack_top_z + obj_height / 2.0 + self.place_stack_clearance +
                        (self.soft_place_offset if 'soft' in obj_type else 0.0))
+            rospy.loginfo("Planned place absolute map=(%.3f, %.3f, %.3f) "
+                          "stack_top=%.3f object_height=%.3f zone=%s",
+                          place_map_x, place_map_y, place_z, stack_top_z,
+                          obj_height, material)
+            self._log_map_target_context("Planned place", place_map_x, place_map_y, place_z)
             self._wait_robot_settled()
             try:
                 place_x, place_y, _ = self._transform_point(
@@ -982,6 +1043,10 @@ class PalletizingExecutor(ObjectDetectionMixin):
                 self._raise_arm_keep_grip(obj_type)
                 break
 
+            rospy.loginfo("Planned place transform map=(%.3f, %.3f, %.3f) -> "
+                          "action_base=(%.3f, %.3f, %.3f)",
+                          place_map_x, place_map_y, place_z,
+                          place_x, place_y, place_z)
             if not self.place_object(place_x, place_y, place_z, obj_type):
                 if self._stop_requested():
                     break

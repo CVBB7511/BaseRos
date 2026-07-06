@@ -8,6 +8,6 @@ camera_mount:
 grab:
   grab_y_offset: 0.0
   grab_lift_offset: 0.0
-  grab_forward_offset: 0.0
+  grab_forward_offset: 0.05
   grab_gripper_value: 0.035
   grab_hand_up_wait: 4.0

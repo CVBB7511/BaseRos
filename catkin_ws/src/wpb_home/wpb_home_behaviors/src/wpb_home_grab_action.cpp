@@ -91,7 +91,7 @@ static float fMoveTargetY = 0;
 static int nTimeDelayCounter = 0;
 static bool bPoseDiffReceived = false;
 
-static float fTargetGrabX = 1.0;        //抓取时目标物品的x坐标
+static float fTargetGrabX = 0.9;        //抓取时目标物品的x坐标
 static float fTargetGrabY = 0.0;        //抓取时目标物品的y坐标
 
 void LoadGrabParams()
